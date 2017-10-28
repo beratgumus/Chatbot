@@ -1,60 +1,60 @@
 public abstract class Product {
-	private int pId;
-	private String pBrand;
-	private String pModel;
-	private String pType;
-	private Double pPrice;
+	private int id;
+	private String brand;
+	private String model;
+	private String machineType;
+	private Double price;
 
-	public Product(int pId, String pBrand, String pModel, String pType, Double pPrice) {
-		this.pId = pId;
-		this.pBrand = pBrand;
-		this.pModel = pModel;
-		this.pType = pType;
-		this.pPrice = pPrice;
+	public Product(int id, String brand, String model, String machineType, Double price) {
+		this.id = id;
+		this.brand = brand;
+		this.model = model;
+		this.machineType = machineType;
+		this.price = price;
 	}
 
-	public int getpId() {
-		return pId;
+	public int getId() {
+		return id;
 	}
 
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setId(int pId) {
+		this.id = id;
 	}
 
-	public String getpBrand() {
-		return pBrand;
+	public String getBrand() {
+		return brand;
 	}
 
-	public void setpBrand(String pBrand) {
-		this.pBrand = pBrand;
+	public void setBrand(String pBrand) {
+		this.brand = brand;
 	}
 
-	public String getpModel() {
-		return pModel;
+	public String getModel() {
+		return model;
 	}
 
-	public void setpModel(String pModel) {
-		this.pModel = pModel;
+	public void setModel(String pModel) {
+		this.model = model;
 	}
 
-	public String getpTypel() {
-		return pType;
+	public String getTypel() {
+		return machineType;
 	}
 
-	public void setpType(String pModel) {
-		this.pType = pType;
+	public void setType(String pModel) {
+		this.machineType = machineType;
 	}
 
-	public Double getpPrice() {
-		return pPrice;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setpPrice(Double pPrice) {
-		this.pPrice = pPrice;
+	public void setPrice(Double pPrice) {
+		this.price = pPrice;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [pId=" + pId + ", pBrand=" + pBrand + ", pModel=" + pModel + ", pType" + pType + ", pPrice" + pPrice + "]";
+		return "Product [pId=" + id + ", pBrand=" + brand + ", pModel=" + model + ", pType" + machineType + ", pPrice" + price + "]";
 	}
 }
