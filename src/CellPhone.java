@@ -1,3 +1,4 @@
+/*
 public class CellPhone extends Product {
 	private int cameraSize;
 	private String ramSize;
@@ -30,3 +31,4 @@ public class CellPhone extends Product {
 	}
 
 }
+*/

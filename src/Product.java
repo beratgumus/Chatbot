@@ -1,17 +1,16 @@
-public class Product {
+public abstract class Product {
 	private int pId;
 	private String pBrand;
 	private String pModel;
+	private String pType;
+	private Double pPrice;
 
-	public Product() {
-
-	}
-
-	public Product(int pId, String pBrand, String pModel) {
-		super();
+	public Product(int pId, String pBrand, String pModel, String pType, Double pPrice) {
 		this.pId = pId;
 		this.pBrand = pBrand;
 		this.pModel = pModel;
+		this.pType = pType;
+		this.pPrice = pPrice;
 	}
 
 	public int getpId() {
@@ -38,9 +37,24 @@ public class Product {
 		this.pModel = pModel;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [pId=" + pId + ", pBrand=" + pBrand + ", pModel=" + pModel + "]";
+	public String getpTypel() {
+		return pType;
 	}
 
+	public void setpType(String pModel) {
+		this.pType = pType;
+	}
+
+	public Double getpPrice() {
+		return pPrice;
+	}
+
+	public void setpPrice(Double pPrice) {
+		this.pPrice = pPrice;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [pId=" + pId + ", pBrand=" + pBrand + ", pModel=" + pModel + ", pType" + pType + ", pPrice" + pPrice + "]";
+	}
 }
