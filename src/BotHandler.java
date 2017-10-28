@@ -1,4 +1,4 @@
-/*
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +13,7 @@ public class BotHandler extends JFrame {
 	private JTextField inputBox = new JTextField();
 	private JTextArea chatArea = new JTextArea();
 
-	public BotHandler() {
+	/* public BotHandler() {
 		//TODO: Improve bot answers system
 		ArrayList<String> exceptionMessageList = new ArrayList<String>(
 				Arrays.asList("maalesef anlasilmadi...", "lutfen tekrarlar misin", "???"));
@@ -84,6 +84,7 @@ public class BotHandler extends JFrame {
 		// elemanlari JFrame'e ekle
 
 	}
+	 */
 
 	private void decideRandom(ArrayList<String> messageList) {
 		int decider = (int) (Math.random() * messageList.size());
@@ -91,4 +92,3 @@ public class BotHandler extends JFrame {
 	}
 
 }
-*/
