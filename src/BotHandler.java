@@ -29,7 +29,7 @@ public class BotHandler extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(620, 620);
 		this.setVisible(true);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setLayout(null);
 		this.setTitle("Chatbot");
 
