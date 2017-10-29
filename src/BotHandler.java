@@ -10,11 +10,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class BotHandler extends JFrame {
-	private JTextField inputBox = new JTextField();
-	private JTextArea chatArea = new JTextArea();
+    private JTextField inputBox = new JTextField();
+    private JTextArea chatArea = new JTextArea();
 
 	/* public BotHandler() {
-		//TODO: Improve bot answers system
+        //TODO: Improve bot answers system
 		ArrayList<String> exceptionMessageList = new ArrayList<String>(
 				Arrays.asList("maalesef anlasilmadi...", "lutfen tekrarlar misin", "???"));
 
@@ -86,9 +86,9 @@ public class BotHandler extends JFrame {
 	}
 	 */
 
-	private void decideRandom(ArrayList<String> messageList) {
-		int decider = (int) (Math.random() * messageList.size());
-		chatArea.append("AI: " + messageList.get(decider) + "\n");
-	}
+    private void decideRandom(ArrayList<String> messageList) {
+        int decider = (int) (Math.random() * messageList.size());
+        chatArea.append("AI: " + messageList.get(decider) + "\n");
+    }
 
 }

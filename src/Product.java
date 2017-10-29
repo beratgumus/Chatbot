@@ -1,52 +1,51 @@
 public abstract class Product {
-	private int id;
-	private String brand;
-	private String model;
+    private int id;
+    private String brand;
+    private String model;
+    private Double price;
 
-	private Double price;
+    public Product(int id, String brand, String model, Double price) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
 
-	public Product(int id, String brand, String model, Double price) {
-		this.id = id;
-		this.brand = brand;
-		this.model = model;
+        this.price = price;
+    }
 
-		this.price = price;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(int pId) {
+        this.id = id;
+    }
 
-	public void setId(int pId) {
-		this.id = id;
-	}
+    public String getBrand() {
+        return brand;
+    }
 
-	public String getBrand() {
-		return brand;
-	}
+    public void setBrand(String pBrand) {
+        this.brand = brand;
+    }
 
-	public void setBrand(String pBrand) {
-		this.brand = brand;
-	}
+    public String getModel() {
+        return model;
+    }
 
-	public String getModel() {
-		return model;
-	}
+    public void setModel(String pModel) {
+        this.model = model;
+    }
 
-	public void setModel(String pModel) {
-		this.model = model;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public void setPrice(Double pPrice) {
+        this.price = pPrice;
+    }
 
-	public void setPrice(Double pPrice) {
-		this.price = pPrice;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [pId=" + id + ", pBrand=" + brand + ", pModel=" + model + ", pPrice" + price + "]";
-	}
+    @Override
+    public String toString() {
+        return "Product [pId=" + id + ", pBrand=" + brand + ", pModel=" + model + ", pPrice" + price + "]";
+    }
 }
