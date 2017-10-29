@@ -3,8 +3,8 @@ public class Camera extends ConsumerElectronics {
     private int imageResolution;
     private int iso;
 
-    public Camera(int id, String brand, String model, Double price, Double screenSize, int storageSize, int videoResolution, int imageResolution, int iso) {
-        super(id, brand, model, price, screenSize, storageSize);
+    public Camera(int id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int videoResolution, int imageResolution, int iso) {
+        super(id, brand, model, price, height, width, depth, weight, screenSize, storageSize);
         this.videoResolution = videoResolution;
         this.imageResolution = imageResolution;
         this.iso = iso;

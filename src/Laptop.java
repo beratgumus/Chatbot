@@ -2,8 +2,8 @@ public class Laptop extends ConsumerElectronics {
     private int ramSize;
     private String cpuModel;
 
-    public Laptop(int id, String brand, String model, Double price, Double screenSize, int storageSize, int ramSize, String cpuModel) {
-        super(id, brand, model, price, screenSize ,storageSize);
+    public Laptop(int id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int ramSize, String cpuModel) {
+        super(id, brand, model, price, height, width, depth, weight, screenSize ,storageSize);
         this.ramSize = ramSize;
         this.cpuModel = cpuModel;
     }

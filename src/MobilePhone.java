@@ -4,8 +4,8 @@ public class MobilePhone extends ConsumerElectronics {
     private String os;
     private int ramSize;
 
-    public MobilePhone(int id, String brand, String model, Double price, Double screenSize, int storageSize, int cameraResolution, String os, int ramSize) {
-        super(id, brand, model, price, screenSize ,storageSize);
+    public MobilePhone(int id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int cameraResolution, String os, int ramSize) {
+        super(id, brand, model, price, height, width, depth, weight, screenSize, storageSize);
         this.cameraResolution = cameraResolution;
         this.os = os;
         this.ramSize = ramSize;
