@@ -1,4 +1,4 @@
-public class MobilePhone extends Product {
+public class MobilePhone extends ConsumerElectronics {
 
     private int cameraResolution;
     private String os;
@@ -7,7 +7,7 @@ public class MobilePhone extends Product {
     private int storageSize;
 
     public MobilePhone(int id, String brand, String model, Double price, int cameraResolution, String os, int ramSize, Double screenSize, int storageSize){
-        super(id, brand, model, "Consumer Electronics", price);
+        super(id, brand, model, price);
         this.cameraResolution = cameraResolution;
         this.os = os;
         this.ramSize = ramSize;
