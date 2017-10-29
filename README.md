@@ -2,11 +2,11 @@
 Simple Java Chatbot Project for online stores. 
 
 # TODO
-1. Create abstract **Product** class
+1. ~~Create abstract **Product** class~~
 2. Create extended product classes
-   - Phone 
-   - Laptop
-   - Camera
+   - ~~Phone~~
+   - ~~Laptop~~
+   - ~~Camera~~
    - Refrigerator
    - Washing Machine
    - Dishwasher
