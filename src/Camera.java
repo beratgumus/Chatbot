@@ -1,13 +1,11 @@
 public class Camera extends ConsumerElectronics {
     private int videoResolution;
-    private Double screenSize;
     private int imageResolution;
     private int iso;
 
-    public Camera(int id, String brand, String model, Double price, int videoResolution, Double screenSize, int imageResolution, int iso) {
-        super(id, brand, model, price);
+    public Camera(int id, String brand, String model, Double price, Double screenSize, int storageSize, int videoResolution, int imageResolution, int iso) {
+        super(id, brand, model, price, screenSize, storageSize);
         this.videoResolution = videoResolution;
-        this.screenSize = screenSize;
         this.imageResolution = imageResolution;
         this.iso = iso;
     }
@@ -18,14 +16,6 @@ public class Camera extends ConsumerElectronics {
 
     public void setVideoResolution(int videoResolution) {
         this.videoResolution = videoResolution;
-    }
-
-    public Double getScreenSize() {
-        return screenSize;
-    }
-
-    public void setScreenSize(Double screenSize) {
-        this.screenSize = screenSize;
     }
 
     public int getImageResolution() {
@@ -46,6 +36,6 @@ public class Camera extends ConsumerElectronics {
 
     @Override
     public String toString() {
-        return super.toString() + " --Camera [iso=" + iso + ", imageResolution=" + imageResolution + ", videoResolution=" + videoResolution + ",screenSize=" + screenSize + "]";
+        return super.toString() + " --Camera [iso=" + iso + ", imageResolution=" + imageResolution + ", videoResolution=" + videoResolution + "]";
     }
 }
