@@ -4,16 +4,13 @@ Simple Java Chatbot Project for online stores.
 # TODO
 1. ~~Create abstract **Product** class~~
 2. Create extended product classes
-   - ~~Phone~~
-   - ~~Laptop~~
-   - ~~Camera~~
-   - Refrigerator
-   - Washing Machine
-   - Dishwasher
-   - Vacuum Cleaner
-   - Clothes Iron
-   - Toaster
+                                                 Product
 
+       ConsumerElectronic                      MajorAppliance                        Vehicle
+
+      Phone, Laptop, Camera        Refrigerator, WashingMachine, Dishwasher     Car, Motorcycle, Bicycle
+               
+               
 3. Create Twitter class
 4. Create/Improve Bot class
 5. Implement MongoDB
