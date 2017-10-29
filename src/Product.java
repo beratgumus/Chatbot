@@ -8,7 +8,6 @@ public abstract class Product {
         this.id = id;
         this.brand = brand;
         this.model = model;
-
         this.price = price;
     }
 
@@ -46,6 +45,6 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return "Product [pId=" + id + ", pBrand=" + brand + ", pModel=" + model + ", pPrice" + price + "]";
+        return "Product [id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + " ]";
     }
 }

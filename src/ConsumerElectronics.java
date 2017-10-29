@@ -1,4 +1,4 @@
-public class ConsumerElectronics extends Product {
+public abstract class ConsumerElectronics extends Product {
     private final String machineType = "Consumer Electronics";
 
     public ConsumerElectronics(int id, String brand, String model, Double price) {

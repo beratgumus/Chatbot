@@ -25,7 +25,6 @@ public class Laptop extends ConsumerElectronics {
     }
 
     public int getRamSize() {
-
         return ramSize;
     }
 
@@ -42,7 +41,6 @@ public class Laptop extends ConsumerElectronics {
     }
 
     public int getStorageSize() {
-
         return storageSize;
     }
 
