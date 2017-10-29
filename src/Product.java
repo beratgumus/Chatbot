@@ -3,12 +3,14 @@ public abstract class Product {
     private String brand;
     private String model;
     private Double price;
+    private String machineType;
 
-    public Product(int id, String brand, String model, Double price) {
+    public Product(int id, String brand, String model, Double price, String machineType) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.price = price;
+        this.machineType = machineType;
     }
 
     public int getId() {
@@ -43,8 +45,17 @@ public abstract class Product {
         this.price = pPrice;
     }
 
+    public String getMachineType() {
+        return machineType;
+    }
+
+    public void setMachineType(String machineType){
+        this.machineType = machineType;
+    }
+
+
     @Override
     public String toString() {
-        return "Product [id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + " ]";
+        return "Product [machineType=" + machineType + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + "]";
     }
 }

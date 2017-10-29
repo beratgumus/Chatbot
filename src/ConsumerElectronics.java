@@ -1,16 +1,32 @@
 public abstract class ConsumerElectronics extends Product {
-    private final String machineType = "Consumer Electronics";
 
-    public ConsumerElectronics(int id, String brand, String model, Double price) {
-        super(id, brand, model, price);
+    private Double screenSize;
+    private int storageSize;
+
+    public ConsumerElectronics(int id, String brand, String model, Double price, Double screenSize, int storageSize) {
+        super(id, brand, model, price, "Consumer Electronics");
+        this.screenSize = screenSize;
+        this.storageSize = storageSize;
     }
 
-    public String getType() {
-        return machineType;
+    public Double getScreenSize() {
+        return screenSize;
+    }
+
+    public void setScreenSize(Double screenSize) {
+        this.screenSize = screenSize;
+    }
+
+    public int getStorageSize() {
+        return storageSize;
+    }
+
+    public void setStorageSize(int storageSize) {
+        this.storageSize = storageSize;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " --ConsumerElectronics [pType=" + machineType + "]";
+        return super.toString() + " --ConsumerElectronics [screenSize=" + screenSize + "″" + ", storageSize" + storageSize + "GB" + ", storageSize" + "]";
     }
 }

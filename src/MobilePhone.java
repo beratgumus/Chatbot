@@ -3,16 +3,12 @@ public class MobilePhone extends ConsumerElectronics {
     private int cameraResolution;
     private String os;
     private int ramSize;
-    private Double screenSize;
-    private int storageSize;
 
-    public MobilePhone(int id, String brand, String model, Double price, int cameraResolution, String os, int ramSize, Double screenSize, int storageSize) {
-        super(id, brand, model, price);
+    public MobilePhone(int id, String brand, String model, Double price, Double screenSize, int storageSize, int cameraResolution, String os, int ramSize) {
+        super(id, brand, model, price, screenSize ,storageSize);
         this.cameraResolution = cameraResolution;
         this.os = os;
         this.ramSize = ramSize;
-        this.screenSize = screenSize;
-        this.storageSize = storageSize;
     }
 
     public int getCameraResolution() {
@@ -39,24 +35,8 @@ public class MobilePhone extends ConsumerElectronics {
         this.ramSize = ramSize;
     }
 
-    public Double getScreenSize() {
-        return screenSize;
-    }
-
-    public void setScreenSize(Double screenSize) {
-        this.screenSize = screenSize;
-    }
-
-    public int getStorageSize() {
-        return storageSize;
-    }
-
-    public void setStorageSize(int storageSize) {
-        this.storageSize = storageSize;
-    }
-
     @Override
     public String toString(){
-        return super.toString() + " --CellPhone [cameraResolution=" + cameraResolution + " MP" + ", os=" + os + ", ramSize=" + ramSize + "GB" + ",screenSize=" + screenSize + "″" + ", storageSize" + storageSize + "GB" + "]";
+        return super.toString() + " --CellPhone [cameraResolution=" + cameraResolution + " MP" + ", os=" + os + ", ramSize=" + ramSize + "GB" + "]";
     }
 }
