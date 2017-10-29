@@ -73,3 +73,6 @@ fabric.properties
 hs_err_pid*
 
 .idea/misc.xml
+!ext/mongo-java-driver-3.5.0.jar
+!ext/jedis-2.9.0.jar
+!ext/twitter4j-core-4.0.4.jar
