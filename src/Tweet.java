@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tweet {
-    private int id;
+    private long id;
     private String text;
     private String user;
     private String timespan;
@@ -19,7 +19,7 @@ public class Tweet {
         this.reviewPoint = reviewPoint;
     }
 
-    public Tweet(int id, String text, String user, String timespan, double reviewPoint) {
+    public Tweet(long id, String text, String user, String timespan, double reviewPoint) {
         this(text, user, timespan, reviewPoint);
         this.id = id;
     }
@@ -48,7 +48,7 @@ public class Tweet {
         return tweet;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
