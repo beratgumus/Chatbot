@@ -6,14 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- *   Static class for getting a comments from twitter app.
+/**
+ * Static class for getting a comments from twitter app.
  */
 public class TwitterAPI {
-    /*
-    * Static method that returns the list of Tweet according to keyword.
-    * @param keyword that used for searching a comments.
-    */
+    /**
+     * Static method that returns the list of Tweet according to keyword.
+     *
+     * @param searchKey is a key that used for searching a comments.
+     * @return set of a Tweet objects as a list.
+     */
     public static List<Tweet> getTweets(String searchKey) throws TwitterException {
         //Connecting to a twitter app. You have to use your Consumer Keys and Access Tokens !!!!
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -45,8 +47,6 @@ public class TwitterAPI {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
         }
-
         return tweetList;
     }
-
 }
