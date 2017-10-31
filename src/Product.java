@@ -3,22 +3,32 @@ public abstract class Product {
     private String brand;
     private String model;
     private Double price;
+    private String category;
     private String machineType;
     private Double height;
     private Double width;
     private Double depth;
     private int weight;
 
-    public Product(int id, String brand, String model, Double price, String machineType, Double height, Double width, Double depth, int weight) {
+    public Product(int id, String brand, String model, Double price, String category, String machineType, Double height, Double width, Double depth, int weight) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.price = price;
+        this.category = category;
         this.machineType = machineType;
         this.height = height;
         this.width = width;
         this.depth = depth;
         this.weight = weight;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getId() {

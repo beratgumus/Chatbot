@@ -76,3 +76,5 @@ hs_err_pid*
 !ext/mongo-java-driver-3.5.0.jar
 !ext/jedis-2.9.0.jar
 !ext/twitter4j-core-4.0.4.jar
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
