@@ -4,7 +4,7 @@ public class Laptop extends ConsumerElectronics {
     private String os;
 
     public Laptop(int id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int ramSize, String cpuModel, String os) {
-        super(id, brand, model, price, height, width, depth, weight, screenSize ,storageSize);
+        super(id, brand, model, price,"Laptop", height, width, depth, weight, screenSize ,storageSize);
         this.ramSize = ramSize;
         this.cpuModel = cpuModel;
         this.os = os;
