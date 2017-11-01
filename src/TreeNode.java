@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Simple node class for creating tree. It will be used in product selecting cycle.
@@ -24,14 +25,14 @@ public class TreeNode {
         for (Product p : products){
             if (!this.childs.containsKey(p.getCategory())) {
                 // current product is first product in x category. x="Consumer Electronics", "Major Appliance" ...
-                this.childs.put(p.getCategory(), new TreeNode("produc type"));
+                this.childs.put(p.getCategory(), new TreeNode("product type", this));
             }
 
             TreeNode typeNode = this.childs.get(p.getCategory()); //temp variable, like an alias
 
             if (!typeNode.childs.containsKey(p.getType())){
                 // current product is first product in y type. y="Phone", "Laptop", "Dishwasher", "Car" ...
-                typeNode.childs.put(p.getType(), new TreeNode("product"));
+                typeNode.childs.put(p.getType(), new TreeNode("product", typeNode));
             }
 
             TreeNode productNode = typeNode.childs.get(p.getType()); //another alias
@@ -43,9 +44,10 @@ public class TreeNode {
     /**
      * For internal purposes only.
      */
-    private TreeNode(String nodeType){
-        childs = new HashMap<>();
+    private TreeNode(String nodeType, TreeNode parent){
+        this.childs = new HashMap<>();
         this.nodeType = nodeType;
+        this.parent = parent;
         if (nodeType.equals("product")){
             //we are creating a leaf node. we will add producs here. lets create a list
             productList = new ArrayList<>();
@@ -61,13 +63,25 @@ public class TreeNode {
         return productList.get(index);
     }
 
+    public List<Product> getProductList() {
+        return  productList;
+    }
+
     /**
-     * Gets next node at given index. index starts from 1 or 0???
-     * @param index index of next node
+     * Gets next node at given key index.
+     * @param key index of next node
      * @return next node
      */
-    public TreeNode getNextNode(int index){
-        return childs.get(index);
-//        return childs.get(index - 1); //enable this if you want to give indexes starting from 1
+    public TreeNode getNextNode(String key){
+        return childs.get(key);
+    }
+
+    /**
+     * Gets all keys in current node.
+     * @return Set of key strings
+     */
+    public String[] getAllKeys(){
+        Set<String> keys = childs.keySet();
+        return keys.toArray(new String[keys.size()]);
     }
 }

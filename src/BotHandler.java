@@ -1,7 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.*;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JFrame;
@@ -11,7 +12,11 @@ import javax.swing.JTextField;
 public class BotHandler extends JFrame {
     private JTextField inputBox = new JTextField();
     private JTextArea chatArea = new JTextArea();
+    private List<Product> products;
     private HashMap<String, String[]> botAnswers;
+    private TreeNode root;
+    private TreeNode currentNode;
+    private String[] options;
     private String state;
 
     public BotHandler() {
@@ -19,10 +24,24 @@ public class BotHandler extends JFrame {
         botAnswers = new HashMap<>();
         String messages[] = new String[]{"Hello.", "Hi.", "Hey there."};
         botAnswers.put("greeting", messages);
+        messages = new String[]{"I'm fine, thank you, and you?", "Great! You?", "Pretty good, and you?"};
+        botAnswers.put("ask_about", messages);
         messages = new String[]{"Sorry. I can't understand your message.", "Ugh! I can't understand this.", "I can't understand this. May you repeat?"};
         botAnswers.put("unknown", messages);
-
         state = "";
+
+        List<Product> tempProducts = new ArrayList<>();
+
+        tempProducts.add(new Laptop(10, "Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10") );
+        tempProducts.add(new Laptop(11, "Lenovo", "G5080B", 1600.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4035u", "Windows 10") );
+        tempProducts.add(new Laptop(12, "Lenovo", "G5080C", 1799.0, 26.0, 51.0, 8.0, 2560, 15.6, 750, 4, "i5 4060u", "Windows 10") );
+
+        tempProducts.add(new MobilePhone(20, "MyPhone", "Vision", 800.0, 6.25, 1.01, 2.23, 98, 5.2, 16, 13, "Android 7.0", 2) );
+        tempProducts.add(new MobilePhone(21, "Apple", "Iphone X 16GB", 372253.0, 7.12, 5.23, 2.22, 111, 5.325, 16, 13, "iOS 11", 2) );
+        tempProducts.add(new MobilePhone(21, "Apple", "Iphone X 32GB", 462451.0, 7.12, 5.23, 2.22, 111, 5.325, 32, 13, "iOS 11", 2) );
+
+        root = new TreeNode(tempProducts);
+
 
         // urun olusturma
 //		CellPhone cellPhone = new CellPhone(1, "Asus", "Zenphone 3", 16, "3GB");
@@ -53,57 +72,65 @@ public class BotHandler extends JFrame {
 
     	// etkilesim
 		inputBox.addActionListener(new ActionListener() {
-			@Override
+
+
+            @Override
 			public void actionPerformed(ActionEvent e) {
 				String uText = inputBox.getText();
+
+                if (uText.length() < 1){
+                    //do not trigger answering logic if message is empty
+                    return;
+                }
+
 				chatArea.append("You: " + uText + "\n");
                 inputBox.setText("");
 
 				if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
-					// chatArea.append("AI:" + "ooo selamlar");
 					decideRandom("greeting");
-                } else if (uText.contains("buy something") || uText.contains("choose product") || uText.contains("buy product")) {
+                } else if((uText.contains("how") && uText.contains("you") ) || (uText.contains("what") && uText.contains("up"))){
+                    decideRandom("ask_about");
+                } else if (uText.contains("buy something") || uText.contains("product") ) {
 
-					answer("Please select a produc category:");
-					answer("1: Consumer Electronics");
-					answer("2: Major Appliances");
-                    answer("3: Vehicles");
+                    currentNode = root;
+                    printOptions(currentNode);
                     state = "select_category";
 
                 } else if (state.equals("select_category")) {
-                    //TODO: maybe better solution with Tree or HashMap? We have to keep track of states somehow.
-                    if (uText.equals("1")) {
-                        answer("Please select a product type:");
-                        // TODO: write a loop that prints product types of selected category
-                        answer("1: Phone");
-                        answer("2: Laptop");
-                        answer("3: Camera");
-                    } else if (uText.equals("1")){
-
-                    } else if (uText.equals("1")){
-
-                    } else {
+                    if ( !uText.matches("[0-9]+")) {
                         answer("Thats not a valid selection.");
                         state = ""; //reset state;
+                        return;
                     }
 
+                    int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
+                    currentNode = currentNode.getNextNode(options[selectedIndex]);
+                    printOptions(currentNode);
                     state = "select_product_type"; //set next state
                 } else if (state.equals("select_product_type")) {
-                    // choose a product type from selected category
-                    if (uText.equals("1")) {
-                        answer("Please select a phone model");
-                        answer(" TODO: I should show you list of products but its not implemented yet. Sorry.");
-                    } else if (uText.equals("2")){
-
-                    } else if (uText.equals("3")){
-
-                    } else {
+                    if ( !uText.matches("[0-9]+") || Integer.parseInt(uText) >= options.length) {
                         answer("Thats not a valid selection.");
                         state = ""; //reset state;
+                        return;
                     }
 
+                    int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
+                    currentNode = currentNode.getNextNode(options[selectedIndex]);
+                    products = currentNode.getProductList();
+                    for (int i = 0; i < products.size(); i++){
+                        int j = i + 1; // visual only!
+                        answer(j+ ": "+ products.get(i).toShortString() );
+                    }
                     state = "select_product"; //set next state
 				} else if (state.equals("select_product")) {
+                    if ( !uText.matches("[0-9]+") || Integer.parseInt(uText) >= options.length) {
+                        answer("Thats not a valid selection.");
+                        state = ""; //reset state;
+                        return;
+                    }
+                    int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
+                    String selection = options[selectedIndex];
+
                     // TODO: show product info
                     answer(" TODO: I should show you information about product you have choosen but its not implemented yet. Sorry.");
 
@@ -114,12 +141,23 @@ public class BotHandler extends JFrame {
 			}
 		});
 
-
-
 	}
 	
 	private void answer(String message){
         chatArea.append("AI: " + message + "\n");
+    }
+
+    /**
+     * Prints options in given node. If node is 
+     * @param node
+     */
+    private void printOptions(TreeNode node){
+        options = node.getAllKeys();
+        answer("Please select a " + node.nodeType + ":");
+        for (int i = 0; i < options.length; i++){
+            int j = i + 1; // visual only!
+            answer(j+ ": "+ options[i]);
+        }
     }
 
     private void decideRandom(String key) {

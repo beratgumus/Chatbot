@@ -103,6 +103,10 @@ public abstract class Product {
         this.weight = weight;
     }
 
+    public  String toShortString(){
+        return brand + model;
+    }
+
     @Override
     public String toString() {
         return "Product [type=" + type + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + ", size=" + height + "hx" + width + "wx" + depth + "d" + ", weight=" + weight + " ]";
