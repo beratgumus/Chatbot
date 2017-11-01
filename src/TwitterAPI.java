@@ -10,22 +10,31 @@ import java.util.List;
  * Static class for getting a comments from twitter app.
  */
 public class TwitterAPI {
+
+    private twitter4j.Twitter twitter;
+
     /**
-     * Static method that returns the list of Tweet according to keyword.
+     * Connecting to a twitter app. You have to use your Consumer Keys and Access Tokens !!!!
+     */
+    public TwitterAPI() {
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true).setOAuthConsumerKey("****************")
+                .setOAuthConsumerSecret("**********************")
+                .setOAuthAccessToken("***********")
+                .setOAuthAccessTokenSecret("*************************");
+
+        TwitterFactory tf = new TwitterFactory(cb.build());
+        twitter = tf.getInstance();
+    }
+
+    /**
+     * method that returns the list of Tweet according to keyword.
      *
      * @param searchKey is a key that used for searching a comments.
      * @return set of a Tweet objects as a list.
      */
-    public static List<Tweet> getTweets(String searchKey) throws TwitterException {
-        //Connecting to a twitter app. You have to use your Consumer Keys and Access Tokens !!!!
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("*****")
-                .setOAuthConsumerSecret("********")
-                .setOAuthAccessToken("***********")
-                .setOAuthAccessTokenSecret("**********");
+    public List<Tweet> getTweets(String searchKey) throws TwitterException {
 
-        TwitterFactory tf = new TwitterFactory(cb.build());
-        twitter4j.Twitter twitter = tf.getInstance();
         List<Tweet> tweetList = new ArrayList<Tweet>();
         try {
             //ToDo: need to improvment on query
@@ -39,7 +48,7 @@ public class TwitterAPI {
             for (Status tweet : tweets) {
                 System.out.println("@" + tweet.getUser().getScreenName() + " [id]: " + tweet.getId() + " : " + tweet.getText() + "[date]: " + tweet.getCreatedAt() + "\n");
                 // ToDo: It is just for test, need to improve reviewPoint calculation
-                reviewPoint = Math.random() * 100;
+                reviewPoint = calculateReviewPoint();
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), reviewPoint);
                 tweetList.add(newTweet);
             }
@@ -48,5 +57,9 @@ public class TwitterAPI {
             System.out.println("Failed to search tweets: " + te.getMessage());
         }
         return tweetList;
+    }
+
+    public double calculateReviewPoint() {
+        return Math.random() * 100;
     }
 }

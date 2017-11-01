@@ -6,7 +6,8 @@ public class twitterApiTest {
 
     public static void main(String args[]) throws TwitterException {
         List<Tweet> tweetss;
-        tweetss = TwitterAPI.getTweets("iPhoneX");
+        TwitterAPI twitterAPI = new TwitterAPI();
+        tweetss = twitterAPI.getTweets("iPhoneX");
 
         for (Tweet tweet : tweetss) {
             System.out.println(tweet);
