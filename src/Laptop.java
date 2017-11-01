@@ -35,11 +35,11 @@ public class Laptop extends ConsumerElectronics {
         this.os = os;
     }
 
-    public Document toDocument(Laptop laptop){
-        return super.toDocument(laptop)
-                .append("RAM Size", laptop.getRamSize())
-                .append("CPU Model", laptop.getCpuModel())
-                .append("OS", laptop.getOs());
+    public Document toDocument(){
+        return super.toDocument()
+                .append("RAM Size", ramSize)
+                .append("CPU Model", cpuModel)
+                .append("OS", os);
     }
 
     @Override

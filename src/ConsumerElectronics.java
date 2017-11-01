@@ -27,11 +27,10 @@ public abstract class ConsumerElectronics extends Product {
         this.storageSize = storageSize;
     }
 
-    public  Document toDocument(ConsumerElectronics consumerElectronics){
-        return super.toDocument(consumerElectronics)
-                .append("Screen Size", consumerElectronics.getScreenSize())
-                .append("Storage Size", consumerElectronics.getStorageSize());
-    }
+    public  Document toDocument(){
+        return super.toDocument()
+                .append("Screen Size", screenSize)
+                .append("Storage Size", storageSize); }
 
     @Override
     public String toString() {

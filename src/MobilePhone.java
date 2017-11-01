@@ -37,11 +37,11 @@ public class MobilePhone extends ConsumerElectronics {
         this.ramSize = ramSize;
     }
 
-    public Document toDocument(MobilePhone mobilePhone){
-        return super.toDocument(mobilePhone)
-                .append("Camera Resolution", mobilePhone.getCameraResolution())
-                .append("OS", mobilePhone.getOs())
-                .append("RAM Size", mobilePhone.getRamSize());
+    public Document toDocument(){
+        return super.toDocument()
+                .append("Camera Resolution", cameraResolution)
+                .append("OS", os)
+                .append("RAM Size", ramSize);
     }
 
     @Override

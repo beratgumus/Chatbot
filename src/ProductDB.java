@@ -21,17 +21,17 @@ public class ProductDB {
     }
 
     public void instertToDB(MobilePhone mobilePhone){
-        mobilePhones.insertOne(mobilePhone.toDocument(mobilePhone));
+        mobilePhones.insertOne(mobilePhone.toDocument());
     }
 
     public void instertToDB(Laptop laptop){
-        laptops.insertOne(laptop.toDocument(laptop));
+        laptops.insertOne(laptop.toDocument());
     }
 
     public void instertToDB(Camera camera){
-        cameras.insertOne(camera.toDocument(camera));
+        cameras.insertOne(camera.toDocument());
     }
-    
+
     //public static final Document toDocument(Refrigerator Refrigerator){}
 
     //public static final Document toDocument(WashingMachine washingMachine){}
