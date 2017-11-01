@@ -5,13 +5,14 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
+
 
 public class BotHandler extends JFrame {
     private JTextField inputBox = new JTextField();
     private JTextArea chatArea = new JTextArea();
+    private JScrollPane scrollPane;
+
     private List<Product> products;
     private HashMap<String, String[]> botAnswers;
     private TreeNode root;
@@ -43,16 +44,9 @@ public class BotHandler extends JFrame {
         root = new TreeNode(tempProducts);
 
 
-        // urun olusturma
-//		CellPhone cellPhone = new CellPhone(1, "Asus", "Zenphone 3", 16, "3GB");
-//		ArrayList<CellPhone> cellPhoneList = new ArrayList<CellPhone>();
-//		cellPhoneList.add(cellPhone);
-//		cellPhoneList.add(new CellPhone(2, "Apple", "Iphone 7", 64, "2GB"));
-//		System.out.println("CellPhone:" + cellPhoneList.get(0));
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(620, 620);
-        this.setVisible(true);
+
         this.setResizable(true);
         this.setLayout(null);
         this.setTitle("Chatbot");
@@ -66,13 +60,15 @@ public class BotHandler extends JFrame {
         chatArea.setEditable(false);
         chatArea.setLineWrap(true);
 
-        // elemanlari JFrame'e ekle
-        this.add(inputBox);
-        this.add(chatArea);
+        scrollPane = new JScrollPane(chatArea);
+        scrollPane.setAutoscrolls(true);
+        scrollPane.setSize(560, 510);
+        scrollPane.setLocation(20, 5);
+        scrollPane.setAutoscrolls(true);
+
 
     	// etkilesim
 		inputBox.addActionListener(new ActionListener() {
-
 
             @Override
 			public void actionPerformed(ActionEvent e) {
@@ -141,6 +137,13 @@ public class BotHandler extends JFrame {
 			}
 		});
 
+        // elemanlari JFrame'e ekle
+
+//        this.add(chatArea);
+        this.add(inputBox);
+        this.add(scrollPane);
+
+        this.setVisible(true);
 	}
 	
 	private void answer(String message){
