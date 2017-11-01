@@ -19,22 +19,22 @@ public class TreeNode {
      */
     public TreeNode(List<Product> products){
         childs = new HashMap<>();
-        this.nodeType = "category"; //root is always category type. we start selecting from category
+        this.nodeType = "product category"; //root is always category type. we start selecting from category
 
         for (Product p : products){
             if (!this.childs.containsKey(p.getCategory())) {
                 // current product is first product in x category. x="Consumer Electronics", "Major Appliance" ...
-                this.childs.put(p.getCategory(), new TreeNode("type"));
+                this.childs.put(p.getCategory(), new TreeNode("produc type"));
             }
 
             TreeNode typeNode = this.childs.get(p.getCategory()); //temp variable, like an alias
 
-            if (!typeNode.childs.containsKey(p.getMachineType())){
+            if (!typeNode.childs.containsKey(p.getType())){
                 // current product is first product in y type. y="Phone", "Laptop", "Dishwasher", "Car" ...
-                typeNode.childs.put(p.getMachineType(), new TreeNode("product"));
+                typeNode.childs.put(p.getType(), new TreeNode("product"));
             }
 
-            TreeNode productNode = typeNode.childs.get(p.getMachineType()); //another alias
+            TreeNode productNode = typeNode.childs.get(p.getType()); //another alias
 
             productNode.productList.add(p); //finally we are in leaf node. lets add our product
         }
@@ -63,8 +63,8 @@ public class TreeNode {
 
     /**
      * Gets next node at given index. index starts from 1 or 0???
-     * @param index
-     * @return
+     * @param index index of next node
+     * @return next node
      */
     public TreeNode getNextNode(int index){
         return childs.get(index);
