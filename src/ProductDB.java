@@ -63,18 +63,18 @@ public class ProductDB {
     }
 
     public List<Document> documentCollector(MongoCollection mongoCollection){
-        List<Document> productCollection = new ArrayList<>();
+        List<Document> documentCollection = new ArrayList<>();
 
         MongoCursor<Document> cursor = mongoCollection.find().iterator();
         try {
             while (cursor.hasNext()) {
-                productCollection.add(cursor.next());
+                documentCollection.add(cursor.next());
             }
         } finally {
             cursor.close();
         }
 
-        return productCollection;
+        return documentCollection;
     }
 
     public MobilePhone toMobilePhone(Document document){
