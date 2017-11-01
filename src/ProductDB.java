@@ -1,8 +1,13 @@
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import org.bson.Document;
+import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
+import com.mongodb.client.model.Projections;
+
 
 public class ProductDB {
 
@@ -32,17 +37,57 @@ public class ProductDB {
         cameras.insertOne(camera.toDocument());
     }
 
-    //public static final Document toDocument(Refrigerator Refrigerator){}
+    public List<Product> getDB(){
+        List<Document> mobilePhoneCollection = new ArrayList<>();
+        List<Document> laptopCollection = new ArrayList<>();
+        List<Document> cameraCollection = new ArrayList<>();
+        List<Product> productCollection = new ArrayList<>();
 
-    //public static final Document toDocument(WashingMachine washingMachine){}
+        mobilePhoneCollection = documentCollector(mobilePhones);
+        laptopCollection = documentCollector(laptops);
+        cameraCollection = documentCollector(cameras);
 
-    //public static final Document toDocument(Dishwasher dishwasher){}
+        for(Document product : mobilePhoneCollection){
+            productCollection.add(toMobilePhone(product));
+        }
 
-    //public static final Document toDocument(Car car){}
+        for(Document product : laptopCollection){
+            productCollection.add(toLaptop(product));
+        }
 
-    //public static final Document toDocument(Motorcycle motorcycle){}
+        for(Document product : cameraCollection){
+            productCollection.add(toCamera(product));
+        }
 
-    //public static final Document toDocument(Bicycle bicycle){}
+        return productCollection;
+    }
+
+    public List<Document> documentCollector(MongoCollection mongoCollection){
+        List<Document> productCollection = new ArrayList<>();
+
+        MongoCursor<Document> cursor = mongoCollection.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                productCollection.add(cursor.next());
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return productCollection;
+    }
+
+    public MobilePhone toMobilePhone(Document document){
+        return new MobilePhone(document.getInteger("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
+    }
+
+    public Camera toCamera(Document document){
+        return new Camera(document.getInteger("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
+    }
+
+    public Laptop toLaptop(Document document){
+        return new Laptop(document.getInteger("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
+    }
 
     public static void main( String args[] ) {
         //MongoClient mongoClient = new MongoClient();
@@ -59,6 +104,7 @@ public class ProductDB {
         products.createCollection("Motorcycles");
         products.createCollection("Bicycles");
         //MongoCollection collection = products.getCollection("Cameras");
-*/
+        */
+
     }
 }
