@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 public abstract class Product {
     private int id;
     private String brand;
@@ -105,6 +107,17 @@ public abstract class Product {
 
     public  String toShortString(){
         return brand + model;
+    }
+
+    public Document toDocument(Product product) {
+        return new Document("_id", product.getId())
+                .append("Brand", product.getBrand())
+                .append("Model", product.getModel())
+                .append("Price", product.getPrice())
+                .append("Height", product.getHeight())
+                .append("Width", product.getWidth())
+                .append("Depth", product.getDepth())
+                .append("Weight", product.getWeight());
     }
 
     @Override

@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 public class Laptop extends ConsumerElectronics {
     private int ramSize;
     private String cpuModel;
@@ -31,6 +33,13 @@ public class Laptop extends ConsumerElectronics {
 
     public void setOs(String os){
         this.os = os;
+    }
+
+    public Document toDocument(Laptop laptop){
+        return super.toDocument(laptop)
+                .append("RAM Size", laptop.getRamSize())
+                .append("CPU Model", laptop.getCpuModel())
+                .append("OS", laptop.getOs());
     }
 
     @Override

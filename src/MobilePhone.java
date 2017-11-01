@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 public class MobilePhone extends ConsumerElectronics {
 
     private int cameraResolution;
@@ -33,6 +35,13 @@ public class MobilePhone extends ConsumerElectronics {
 
     public void setRamSize(int ramSize) {
         this.ramSize = ramSize;
+    }
+
+    public Document toDocument(MobilePhone mobilePhone){
+        return super.toDocument(mobilePhone)
+                .append("Camera Resolution", mobilePhone.getCameraResolution())
+                .append("OS", mobilePhone.getOs())
+                .append("RAM Size", mobilePhone.getRamSize());
     }
 
     @Override

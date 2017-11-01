@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 public abstract class ConsumerElectronics extends Product {
 
     private Double screenSize;
@@ -23,6 +25,12 @@ public abstract class ConsumerElectronics extends Product {
 
     public void setStorageSize(int storageSize) {
         this.storageSize = storageSize;
+    }
+
+    public  Document toDocument(ConsumerElectronics consumerElectronics){
+        return super.toDocument(consumerElectronics)
+                .append("Screen Size", consumerElectronics.getScreenSize())
+                .append("Storage Size", consumerElectronics.getStorageSize());
     }
 
     @Override

@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 public class Camera extends ConsumerElectronics {
     private int videoResolution;
     private int imageResolution;
@@ -32,6 +34,13 @@ public class Camera extends ConsumerElectronics {
 
     public void setIso(int iso) {
         this.iso = iso;
+    }
+
+    public Document toDocument(Camera camera){
+        return super.toDocument(camera)
+                .append("Video Resolution", camera.getVideoResolution())
+                .append("Image Resolution", camera.getImageResolution())
+                .append("ISO", camera.getIso());
     }
 
     @Override
