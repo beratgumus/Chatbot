@@ -110,14 +110,14 @@ public abstract class Product {
     }
 
     public Document toDocument() {
-        return new Document("_id", id)
-                .append("Brand", brand)
-                .append("Model", model)
-                .append("Price", price)
-                .append("Height", height)
-                .append("Width", width)
-                .append("Depth", depth)
-                .append("Weight", weight);
+        return new Document("_id", getId())
+                .append("Brand", getBrand())
+                .append("Model", getModel())
+                .append("Price", getPrice())
+                .append("Height", getHeight())
+                .append("Width", getWidth())
+                .append("Depth", getDepth())
+                .append("Weight", getWeight());
     }
 
     @Override

@@ -38,9 +38,9 @@ public class Camera extends ConsumerElectronics {
 
     public Document toDocument(){
         return super.toDocument()
-                .append("Video Resolution", videoResolution)
-                .append("Image Resolution", imageResolution)
-                .append("ISO", iso);
+                .append("Video Resolution", getVideoResolution())
+                .append("Image Resolution", getImageResolution())
+                .append("ISO", getIso());
     }
 
     @Override
