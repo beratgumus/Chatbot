@@ -5,7 +5,7 @@ public class Laptop extends ConsumerElectronics {
     private String cpuModel;
     private String os;
 
-    public Laptop(int id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int ramSize, String cpuModel, String os) {
+    public Laptop(String id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int ramSize, String cpuModel, String os) {
         super(id, brand, model, price,"Laptop", height, width, depth, weight, screenSize ,storageSize);
         this.ramSize = ramSize;
         this.cpuModel = cpuModel;
@@ -35,6 +35,7 @@ public class Laptop extends ConsumerElectronics {
         this.os = os;
     }
 
+    @Override
     public Document toDocument(){
         return super.toDocument()
                 .append("RAM Size", getRamSize())

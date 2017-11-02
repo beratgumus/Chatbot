@@ -5,7 +5,7 @@ public class Camera extends ConsumerElectronics {
     private int imageResolution;
     private int iso;
 
-    public Camera(int id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int videoResolution, int imageResolution, int iso) {
+    public Camera(String id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int videoResolution, int imageResolution, int iso) {
         super(id, brand, model, price, "Camera", height, width, depth, weight, screenSize, storageSize);
         this.videoResolution = videoResolution;
         this.imageResolution = imageResolution;
@@ -36,6 +36,7 @@ public class Camera extends ConsumerElectronics {
         this.iso = iso;
     }
 
+    @Override
     public Document toDocument(){
         return super.toDocument()
                 .append("Video Resolution", getVideoResolution())

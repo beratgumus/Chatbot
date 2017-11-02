@@ -1,7 +1,7 @@
 import org.bson.Document;
 
 public abstract class Product {
-    private int id;
+    private String id;
     private String brand;
     private String model;
     private Double price;
@@ -12,7 +12,7 @@ public abstract class Product {
     private Double depth;
     private int weight;
 
-    public Product(int id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
+    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -33,7 +33,7 @@ public abstract class Product {
         this.category = category;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -108,6 +108,7 @@ public abstract class Product {
     public  String toShortString(){
         return brand + model;
     }
+
 
     public Document toDocument() {
         return new Document("_id", getId())
