@@ -1,6 +1,8 @@
-import redis.clients.jedis.Jedis;
+package apis;
 
+import redis.clients.jedis.Jedis;
 import java.util.*;
+
 
 /**
  * Wrapper class for Redis.io database.

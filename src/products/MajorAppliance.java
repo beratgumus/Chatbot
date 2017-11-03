@@ -1,3 +1,5 @@
+package products;
+
 public abstract class MajorAppliance extends Product {
 
     private int capacity;

@@ -1,3 +1,5 @@
+package products;
+
 import org.bson.Document;
 
 public class Laptop extends ConsumerElectronics {

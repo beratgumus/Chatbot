@@ -1,3 +1,5 @@
+package products;
+
 import org.bson.Document;
 
 public abstract class ConsumerElectronics extends Product {

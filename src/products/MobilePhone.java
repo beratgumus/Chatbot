@@ -1,3 +1,4 @@
+package products;
 
 import org.bson.Document;
 

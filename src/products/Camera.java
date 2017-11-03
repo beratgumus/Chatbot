@@ -1,3 +1,5 @@
+package products;
+
 import org.bson.Document;
 
 public class Camera extends ConsumerElectronics {

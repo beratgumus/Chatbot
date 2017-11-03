@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import products.*;
+
 /**
  * Simple node class for creating tree. It will be used in product selecting cycle.
  */

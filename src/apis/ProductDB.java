@@ -1,3 +1,5 @@
+package apis;
+
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.mongodb.client.model.Projections;
 import org.bson.types.ObjectId;
-
+import products.*;
 
 public class ProductDB {
 
@@ -111,8 +113,6 @@ public class ProductDB {
 
         //db.instertToDB(new Laptop("10", "Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10"));
         System.out.println(db.getDB().get(0).toString());
-
-
 
     }
 }
