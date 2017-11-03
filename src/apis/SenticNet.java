@@ -11,7 +11,7 @@ public class SenticNet {
 
     public SenticNet() {
 
-        String file = "..\\Chatbot\\src\\senticnet4-v2.txt";
+        String file = "..\\Chatbot\\src\\apis\\senticnet4-v2.txt";
         try {
             scanner = new Scanner(new File(file));
         } catch (FileNotFoundException e) {

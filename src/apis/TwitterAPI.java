@@ -15,16 +15,17 @@ public class TwitterAPI {
 
     private twitter4j.Twitter twitter;
     SenticNet senticNet;
+    private double averageReviewPoint;
 
     /**
      * Connecting to a twitter app. You have to use your Consumer Keys and Access Tokens !!!!
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("****************")
-                .setOAuthConsumerSecret("**********************")
-                .setOAuthAccessToken("***********")
-                .setOAuthAccessTokenSecret("*************************");
+        cb.setDebugEnabled(true).setOAuthConsumerKey("*******************")
+                .setOAuthConsumerSecret("*********************")
+                .setOAuthAccessToken("***********************")
+                .setOAuthAccessTokenSecret("***********************");
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
@@ -46,16 +47,18 @@ public class TwitterAPI {
             query.count(10);
             QueryResult result = twitter.search(query);
             List<Status> tweets = result.getTweets();
-            double reviewPoint;
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
+            double reviewPoint = 0.00;
             for (Status tweet : tweets) {
+                double tweetReviewPoint = 0.00;
                 System.out.println("@" + tweet.getUser().getScreenName() + " [id]: " + tweet.getId() + " : " + tweet.getText() + "[date]: " + tweet.getCreatedAt() + "\n");
-                // ToDo: It is just for test, need to improve reviewPoint calculation
-                reviewPoint = senticNet.calculateReviewPoint(tweet.getText());
+                tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText());
+                reviewPoint += tweetReviewPoint;
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), reviewPoint);
                 tweetList.add(newTweet);
+                System.out.println("Tweet review point: "+tweetReviewPoint );
             }
+            averageReviewPoint = reviewPoint / tweetList.size();
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
@@ -63,7 +66,7 @@ public class TwitterAPI {
         return tweetList;
     }
 
-    public double calculateReviewPoint() {
-        return Math.random() * 100;
+    public double getReviewPoint() {
+        return averageReviewPoint;
     }
 }
