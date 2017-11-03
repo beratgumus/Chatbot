@@ -1,3 +1,4 @@
+
 import org.bson.Document;
 
 public class MobilePhone extends ConsumerElectronics {
