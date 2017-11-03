@@ -70,8 +70,6 @@ public class BotHandler extends JFrame {
         scrollPane.setAutoscrolls(true);
 
 
-
-
     	// etkilesim
 		inputBox.addActionListener(new ActionListener() {
 
