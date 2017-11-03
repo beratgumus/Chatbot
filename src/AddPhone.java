@@ -1,4 +1,3 @@
-package forms;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;

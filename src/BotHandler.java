@@ -115,7 +115,7 @@ public class BotHandler extends JFrame {
                     int selection = Integer.parseInt(uText);
                     if (selection == 1){
                         answer("Opening new form...");
-                        forms.AddPhone.runApp();
+                        AddPhone.runApp();
                     }
                 } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
                     decideRandom("greeting");
