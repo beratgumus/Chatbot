@@ -30,8 +30,8 @@ public class AddPhone extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Controller controller = new Controller();
-        Parent anchorPane = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        AddPhoneController controller = new AddPhoneController();
+        Parent anchorPane = FXMLLoader.load(getClass().getResource("AddPhone.fxml"));
         root = (AnchorPane) anchorPane;
         root.setBackground(Background.EMPTY);
         header = ((Rectangle) root.lookup("#header"));

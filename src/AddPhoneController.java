@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-public class Controller {
+public class AddPhoneController {
 
     @FXML
     public Button closeBtn;
@@ -44,6 +44,9 @@ public class Controller {
                 Integer.parseInt(cameraTF.getText()),
                 osTF.getText(),
                 Integer.parseInt(ramTF.getText()));
+        /**
+         * ToDo: insert the object to mongoDB
+         */
         System.out.println(newMobilePhone);
     }
 

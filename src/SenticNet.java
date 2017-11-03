@@ -32,12 +32,14 @@ public class SenticNet {
 
     /**
      * Calculates review point of given string from SenticNet
+     *
      * @param tweetText text
      * @return calculated point
      */
     public double calculateReviewPoint(String tweetText) {
         Double sum = 0.0;
-        tweetText = tweetText.replaceAll("[^a-zA-Z ]+","");
+        //removes special characters from text ( like # ! ? ...)
+        tweetText = tweetText.replaceAll("[^a-zA-Z ]+", "");
         String[] words = tweetText.split(" ");
         for (String word : words) {
             Double polarity = data.get(word);
