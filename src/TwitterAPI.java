@@ -12,6 +12,7 @@ import java.util.List;
 public class TwitterAPI {
 
     private twitter4j.Twitter twitter;
+    SenticNet senticNet;
 
     /**
      * Connecting to a twitter app. You have to use your Consumer Keys and Access Tokens !!!!
@@ -25,6 +26,7 @@ public class TwitterAPI {
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
+        senticNet = new SenticNet();
     }
 
     /**
@@ -48,7 +50,7 @@ public class TwitterAPI {
             for (Status tweet : tweets) {
                 System.out.println("@" + tweet.getUser().getScreenName() + " [id]: " + tweet.getId() + " : " + tweet.getText() + "[date]: " + tweet.getCreatedAt() + "\n");
                 // ToDo: It is just for test, need to improve reviewPoint calculation
-                reviewPoint = calculateReviewPoint();
+                reviewPoint = senticNet.calculateReviewPoint(tweet.getText());
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), reviewPoint);
                 tweetList.add(newTweet);
             }

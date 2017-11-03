@@ -8,20 +8,12 @@ public class Tweet {
     private String timespan;
     private double reviewPoint;
 
-    public Tweet(){
-
-    }
-
-    public Tweet(String text, String user, String timespan, double reviewPoint) {
+    public Tweet(long id, String text, String user, String timespan, double reviewPoint) {
+        this.id = id;
         this.text = text;
         this.user = user;
         this.timespan = timespan;
         this.reviewPoint = reviewPoint;
-    }
-
-    public Tweet(long id, String text, String user, String timespan, double reviewPoint) {
-        this(text, user, timespan, reviewPoint);
-        this.id = id;
     }
 
     /**
@@ -29,7 +21,7 @@ public class Tweet {
      * @param tweetFromDB Map object that contains tweet information
      */
     public Tweet( Map<String, String> tweetFromDB){
-        this(tweetFromDB.get("text"), tweetFromDB.get("user"),
+        this(Long.parseLong(tweetFromDB.get("id")),tweetFromDB.get("text"), tweetFromDB.get("user"),
                 tweetFromDB.get("timespan"), Double.parseDouble(tweetFromDB.get("reviewPoint")) );
     }
 
@@ -87,4 +79,5 @@ public class Tweet {
     public void setReviewPoint(double reviewPoint) {
         this.reviewPoint = reviewPoint;
     }
+
 }
