@@ -22,10 +22,11 @@ public class TwitterAPI {
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("*********")
-                .setOAuthConsumerSecret("************")
-                .setOAuthAccessToken("****************")
-                .setOAuthAccessTokenSecret("**************");
+        cb.setDebugEnabled(true).setOAuthConsumerKey("***********")
+                .setOAuthConsumerSecret("*********")
+                .setOAuthAccessToken("**********")
+                .setOAuthAccessTokenSecret("**********");
+
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
@@ -38,7 +39,7 @@ public class TwitterAPI {
      * @param searchKey key that used for searching
      * @return set of a Tweet objects as a list.
      */
-    public List<Tweet> getTweets(String searchKey) throws TwitterException {
+    public double getReviewPoint(String searchKey) throws TwitterException {
         String keyword = searchKey.replaceAll("\\W","");
         List<Tweet> tweetList = new ArrayList<Tweet>();
         try {
@@ -59,14 +60,15 @@ public class TwitterAPI {
                 System.out.println("Tweet review point: "+tweetReviewPoint );
             }
             averageReviewPoint = reviewPoint / tweetList.size();
+            /**
+             * Todo: need to insert tweets to redis !!!!
+             */
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
         }
-        return tweetList;
-    }
-
-    public double getReviewPoint() {
         return averageReviewPoint;
     }
+
+
 }

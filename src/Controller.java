@@ -1,4 +1,5 @@
 
+import apis.TwitterAPI;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import products.*;
+import twitter4j.TwitterException;
 
 public class Controller {
 
@@ -25,6 +27,7 @@ public class Controller {
     public TextField screenTF;
     public TextField cameraTF;
     public TextField ramTF;
+    TwitterAPI twitterAPI;
 
     /**
      * This function is called by close button at the top right
@@ -53,6 +56,14 @@ public class Controller {
                 Integer.parseInt(cameraTF.getText()),
                 osTF.getText(),
                 Integer.parseInt(ramTF.getText()));
+        try {
+            twitterAPI = new TwitterAPI();
+            double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
+            System.out.println("10 tweetin Hesaplananortalamasi: " + reviewPoint);
+            newMobilePhone.setReviewPoint(reviewPoint);
+        } catch (TwitterException e) {
+
+        }
         /**
          * ToDo: insert the object to mongoDB
          */

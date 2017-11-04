@@ -19,8 +19,7 @@ public abstract class Product implements Comparable<Product> {
     private Double depth;
     private int weight;
     private double reviewPoint;
-    List<Tweet> tweets;
-    TwitterAPI twitterAPI;
+
 
     public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight, Double reviewPoint) {
         this.id = id;
@@ -34,26 +33,7 @@ public abstract class Product implements Comparable<Product> {
         this.depth = depth;
         this.weight = weight;
         this.reviewPoint = reviewPoint;
-        tweets = null;
-        twitterAPI = new TwitterAPI();
-/*
-        try {
-            tweets = twitterAPI.getTweets(model);
-        } catch (TwitterException e) {
 
-        }
-
-        */
-        /**
-         * Todo: need to insert tweets to redis !!!!
-         */
-
-        /*
-
-        this.reviewPoint = twitterAPI.getReviewPoint();
-        System.out.println("10 tweetin Hesaplananortalamasi: " + this.reviewPoint);
-
-        */
     }
 
     public Product(String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
@@ -67,23 +47,6 @@ public abstract class Product implements Comparable<Product> {
         this.width = width;
         this.depth = depth;
         this.weight = weight;
-        tweets = null;
-        twitterAPI = new TwitterAPI();
-
-        try {
-            tweets = twitterAPI.getTweets(model);
-        } catch (TwitterException e) {
-
-        }
-
-
-        /**
-         * Todo: need to insert tweets to redis !!!!
-         */
-
-        this.reviewPoint = twitterAPI.getReviewPoint();
-        System.out.println("10 tweetin Hesaplananortalamasi: " + this.reviewPoint);
-
 
     }
 
