@@ -155,6 +155,7 @@ public abstract class Product implements Comparable<Product> {
         return new Document("Brand", getBrand())
                 .append("Model", getModel())
                 .append("Price", getPrice())
+                .append("Type", type)
                 .append("Height", getHeight())
                 .append("Width", getWidth())
                 .append("Depth", getDepth())

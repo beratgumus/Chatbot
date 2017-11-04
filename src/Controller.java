@@ -7,9 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import twitter4j.TwitterException;
 
 import products.*;
-import twitter4j.TwitterException;
+import apis.*;
+
 
 public class Controller {
 
@@ -56,17 +58,23 @@ public class Controller {
                 Integer.parseInt(cameraTF.getText()),
                 osTF.getText(),
                 Integer.parseInt(ramTF.getText()));
-        try {
-            twitterAPI = new TwitterAPI();
-            double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
-            System.out.println("10 tweetin Hesaplananortalamasi: " + reviewPoint);
-            newMobilePhone.setReviewPoint(reviewPoint);
-        } catch (TwitterException e) {
-
-        }
+//        try {
+//            twitterAPI = new TwitterAPI();
+//            double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
+//            System.out.println("10 tweetin Hesaplanan ortalamasi: " + reviewPoint);
+//            newMobilePhone.setReviewPoint(reviewPoint);
+//        } catch (TwitterException e) {
+//
+//        }
+        newMobilePhone.setReviewPoint(2.2);
         /**
          * ToDo: insert the object to mongoDB
          */
+        ProductDB mongoDB = new ProductDB();
+        mongoDB.insert(newMobilePhone);
+        mongoDB.close(); //close db connection
+
+
         System.out.println(newMobilePhone);
 
     }

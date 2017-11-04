@@ -15,115 +15,30 @@ import com.mongodb.client.model.Sorts;
 public class ProductDB {
 
     private MongoClient mongoClient;
-    private MongoDatabase products;
-    private MongoCollection mobilePhones;
-    private MongoCollection laptops;
-    private MongoCollection cameras;
-    private MongoCollection cars;
-    private MongoCollection motorcycles;
-    private MongoCollection refrigerators;
+    private MongoDatabase db;
+    private MongoCollection testCollection;
 
     public ProductDB(){
         mongoClient = new MongoClient();
-        products = mongoClient.getDatabase("Products");
-        mobilePhones = products.getCollection("Mobile Phones");
-        laptops = products.getCollection("Laptops");
-        cameras = products.getCollection("Cameras");
-        cars = products.getCollection("Cars");
-        motorcycles = products.getCollection("Motorcycles");
-        refrigerators = products.getCollection("Refrigerators");
+
+        db = mongoClient.getDatabase("Chatbot");
+
+        // if collection does not exsist mongo will create one
+        // see: https://docs.mongodb.com/manual/reference/method/db.getCollection/#behavior
+        testCollection = db.getCollection("Products");
+    }
+    //test method1
+    public void insert(Product product){
+        testCollection.insertOne(product.toDocument());
     }
 
-    public void insertToDB(MobilePhone mobilePhone){
-        mobilePhones.insertOne(mobilePhone.toDocument());
-    }
-
-    public void insertToDB(Laptop laptop){
-        laptops.insertOne(laptop.toDocument());
-    }
-
-    public void insertToDB(Camera camera){
-        cameras.insertOne(camera.toDocument());
-    }
-
-    public void insertToDB(Car car){
-        cars.insertOne(car.toDocument());
-    }
-
-    public void insertToDB(Motorcycle motorcycle){
-        motorcycles.insertOne(motorcycle.toDocument());
-    }
-
-    public void insertToDB(Refrigerator refrigerator){
-        refrigerators.insertOne(refrigerator.toDocument());
-    }
-
-    public MobilePhone toMobilePhone(Document document){
-        return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
-    }
-
-    public void toMobilePhone(List<Document> mobilePhoneCollection, List<Product> productCollection){
-        for(Document product : mobilePhoneCollection){
-            productCollection.add(toMobilePhone(product));
-        }
-    }
-
-    public Camera toCamera(Document document){
-        return new Camera(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
-    }
-
-    public void toCamera(List<Document> cameraCollection, List<Product> productCollection){
-        for(Document product : cameraCollection){
-            productCollection.add(toCamera(product));
-        }
-    }
-
-    public Laptop toLaptop(Document document){
-        return new Laptop(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
-    }
-
-    public void toLaptop(List<Document> laptopCollection, List<Product> productCollection){
-        for(Document product : laptopCollection){
-            productCollection.add(toLaptop(product));
-        }
-    }
-
-    public Car toCar(Document document){
-        return new Car(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getString("Vehicle Type"), document.getInteger("Power"), document.getString("Fuel Type"), document.getInteger("Number of Seats"), document.getString("Air Conditioner Type"));
-    }
-
-    public void toCar(List<Document> carCollection, List<Product> productCollection){
-        for(Document product : carCollection){
-            productCollection.add(toCar(product));
-        }
-    }
-
-    public Motorcycle toMotorcycle(Document document){
-        return new Motorcycle(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getString("Vehicle Type"), document.getInteger("Power"), document.getString("Fuel Type"), document.getBoolean(""), document.getBoolean(""));
-    }
-
-    public void toMotorcycle(List<Document> motorcycleCollection, List<Product> productCollection){
-        for(Document product : motorcycleCollection){
-            productCollection.add(toMotorcycle(product));
-        }
-    }
-
-    public Refrigerator toRefrigerator(Document document){
-        return new Refrigerator(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getInteger("Capacity"), document.getString("Energy Efficiency"), document.getString("Refrigerator Type"), document.getBoolean("Ice Maker"), document.getBoolean("Frost Free"), document.getBoolean("Door Open Alarm"));
-    }
-
-    public void toRefrigerator(List<Document> refrigeratorCollection, List<Product> productCollection){
-        for(Document product : refrigeratorCollection){
-            productCollection.add(toRefrigerator(product));
-        }
-    }
-
-    public List<Document> documentCollector(MongoCollection mongoCollection){
+    //test method2
+    public List<Product> retrieveAll(){
         List<Document> documentCollection = new ArrayList<>();
 
         Bson sortCriteria = Sorts.descending("Review Point", "Model");
 
-        MongoCursor<Document> cursor = mongoCollection.find().sort(sortCriteria).iterator();
+        MongoCursor<Document> cursor = testCollection.find().sort(sortCriteria).iterator();
         try {
             while (cursor.hasNext()) {
                 documentCollection.add(cursor.next());
@@ -131,30 +46,51 @@ public class ProductDB {
         } finally {
             cursor.close();
         }
-
-        return documentCollection;
+        List<Product> products = new ArrayList<>();
+        for (Document document : documentCollection){
+            String type = document.get("Type").toString();
+            if (type.equals("Mobile Phone")){
+                products.add(toMobilePhone(document));
+            } else if (type.equals("Laptop")){
+                products.add(toLaptop(document));
+            }
+        }
+        return products;
     }
 
-    public List<Product> getDB(){
-        List<Product> productCollection = new ArrayList<>();
-        List<Document> mobilePhoneCollection = documentCollector(mobilePhones);;
-        List<Document> laptopCollection = documentCollector(laptops);
-        List<Document> cameraCollection = documentCollector(cameras);
-        List<Document> carCollection = documentCollector(cars);
-        List<Document> motorcycleCollection = documentCollector(motorcycles);
-        List<Document> refrigeratorCollection = documentCollector(refrigerators);
+    /**
+     * Closes database connection
+     */
+    public void close(){
+        mongoClient.close();
+    }
 
-        toMobilePhone(mobilePhoneCollection, productCollection);
-        toLaptop(laptopCollection, productCollection);
-        toCamera(cameraCollection, productCollection);
-        toCar(carCollection, productCollection);
-        toMotorcycle(motorcycleCollection, productCollection);
-        toRefrigerator(refrigeratorCollection, productCollection);
+    public MobilePhone toMobilePhone(Document document){
+        return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
+    }
 
-        return productCollection;
+    public Camera toCamera(Document document){
+        return new Camera(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
+    }
+
+    public Laptop toLaptop(Document document){
+        return new Laptop(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
+    }
+
+    public Car toCar(Document document){
+        return new Car(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getString("Vehicle Type"), document.getInteger("Power"), document.getString("Fuel Type"), document.getInteger("Number of Seats"), document.getString("Air Conditioner Type"));
+    }
+
+    public Motorcycle toMotorcycle(Document document){
+        return new Motorcycle(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getString("Vehicle Type"), document.getInteger("Power"), document.getString("Fuel Type"), document.getBoolean(""), document.getBoolean(""));
+    }
+
+    public Refrigerator toRefrigerator(Document document){
+        return new Refrigerator(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getInteger("Capacity"), document.getString("Energy Efficiency"), document.getString("Refrigerator Type"), document.getBoolean("Ice Maker"), document.getBoolean("Frost Free"), document.getBoolean("Door Open Alarm"));
     }
 
     public static void main( String args[] ) {
+
         //MongoClient mongoClient = new MongoClient();
         //MongoDatabase products = mongoClient.getDatabase("Products");
         //products.getCollection("Mobile Phone").insertOne(toDocument(new MobilePhone()));

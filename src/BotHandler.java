@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import products.*;
+import apis.*;
 
 
 public class BotHandler extends Application {
@@ -70,17 +71,21 @@ public class BotHandler extends Application {
         botAnswers.put("unknown", messages);
         state = "";
 
-        List<Product> tempProducts = new ArrayList<>();
+        ProductDB mongo = new ProductDB();
+        List<Product> allProductsList = mongo.retrieveAll();
 
-        tempProducts.add(new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10"));
-        tempProducts.add(new Laptop("Lenovo", "G5080B", 1600.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4035u", "Windows 10"));
-        tempProducts.add(new Laptop("Lenovo", "G5080C", 1799.0, 26.0, 51.0, 8.0, 2560, 15.6, 750, 4, "i5 4060u", "Windows 10"));
+
+//        List<Product> tempProducts = new ArrayList<>();
 //
-        tempProducts.add(new MobilePhone("MyPhone", "Vision", 800.0, 6.25, 1.01, 2.23, 98, 5.2, 16, 13, "Android 7.0", 2));
-        tempProducts.add(new MobilePhone("Apple", "Iphone X 16GB", 372253.0, 7.12, 5.23, 2.22, 111, 5.325, 16, 13, "iOS 11", 2));
-        tempProducts.add(new MobilePhone("Apple", "Iphone X 32GB", 462451.0, 7.12, 5.23, 2.22, 111, 5.325, 32, 13, "iOS 11", 2));
+//        tempProducts.add(new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10"));
+//        tempProducts.add(new Laptop("Lenovo", "G5080B", 1600.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4035u", "Windows 10"));
+//        tempProducts.add(new Laptop("Lenovo", "G5080C", 1799.0, 26.0, 51.0, 8.0, 2560, 15.6, 750, 4, "i5 4060u", "Windows 10"));
+////
+//        tempProducts.add(new MobilePhone("MyPhone", "Vision", 800.0, 6.25, 1.01, 2.23, 98, 5.2, 16, 13, "Android 7.0", 2));
+//        tempProducts.add(new MobilePhone("Apple", "Iphone X 16GB", 372253.0, 7.12, 5.23, 2.22, 111, 5.325, 16, 13, "iOS 11", 2));
+//        tempProducts.add(new MobilePhone("Apple", "Iphone X 32GB", 462451.0, 7.12, 5.23, 2.22, 111, 5.325, 32, 13, "iOS 11", 2));
 
-        rootNode = new TreeNode(tempProducts);
+        rootNode = new TreeNode(allProductsList);
 
         Parent botFxml = FXMLLoader.load(getClass().getResource("Bot.fxml"));
         botAnchor = (AnchorPane) botFxml;
