@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="393.0" prefWidth="595.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane prefHeight="458.0" prefWidth="595.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <AnchorPane fx:id="background" layoutX="13.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="570.0" style="-fx-background-color: #2d3447;">
+      <AnchorPane fx:id="background" layoutX="13.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="570.0" style="-fx-background-color: #2d3447;">
           <children>
             <Rectangle fx:id="header" fill="#202e40" height="55.0" layoutX="-5.0" layoutY="1.0" stroke="#172536" strokeType="OUTSIDE" strokeWidth="2.0" width="580.0" />
               <Label layoutX="10.0" layoutY="10.0" text="Add New Mobile Phone" textFill="#2196f3">
@@ -19,84 +19,90 @@
                       <Font size="24.0" />
                   </font>
               </Label>
-              <TextField id="brand" fx:id="brandTF" layoutX="111.0" layoutY="80.0" stylesheets="@styles.css" />
-            <Label layoutX="41.0" layoutY="80.0" text="Brand :" textFill="#a0a2ba">
+            <Label fx:id="messageLabel" layoutX="43.0" layoutY="84.0" prefHeight="25.0" prefWidth="484.0" text="Fill all fields to create new product." textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="modelTF" layoutX="390.0" layoutY="80.0" stylesheets="@styles.css" />
-            <Label layoutX="313.0" layoutY="80.0" text="Model :" textFill="#a0a2ba">
+            <Rectangle fx:id="messageBox" arcHeight="5.0" arcWidth="5.0" fill="#3c9ae1" height="5.0" layoutX="25.0" layoutY="107.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" width="520.0" />
+              <TextField id="brand" fx:id="brandTF" layoutX="109.0" layoutY="141.0" stylesheets="@styles.css" />
+            <Label layoutX="39.0" layoutY="141.0" text="Brand :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="priceTF" layoutX="111.0" layoutY="120.0" stylesheets="@styles.css" />
-            <Label layoutX="45.0" layoutY="120.0" text="Price :" textFill="#a0a2ba">
+            <TextField fx:id="modelTF" layoutX="388.0" layoutY="141.0" stylesheets="@styles.css" />
+            <Label layoutX="311.0" layoutY="141.0" text="Model :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="heightTF" layoutX="390.0" layoutY="120.0" stylesheets="@styles.css" />
-            <Label layoutX="313.0" layoutY="120.0" text="Height :" textFill="#a0a2ba">
+            <TextField fx:id="priceTF" layoutX="109.0" layoutY="181.0" stylesheets="@styles.css" />
+            <Label layoutX="43.0" layoutY="181.0" text="Price :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="widthTF" layoutX="111.0" layoutY="160.0" stylesheets="@styles.css" />
-            <Label layoutX="41.0" layoutY="160.0" text="Width :" textFill="#a0a2ba">
+            <TextField fx:id="heightTF" layoutX="388.0" layoutY="181.0" stylesheets="@styles.css" />
+            <Label layoutX="311.0" layoutY="181.0" text="Height :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="depthTF" layoutX="390.0" layoutY="160.0" stylesheets="@styles.css" />
-            <Label layoutX="315.0" layoutY="160.0" text="Depth :" textFill="#a0a2ba">
+            <TextField fx:id="widthTF" layoutX="109.0" layoutY="221.0" stylesheets="@styles.css" />
+            <Label layoutX="39.0" layoutY="221.0" text="Width :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="weightTF" layoutX="110.0" layoutY="200.0" styleClass="text-input" stylesheets="@styles.css">
+            <TextField fx:id="depthTF" layoutX="388.0" layoutY="221.0" stylesheets="@styles.css" />
+            <Label layoutX="313.0" layoutY="221.0" text="Depth :" textFill="#d0d5e0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="weightTF" layoutX="108.0" layoutY="261.0" styleClass="text-input" stylesheets="@styles.css">
                <opaqueInsets>
                   <Insets bottom="100.0" left="10.0" right="50.0" top="10.0" />
                </opaqueInsets>
             </TextField>
-            <Label layoutX="36.0" layoutY="200.0" text="Weight :" textFill="#a0a2ba">
+            <Label layoutX="34.0" layoutY="261.0" text="Weight :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="screenTF" layoutX="390.0" layoutY="200.0" stylesheets="@styles.css" />
-            <Label layoutX="301.0" layoutY="200.0" text="Screen Size:" textFill="#a0a2ba">
+            <TextField fx:id="screenTF" layoutX="388.0" layoutY="261.0" stylesheets="@styles.css" />
+            <Label layoutX="299.0" layoutY="261.0" text="Screen Size:" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="storageTF" layoutX="110.0" layoutY="240.0" stylesheets="@styles.css" />
-            <Label layoutX="36.0" layoutY="240.0" text="Storage :" textFill="#a0a2ba">
+            <TextField fx:id="storageTF" layoutX="108.0" layoutY="301.0" stylesheets="@styles.css" />
+            <Label layoutX="34.0" layoutY="301.0" text="Storage :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="saveBtn" layoutX="249.0" layoutY="333.0" mnemonicParsing="false" onAction="#savePhone" prefHeight="30.0" prefWidth="73.0" stylesheets="@styles.css" text="SAVE" />
+            <Button fx:id="saveBtn" layoutX="249.0" layoutY="390.0" mnemonicParsing="false" onAction="#savePhone" prefHeight="30.0" prefWidth="73.0" stylesheets="@styles.css" text="SAVE" />
             <Button fx:id="closeBtn" layoutX="524.0" layoutY="13.0" mnemonicParsing="false" onAction="#close" styleClass="close-button" stylesheets="@styles.css" text="X" />
-            <TextField fx:id="cameraTF" layoutX="390.0" layoutY="240.0" styleClass="text-input" stylesheets="@styles.css">
+            <TextField fx:id="cameraTF" layoutX="388.0" layoutY="301.0" styleClass="text-input" stylesheets="@styles.css">
                <opaqueInsets>
                   <Insets bottom="100.0" left="10.0" right="50.0" top="10.0" />
                </opaqueInsets>
             </TextField>
-            <Label layoutX="310.0" layoutY="240.0" text="Camera :" textFill="#a0a2ba">
+            <Label layoutX="308.0" layoutY="301.0" text="Camera :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="osTF" layoutX="111.0" layoutY="280.0" stylesheets="@styles.css" />
-            <Label layoutX="51.0" layoutY="283.0" text="OS :" textFill="#a0a2ba">
+            <TextField fx:id="osTF" layoutX="109.0" layoutY="341.0" stylesheets="@styles.css" />
+            <Label layoutX="49.0" layoutY="344.0" text="OS :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="ramTF" layoutX="390.0" layoutY="280.0" stylesheets="@styles.css" />
-            <Label layoutX="319.0" layoutY="280.0" text="RAM :" textFill="#a0a2ba">
+            <TextField fx:id="ramTF" layoutX="388.0" layoutY="341.0" stylesheets="@styles.css" />
+            <Label layoutX="317.0" layoutY="341.0" text="RAM :" textFill="#d0d5e0">
                <font>
                   <Font size="14.0" />
                </font>
