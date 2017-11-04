@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Static class for getting a comments from twitter app.
@@ -28,6 +29,7 @@ public class TwitterAPI {
                 .setOAuthAccessTokenSecret("**********");
 
 
+
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
         senticNet = new SenticNet();
@@ -40,8 +42,9 @@ public class TwitterAPI {
      * @return set of a Tweet objects as a list.
      */
     public double getReviewPoint(String searchKey) throws TwitterException {
-        String keyword = searchKey.replaceAll("\\W","");
+        String keyword = searchKey.replaceAll("\\W", "");
         List<Tweet> tweetList = new ArrayList<Tweet>();
+
         try {
             //ToDo: need to improvment on query
             Query query = new Query("(#" + keyword + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
@@ -55,18 +58,19 @@ public class TwitterAPI {
                 System.out.println("@" + tweet.getUser().getScreenName() + " [id]: " + tweet.getId() + " : " + tweet.getText() + "[date]: " + tweet.getCreatedAt() + "\n");
                 tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText());
                 reviewPoint += tweetReviewPoint;
-                Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), reviewPoint);
+                Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), tweetReviewPoint);
                 tweetList.add(newTweet);
-                System.out.println("Tweet review point: "+tweetReviewPoint );
+                System.out.println("Tweet review point: " + tweetReviewPoint);
             }
+            RedisNew db = new RedisNew();
+            db.addNewTweet(keyword, tweetList);
             averageReviewPoint = reviewPoint / tweetList.size();
-            /**
-             * Todo: need to insert tweets to redis !!!!
-             */
+
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
         }
+
         return averageReviewPoint;
     }
 

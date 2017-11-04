@@ -20,18 +20,20 @@ public class Tweet {
 
     /**
      * Initialize Tweet object from Map object. Probably used when getting tweet from Redis only.
+     *
      * @param tweetFromDB Map object that contains tweet information
      */
-    public Tweet( Map<String, String> tweetFromDB){
-        this(Long.parseLong(tweetFromDB.get("id")),tweetFromDB.get("text"), tweetFromDB.get("user"),
-                tweetFromDB.get("timespan"), Double.parseDouble(tweetFromDB.get("reviewPoint")) );
+    public Tweet(Map<String, String> tweetFromDB) {
+        this(Long.parseLong(tweetFromDB.get("id")), tweetFromDB.get("text"), tweetFromDB.get("user"),
+                tweetFromDB.get("timespan"), Double.parseDouble(tweetFromDB.get("reviewPoint")));
     }
 
     /**
      * Converts Tweet object to Map object. Probably used when inserting tweet to Redis only.
+     *
      * @return Converted Map object that contains tweet information
      */
-    public Map<String, String> toMap(){
+    public Map<String, String> toMap() {
         Map<String, String> tweet = new HashMap<>();
 
         tweet.put("text", this.text);
