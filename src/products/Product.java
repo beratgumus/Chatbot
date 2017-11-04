@@ -1,4 +1,11 @@
+package products;
+
+import apis.Tweet;
+import apis.TwitterAPI;
 import org.bson.Document;
+import twitter4j.TwitterException;
+
+import java.util.List;
 
 public abstract class Product {
     private String id;
@@ -11,21 +18,9 @@ public abstract class Product {
     private Double width;
     private Double depth;
     private int weight;
+    private double reviewPoint;
 
-    public Product(String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
-        this.id = null;
-        this.brand = brand;
-        this.model = model;
-        this.price = price;
-        this.category = category;
-        this.type = type;
-        this.height = height;
-        this.width = width;
-        this.depth = depth;
-        this.weight = weight;
-    }
-
-    public Product(String id ,String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
+    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -36,6 +31,20 @@ public abstract class Product {
         this.width = width;
         this.depth = depth;
         this.weight = weight;
+
+        List<Tweet> tweets = null;
+        TwitterAPI twitterAPI = new TwitterAPI();
+        try {
+            tweets = twitterAPI.getTweets(model);
+        } catch (TwitterException e) {
+
+        }
+        /**
+         * Todo: need to insert tweets to redis !!!!
+         */
+
+        this.reviewPoint = twitterAPI.getReviewPoint();
+        System.out.println("10 tweetin Hesaplanan  ortalamasi: " + this.reviewPoint);
     }
 
     public String getCategory() {
@@ -50,7 +59,7 @@ public abstract class Product {
         return id;
     }
 
-    public void setId(String Id) {
+    public void setId(int pId) {
         this.id = id;
     }
 
@@ -58,7 +67,7 @@ public abstract class Product {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(String pBrand) {
         this.brand = brand;
     }
 
@@ -66,7 +75,7 @@ public abstract class Product {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(String pModel) {
         this.model = model;
     }
 
@@ -74,57 +83,58 @@ public abstract class Product {
         return price;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setPrice(Double pPrice) {
+        this.price = pPrice;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type){
+    public void setType(String type) {
         this.type = type;
     }
 
-    public Double getHeight(){
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(Double height){
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public Double getWidth(){
+    public Double getWidth() {
         return width;
     }
 
-    public void setWidth(Double width){
+    public void setWidth(Double width) {
         this.width = width;
     }
 
-    public Double getDepth(){
+    public Double getDepth() {
         return depth;
     }
 
-    public void setDepth(Double depth){
+    public void setDepth(Double depth) {
         this.depth = depth;
     }
 
-    public int getWeight(){
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight){
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public  String toShortString(){
+    public String toShortString() {
         return brand + model;
     }
 
 
     public Document toDocument() {
-        return new Document("Brand", getBrand())
+        return new Document("_id", getId())
+                .append("Brand", getBrand())
                 .append("Model", getModel())
                 .append("Price", getPrice())
                 .append("Height", getHeight())

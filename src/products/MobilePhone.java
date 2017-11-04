@@ -1,3 +1,5 @@
+package products;
+
 import org.bson.Document;
 
 public class MobilePhone extends ConsumerElectronics {
@@ -6,14 +8,7 @@ public class MobilePhone extends ConsumerElectronics {
     private String os;
     private int ramSize;
 
-    public MobilePhone(String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int cameraResolution, String os, int ramSize) {
-        super(brand, model, price, "Mobile Phone", height, width, depth, weight, screenSize, storageSize);
-        this.cameraResolution = cameraResolution;
-        this.os = os;
-        this.ramSize = ramSize;
-    }
-
-    public MobilePhone(String id,String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int cameraResolution, String os, int ramSize) {
+    public MobilePhone(String id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double screenSize, int storageSize, int cameraResolution, String os, int ramSize) {
         super(id, brand, model, price, "Mobile Phone", height, width, depth, weight, screenSize, storageSize);
         this.cameraResolution = cameraResolution;
         this.os = os;

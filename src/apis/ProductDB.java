@@ -1,3 +1,5 @@
+package apis;
+
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.mongodb.client.model.Projections;
 import org.bson.types.ObjectId;
-
+import products.*;
 
 public class ProductDB {
 
@@ -39,14 +41,26 @@ public class ProductDB {
     }
 
     public List<Product> getDB(){
+        List<Document> mobilePhoneCollection = new ArrayList<>();
+        List<Document> laptopCollection = new ArrayList<>();
+        List<Document> cameraCollection = new ArrayList<>();
         List<Product> productCollection = new ArrayList<>();
-        List<Document> mobilePhoneCollection = documentCollector(mobilePhones);;
-        List<Document> laptopCollection = documentCollector(laptops);
-        List<Document> cameraCollection = documentCollector(cameras);
 
-        toMobilePhone(mobilePhoneCollection, productCollection);
-        toLaptop(laptopCollection, productCollection);
-        toCamera(cameraCollection, productCollection);
+        mobilePhoneCollection = documentCollector(mobilePhones);
+        laptopCollection = documentCollector(laptops);
+        cameraCollection = documentCollector(cameras);
+
+        for(Document product : mobilePhoneCollection){
+            productCollection.add(toMobilePhone(product));
+        }
+
+        for(Document product : laptopCollection){
+            productCollection.add(toLaptop(product));
+        }
+
+        for(Document product : cameraCollection){
+            productCollection.add(toCamera(product));
+        }
 
         return productCollection;
     }
@@ -67,33 +81,15 @@ public class ProductDB {
     }
 
     public MobilePhone toMobilePhone(Document document){
-        return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
-    }
-
-    public void toMobilePhone(List<Document> mobilePhoneCollection, List<Product> productCollection){
-        for(Document product : mobilePhoneCollection){
-            productCollection.add(toMobilePhone(product));
-        }
+        return new MobilePhone(document.getString("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
     }
 
     public Camera toCamera(Document document){
-        return new Camera(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
-    }
-
-    public void toCamera(List<Document> cameraCollection, List<Product> productCollection){
-        for(Document product : cameraCollection){
-            productCollection.add(toCamera(product));
-        }
+        return new Camera(document.getString("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
     }
 
     public Laptop toLaptop(Document document){
-        return new Laptop(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
-    }
-
-    public void toLaptop(List<Document> laptopCollection, List<Product> productCollection){
-        for(Document product : laptopCollection){
-            productCollection.add(toLaptop(product));
-        }
+        return new Laptop(document.getString("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
     }
 
     public static void main( String args[] ) {
@@ -115,10 +111,8 @@ public class ProductDB {
 
         ProductDB db = new ProductDB();
 
-        db.instertToDB(new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10"));
+        //db.instertToDB(new Laptop("10", "Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10"));
         System.out.println(db.getDB().get(0).toString());
-
-
 
     }
 }

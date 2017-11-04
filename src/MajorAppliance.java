@@ -2,8 +2,8 @@ public abstract class MajorAppliance extends Product {
 
     private int capacity;
 
-    public MajorAppliance(String id, String brand, String model, Double price, String type,Double height, Double width, Double depth, int weight, int capacity){
-        super(id, brand, model, price, "Major Appliance",type, height, width, depth, weight);
+    public MajorAppliance(String brand, String model, Double price, String type,Double height, Double width, Double depth, int weight, int capacity){
+        super(brand, model, price, "Major Appliance",type, height, width, depth, weight);
         this.capacity = capacity;
     }
 
