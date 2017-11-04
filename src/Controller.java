@@ -74,9 +74,7 @@ public class Controller {
         mongoDB.insert(newMobilePhone);
         mongoDB.close(); //close db connection
 
-
-        System.out.println(newMobilePhone);
-
+        this.close();
     }
 
 }

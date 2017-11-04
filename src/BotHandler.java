@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +40,7 @@ public class BotHandler extends Application {
 
     private static final String adminName = "admin";
     private static final String adminPass = "pw123";
+    private Boolean isLoggedIn;
 
     @FXML
     public Rectangle header;
@@ -70,9 +70,10 @@ public class BotHandler extends Application {
         messages = new String[]{"Sorry. I can't understand your message.", "Ugh! I can't understand this.", "I can't understand this. May you repeat?"};
         botAnswers.put("unknown", messages);
         state = "";
+        isLoggedIn = false;
 
         ProductDB mongo = new ProductDB();
-        List<Product> allProductsList = mongo.retrieveAll();
+        List<Product> allProductsList = mongo.getAllProducts();
 
 
 //        List<Product> tempProducts = new ArrayList<>();
@@ -117,11 +118,16 @@ public class BotHandler extends Application {
                 inputBox.setText("");
 
                 if (uText.contains(adminName)) {
-                    //admin login logic starts here
-                    answer("Enter password : ");
-                    state = "admin_login";
-                } else if (state.equals("admin_login")) {
-                    if (uText.equals(adminPass)) {
+                    if (isLoggedIn){
+                        answer("You are already logged in " + adminName);
+                    } else {
+                        //admin login logic starts here
+                        answer("Enter password : ");
+                        state = "admin_login";
+                    }
+                } else if (state.equals("admin_login") || (isLoggedIn && uText.contains("add"))) {
+                    if (isLoggedIn || uText.equals(adminPass)) {
+                        isLoggedIn = true;
                         answer("Welcome " + adminName + ". What kind of product do you want to add?");
                         answer("1: Mobile Phone");
                         answer("2: Laptop");
@@ -130,7 +136,6 @@ public class BotHandler extends Application {
                         answer("Wrong password!");
                         state = "";
                     }
-
                 } else if (state.equals("admin_choose_product")) {
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 1) {
                         answer("Thats not a valid selection.");
@@ -143,6 +148,16 @@ public class BotHandler extends Application {
                         newForm("AddPhone.fxml");
                         state = "";
                     }
+                } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))){
+                    answer("Refreshin product list...");
+
+                    //retrieve list from mongoDB again
+                    ProductDB mongo = new ProductDB();
+                    List<Product> allProductsList = mongo.getAllProducts();
+                    rootNode = new TreeNode(allProductsList);
+                    mongo.close();
+
+                    answer("Operation succesfully completed!");
                 } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
                     decideRandom("greeting");
                 } else if ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up"))) {
@@ -193,6 +208,8 @@ public class BotHandler extends Application {
                     answer(" TODO: I should show you information about product you have choosen but its not implemented yet. Sorry.");
 
                     state = ""; //end of product selection cycle
+                } else if (uText.contains("clear")){
+                    chatArea.setText("");
                 } else {
                     decideRandom("unknown");
                 }

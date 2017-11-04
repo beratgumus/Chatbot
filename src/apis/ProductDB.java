@@ -16,76 +16,80 @@ public class ProductDB {
 
     private MongoClient mongoClient;
     private MongoDatabase db;
-    private MongoCollection testCollection;
+    private MongoCollection productCollection;
 
     public ProductDB(){
         mongoClient = new MongoClient();
-
         db = mongoClient.getDatabase("Chatbot");
 
         // if collection does not exsist mongo will create one
         // see: https://docs.mongodb.com/manual/reference/method/db.getCollection/#behavior
-        testCollection = db.getCollection("Products");
-    }
-    //test method1
-    public void insert(Product product){
-        testCollection.insertOne(product.toDocument());
+        productCollection = db.getCollection("Products");
     }
 
-    //test method2
-    public List<Product> retrieveAll(){
-        List<Document> documentCollection = new ArrayList<>();
+    /**
+     * Inserts new product to MongoDB. Product can be any of implemented classes (Phone, Laptop, Car ...).
+     * @param product product to be inserted
+     */
+    public void insert(Product product){
+        productCollection.insertOne(product.toDocument());
+    }
+
+    /**
+     * Retrieves all products from MongoDB as a list of products.
+     * @return list of products
+     */
+    public List<Product> getAllProducts(){
+        List<Product> products = new ArrayList<>();
 
         Bson sortCriteria = Sorts.descending("Review Point", "Model");
 
-        MongoCursor<Document> cursor = testCollection.find().sort(sortCriteria).iterator();
+        MongoCursor<Document> cursor = productCollection.find().sort(sortCriteria).iterator();
         try {
             while (cursor.hasNext()) {
-                documentCollection.add(cursor.next());
+                Document document = cursor.next();
+                String type = document.get("Type").toString();
+                if (type.equals("Mobile Phone")){
+                    products.add(toMobilePhone(document));
+                } else if (type.equals("Laptop")){
+                    products.add(toLaptop(document));
+                }
             }
         } finally {
             cursor.close();
-        }
-        List<Product> products = new ArrayList<>();
-        for (Document document : documentCollection){
-            String type = document.get("Type").toString();
-            if (type.equals("Mobile Phone")){
-                products.add(toMobilePhone(document));
-            } else if (type.equals("Laptop")){
-                products.add(toLaptop(document));
-            }
         }
         return products;
     }
 
     /**
      * Closes database connection
+     * NOTE: Always use this function after you are done with MongoDB
      */
     public void close(){
         mongoClient.close();
     }
 
-    public MobilePhone toMobilePhone(Document document){
+    private MobilePhone toMobilePhone(Document document){
         return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
     }
 
-    public Camera toCamera(Document document){
+    private Camera toCamera(Document document){
         return new Camera(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
     }
 
-    public Laptop toLaptop(Document document){
+    private Laptop toLaptop(Document document){
         return new Laptop(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
     }
 
-    public Car toCar(Document document){
+    private Car toCar(Document document){
         return new Car(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getString("Vehicle Type"), document.getInteger("Power"), document.getString("Fuel Type"), document.getInteger("Number of Seats"), document.getString("Air Conditioner Type"));
     }
 
-    public Motorcycle toMotorcycle(Document document){
+    private Motorcycle toMotorcycle(Document document){
         return new Motorcycle(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getString("Vehicle Type"), document.getInteger("Power"), document.getString("Fuel Type"), document.getBoolean(""), document.getBoolean(""));
     }
 
-    public Refrigerator toRefrigerator(Document document){
+    private Refrigerator toRefrigerator(Document document){
         return new Refrigerator(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getInteger("Capacity"), document.getString("Energy Efficiency"), document.getString("Refrigerator Type"), document.getBoolean("Ice Maker"), document.getBoolean("Frost Free"), document.getBoolean("Door Open Alarm"));
     }
 
