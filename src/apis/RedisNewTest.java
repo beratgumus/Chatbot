@@ -2,7 +2,7 @@ package apis;
 
 import java.util.*;
 
-public class Main {
+public class RedisNewTest {
 
     public static void main(String[] args) {
 
@@ -17,7 +17,10 @@ public class Main {
 //        Tweet newTweet = new Tweet("Hey! here is my second tweet.", "BekirUzn" , "1509313291147" , 0.0);
 //        Tweet newTweet = new Tweet("New #iphonex is awesome. I love it!", "BekirUzn" , "1509321245641" , 3.7);
 
-
+        List<Map<String, String>> list =db.getTweetByKeyword("iPhoneX");
+        for (Map<String, String> tweet: list) {
+            System.out.println(tweet);
+        }
 //        boolean succesful = db.addNewTweet("iPhoneX",newTweet);
 //        if (succesful)
 //            System.out.println("Tweet başarıyla eklendi");

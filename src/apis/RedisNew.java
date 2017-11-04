@@ -23,9 +23,14 @@ public class RedisNew {
      * @param id tweet id
      * @return tweet
      */
-    public Map<String, String> getTweetById(int id) {
-        Map tweet = db.hgetAll("tweet:" + id);
-        return tweet;
+
+    public List<Map<String, String>> getTweetByKeyword(String keyword) {
+        List<Map<String, String>> tweetList = new  ArrayList<Map<String, String>>();
+        for (int i =2 ; i< 10 ; i++){
+            Map tweet = db.hgetAll(keyword+": "+i);
+            tweetList.add(tweet);
+        }
+        return tweetList;
     }
 
     /**
