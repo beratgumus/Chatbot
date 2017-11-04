@@ -26,7 +26,7 @@ public class ProductDB {
     public ProductDB(){
         mongoClient = new MongoClient();
         products = mongoClient.getDatabase("Products");
-        mobilePhones = products.getCollection("Mobile Phone");
+        mobilePhones = products.getCollection("Mobile Phones");
         laptops = products.getCollection("Laptops");
         cameras = products.getCollection("Cameras");
         cars = products.getCollection("Cars");
