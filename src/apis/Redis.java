@@ -17,7 +17,10 @@ public class Redis {
         db = new Jedis(redisHost);
     }
 
-
+    /**
+     * @param keyword for getting tweets from redis
+     * @return list of tweets according to keyword
+     */
     public List<Tweet> getTweetByKeyword(String keyword) {
         List<Tweet> tweetList = new ArrayList<Tweet>();
         long size = db.llen(keyword);
@@ -30,33 +33,16 @@ public class Redis {
     }
 
     /**
-     * Retrieves all tweets from database
+     * Adds given tweets to the redis
      *
-     * @return List of tweets
+     * @param tweetList source tweet list
      */
 
-
-    /**
-     * Adds given tweet to the database
-     *
-     * @param newTweet source tweet
-     * @return returns true if operation was succesful
-     */
-
-    /**
-     * Adds given tweet to the database
-     *
-     * @param newTweet source tweet
-     * @return returns true if operation was succesful
-     */
-
-    public boolean addNewTweet(String keyword, List<Tweet> tweetList) {
+    public void addNewTweet(String keyword, List<Tweet> tweetList) {
         for (Tweet tweet : tweetList) {
             String value = "" + tweet.getId() + "♦" + tweet.getUser() + "♦" + tweet.getText() + "♦" + tweet.getTimespan() + "♦" + tweet.getReviewPoint();
             db.lpush(keyword, value);
-
         }
-        return true;
     }
 
     /**
