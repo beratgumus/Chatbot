@@ -19,6 +19,7 @@ public class ProductDB {
     private MongoCollection mobilePhones;
     private MongoCollection laptops;
     private MongoCollection cameras;
+    private MongoCollection cars;
 
     public ProductDB(){
         mongoClient = new MongoClient();
@@ -26,6 +27,7 @@ public class ProductDB {
         mobilePhones = products.getCollection("Mobile Phone");
         laptops = products.getCollection("Laptops");
         cameras = products.getCollection("Cameras");
+        cars = products.getCollection("Cars");
     }
 
     public void instertToDB(MobilePhone mobilePhone){
@@ -38,6 +40,10 @@ public class ProductDB {
 
     public void instertToDB(Camera camera){
         cameras.insertOne(camera.toDocument());
+    }
+
+    public void insertToDB()(Car car){
+
     }
 
     public List<Product> getDB(){
