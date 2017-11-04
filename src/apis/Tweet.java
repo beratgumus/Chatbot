@@ -35,11 +35,11 @@ public class Tweet {
      */
     public Map<String, String> toMap() {
         Map<String, String> tweet = new HashMap<>();
-
+        tweet.put("id", Long.toString(this.id));
         tweet.put("text", this.text);
         tweet.put("user", this.user);
-        tweet.put("timespan", timespan);
-        tweet.put("reviewPoint", Double.toString(reviewPoint));
+        tweet.put("timespan", this.timespan);
+        tweet.put("reviewPoint", Double.toString(this.reviewPoint));
 
         return tweet;
     }
@@ -82,6 +82,10 @@ public class Tweet {
 
     public void setReviewPoint(double reviewPoint) {
         this.reviewPoint = reviewPoint;
+    }
+
+    public String toString() {
+        return "Tweet id: " + id + "Tweet user: " + user + "Tweet text: " + text + "Tweet date: " + timespan + "Tweet reviewPoint: " + reviewPoint;
     }
 
 }

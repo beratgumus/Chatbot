@@ -11,15 +11,12 @@ public class RedisNewTest {
         //check whether server is running or not
 //        System.out.println("Server is running: "+ db.ping());
 
-        RedisNew db = new RedisNew();
+        Redis db = new Redis();
 
-        Tweet newTweet = new Tweet(1, "I am setting up twitter!", "BekirUzn", "1509297291688", 0.0);
-//        Tweet newTweet = new Tweet("Hey! here is my second tweet.", "BekirUzn" , "1509313291147" , 0.0);
-//        Tweet newTweet = new Tweet("New #iphonex is awesome. I love it!", "BekirUzn" , "1509321245641" , 3.7);
-
-        List<Map<String, String>> list =db.getTweetByKeyword("iPhoneX");
-        for (Map<String, String> tweet: list) {
-            System.out.println(tweet);
+        List<Tweet> list = db.getTweetByKeyword("iPhoneX");
+        for (Tweet tweet : list) {
+            //System.out.println(tweet.toString());
+            System.out.println(tweet.getText());
         }
 //        boolean succesful = db.addNewTweet("iPhoneX",newTweet);
 //        if (succesful)

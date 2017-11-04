@@ -58,21 +58,21 @@ public class Controller {
                 Integer.parseInt(cameraTF.getText()),
                 osTF.getText(),
                 Integer.parseInt(ramTF.getText()));
-//        try {
-//            twitterAPI = new TwitterAPI();
-//            double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
-//            System.out.println("10 tweetin Hesaplanan ortalamasi: " + reviewPoint);
-//            newMobilePhone.setReviewPoint(reviewPoint);
-//        } catch (TwitterException e) {
-//
-//        }
-        newMobilePhone.setReviewPoint(2.2);
-        /**
-         * ToDo: insert the object to mongoDB
-         */
-        ProductDB mongoDB = new ProductDB();
-        mongoDB.insert(newMobilePhone);
-        mongoDB.close(); //close db connection
+        try {
+            twitterAPI = new TwitterAPI();
+            double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
+            System.out.println("10 tweetin Hesaplanan ortalamasi: " + reviewPoint);
+            newMobilePhone.setReviewPoint(reviewPoint);
+        } catch (TwitterException e) {
+
+        }
+//        newMobilePhone.setReviewPoint(2.2);
+//        /**
+//         * ToDo: insert the object to mongoDB
+//         */
+//        ProductDB mongoDB = new ProductDB();
+//        mongoDB.insert(newMobilePhone);
+//        mongoDB.close(); //close db connection
 
         this.close();
     }

@@ -59,7 +59,7 @@ public class TwitterAPI {
                 tweetList.add(newTweet);
                 System.out.println("Tweet review point: " + tweetReviewPoint);
             }
-            RedisNew db = new RedisNew();
+            Redis db = new Redis();
             db.addNewTweet(keyword, tweetList);
             averageReviewPoint = totalReviewPoint / tweetList.size();
 
