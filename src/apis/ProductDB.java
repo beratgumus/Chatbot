@@ -114,7 +114,7 @@ public class ProductDB {
 
     public void toRefrigerator(List<Document> refrigeratorCollection, List<Product> productCollection){
         for(Document product : refrigeratorCollection){
-            productCollection.add(toMotorcycle(product));
+            productCollection.add(toRefrigerator(product));
         }
     }
 
