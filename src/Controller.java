@@ -1,12 +1,15 @@
-package productforms;
 
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 import products.*;
 
-public class AddPhoneController {
+public class Controller {
 
     @FXML
     public Button closeBtn;
@@ -36,7 +39,7 @@ public class AddPhoneController {
      * this function is called by save button
      */
     @FXML
-    public void save(Event event) {
+    public void savePhone(Event event) {
         MobilePhone newMobilePhone = new MobilePhone(
                 brandTF.getText(),
                 modelTF.getText(),
@@ -54,6 +57,7 @@ public class AddPhoneController {
          * ToDo: insert the object to mongoDB
          */
         System.out.println(newMobilePhone);
+
     }
 
 }

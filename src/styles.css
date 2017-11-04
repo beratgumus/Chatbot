@@ -43,3 +43,13 @@
     -fx-background-color: #202432;
     -fx-effect: none;
 }
+
+.text-area {
+    -fx-text-fill: #A0A2BA;
+    text-area-background: #232838 ;
+}
+
+.text-area .content {
+    -fx-text-fill: #A0A2BA;
+    -fx-background-color: text-area-background ;
+}

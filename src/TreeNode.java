@@ -16,13 +16,13 @@ public class TreeNode {
     protected List<Product> productList; //this will be set only on leaf nodes
 
     /**
-     * Constructor for tree root node. Create a node, give list of producs and it will
+     * Constructor for tree botAnchor node. Create a node, give list of producs and it will
      * create whole tree.
      * @param products list of producs
      */
     public TreeNode(List<Product> products){
         childs = new HashMap<>();
-        this.nodeType = "product category"; //root is always category type. we start selecting from category
+        this.nodeType = "product category"; //botAnchor is always category type. we start selecting from category
 
         for (Product p : products){
             if (!this.childs.containsKey(p.getCategory())) {

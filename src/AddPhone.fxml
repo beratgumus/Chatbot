@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="393.0" prefWidth="595.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="productforms.AddPhoneController">
+<AnchorPane prefHeight="393.0" prefWidth="595.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <AnchorPane fx:id="background" layoutX="13.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="570.0" style="-fx-background-color: #2d3447;">
           <children>
@@ -77,7 +77,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="saveBtn" layoutX="249.0" layoutY="333.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="73.0" stylesheets="@styles.css" text="SAVE" />
+            <Button fx:id="saveBtn" layoutX="249.0" layoutY="333.0" mnemonicParsing="false" onAction="#savePhone" prefHeight="30.0" prefWidth="73.0" stylesheets="@styles.css" text="SAVE" />
             <Button fx:id="closeBtn" layoutX="524.0" layoutY="13.0" mnemonicParsing="false" onAction="#close" styleClass="close-button" stylesheets="@styles.css" text="X" />
             <TextField fx:id="cameraTF" layoutX="390.0" layoutY="240.0" styleClass="text-input" stylesheets="@styles.css">
                <opaqueInsets>
