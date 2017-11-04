@@ -34,15 +34,15 @@ public class ProductDB {
         refrigerators = products.getCollection("Refrigerators");
     }
 
-    public void instertToDB(MobilePhone mobilePhone){
+    public void insertToDB(MobilePhone mobilePhone){
         mobilePhones.insertOne(mobilePhone.toDocument());
     }
 
-    public void instertToDB(Laptop laptop){
+    public void insertToDB(Laptop laptop){
         laptops.insertOne(laptop.toDocument());
     }
 
-    public void instertToDB(Camera camera){
+    public void insertToDB(Camera camera){
         cameras.insertOne(camera.toDocument());
     }
 
@@ -192,14 +192,14 @@ public class ProductDB {
         g.setReviewPoint(0.1);
         h.setReviewPoint(1.3);
 
-        db.instertToDB(a);
-        db.instertToDB(b);
-        db.instertToDB(c);
-        db.instertToDB(d);
-        db.instertToDB(e);
-        db.instertToDB(f);
-        db.instertToDB(g);
-        db.instertToDB(h);
+        db.insertToDB(a);
+        db.insertToDB(b);
+        db.insertToDB(c);
+        db.insertToDB(d);
+        db.insertToDB(e);
+        db.insertToDB(f);
+        db.insertToDB(g);
+        db.insertToDB(h);
 
         System.out.println(db.getDB().get(0).toString());
         System.out.println(db.getDB().get(1).toString());
