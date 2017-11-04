@@ -25,7 +25,7 @@ public class AddPhone extends Application {
     @FXML
     public AnchorPane root;
 
-
+    //for draggable window
     private static double xOffset = 0;
     private static double yOffset = 0;
 
@@ -37,6 +37,7 @@ public class AddPhone extends Application {
         root.setBackground(Background.EMPTY);
         header = ((Rectangle) root.lookup("#header"));
 
+        //fix for draggable window with custom title bar
         header.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -45,6 +46,7 @@ public class AddPhone extends Application {
             }
         });
 
+        //fix for draggable window with custom title bar
         header.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -53,7 +55,7 @@ public class AddPhone extends Application {
             }
         });
 
-
+        //make background transparent for window shadow
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(anchorPane,  root.getPrefWidth(), root.getPrefHeight());
         scene.setFill(Color.TRANSPARENT);
@@ -65,6 +67,7 @@ public class AddPhone extends Application {
         launch();
     }
 
+    //for test purposes
     public static void main(String[] args) {
         launch(args);
     }

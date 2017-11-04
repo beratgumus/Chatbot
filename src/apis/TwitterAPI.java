@@ -35,7 +35,7 @@ public class TwitterAPI {
     /**
      * method that returns the list of Tweet according to keyword.
      *
-     * @param searchKey is a key that used for searching a comments.
+     * @param searchKey key that used for searching
      * @return set of a Tweet objects as a list.
      */
     public List<Tweet> getTweets(String searchKey) throws TwitterException {

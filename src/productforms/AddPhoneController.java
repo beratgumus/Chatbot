@@ -23,13 +23,18 @@ public class AddPhoneController {
     public TextField cameraTF;
     public TextField ramTF;
 
-
+    /**
+     * This function is called by close button at the top right
+     */
     @FXML
     public void close() {
         Stage stage = (Stage) closeBtn.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * this function is called by save button
+     */
     @FXML
     public void save(Event event) {
         MobilePhone newMobilePhone = new MobilePhone(

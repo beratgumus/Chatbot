@@ -42,7 +42,7 @@ public class ProductDB {
         cameras.insertOne(camera.toDocument());
     }
 
-    public void insertToDB()(Car car){
+    public void insertToDB(Car car){
 
     }
 

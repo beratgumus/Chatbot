@@ -67,9 +67,11 @@ public class Redis {
         String ret = db.hmset("tweet:" + id, newTweet);
 
         if (ret.equals("OK")){
+            //tweet inserted succesfully
             db.incr("next_tweet_id");
             return true;
         } else {
+            //error
             return false;
         }
     }
