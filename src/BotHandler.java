@@ -96,7 +96,7 @@ public class BotHandler extends Application {
                 if (chatArea == null)
                     chatArea = (TextArea) botAnchor.lookup("#chatBox");
 
-                String uText = inputBox.getText();
+                String uText = inputBox.getText().toLowerCase();
 
                 if (uText.length() < 1) {
                     //do not trigger answering logic if message is empty
