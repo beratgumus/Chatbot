@@ -7,7 +7,7 @@ import twitter4j.TwitterException;
 
 import java.util.List;
 
-public abstract class Product {
+public abstract class Product implements Comparable<Product> {
     private String id;
     private String brand;
     private String model;
@@ -69,22 +69,22 @@ public abstract class Product {
         this.weight = weight;
         tweets = null;
         twitterAPI = new TwitterAPI();
-        /*
+
         try {
             tweets = twitterAPI.getTweets(model);
         } catch (TwitterException e) {
 
         }
 
-        */
+
         /**
          * Todo: need to insert tweets to redis !!!!
          */
-/*
+
         this.reviewPoint = twitterAPI.getReviewPoint();
         System.out.println("10 tweetin Hesaplananortalamasi: " + this.reviewPoint);
 
-        */
+
     }
 
     public String getCategory() {
@@ -167,16 +167,26 @@ public abstract class Product {
         this.weight = weight;
     }
 
-    public Double getReviewPoint(){
+    public Double getReviewPoint() {
         return reviewPoint;
     }
 
-    public void setReviewPoint(Double reviewPoint){
+    public void setReviewPoint(Double reviewPoint) {
         this.reviewPoint = reviewPoint;
     }
 
     public String toShortString() {
         return brand + model;
+    }
+
+
+    public int compareTo(Product productToCompare) {
+        if (this.reviewPoint == productToCompare.getReviewPoint())
+            return 0;
+        else if (this.reviewPoint > productToCompare.getReviewPoint())
+            return 1;
+        else
+            return -1;
     }
 
     public Document toDocument() {
@@ -192,6 +202,6 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return "Product [type=" + type + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + ", size=" + height + "hx" + width + "wx" + depth + "d" + ", weight=" + weight + "Review Point:"  + reviewPoint + " ]";
+        return "Product [type=" + type + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + ", size=" + height + "hx" + width + "wx" + depth + "d" + ", weight=" + weight + "Review Point:" + reviewPoint + " ]";
     }
 }
