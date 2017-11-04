@@ -1,9 +1,12 @@
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import products.*;
+import productforms.*;
+
 
 import javax.swing.*;
 
@@ -19,6 +22,9 @@ public class BotHandler extends JFrame {
     private TreeNode currentNode;
     private String[] options;
     private String state;
+
+    private static final String adminName = "admin";
+    private static final String adminPass = "pw123";
 
     public BotHandler() {
         //TODO: (Maybe) Store all messages in a database. This is ugly. (fetch as JSON?)
@@ -78,12 +84,42 @@ public class BotHandler extends JFrame {
                     //do not trigger answering logic if message is empty
                     return;
                 }
-
-				chatArea.append("You: " + uText + "\n");
+                if (!state.equals("admin_login"))
+				    chatArea.append("You: " + uText + "\n");
+                else {
+                    // lets dont show password
+                    chatArea.append("You: " + String.join("", Collections.nCopies(uText.length(), "*")) + "\n");
+                }
                 inputBox.setText("");
 
-				if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
-					decideRandom("greeting");
+                if (uText.equals(adminName)){
+                    //admin login logic starts here
+                    answer("Enter password : ");
+                    state = "admin_login";
+                } else if ( state.equals("admin_login")) {
+                    if (uText.equals(adminPass)){
+                        answer("Welcome "+adminName+". What kind of product do you want to add?");
+                        answer("1: Mobile Phone");
+                        answer("2: Laptop");
+                        state = "admin_choose_product";
+                    } else {
+                        answer("Wrong password!");
+                        state = "";
+                    }
+
+                } else if (state.equals("admin_choose_product")){
+                    if ( !uText.matches("[0-9]+") || Integer.parseInt(uText) > 2 ) {
+                        answer("Thats not a valid selection.");
+                        state = ""; //reset state;
+                        return;
+                    }
+                    int selection = Integer.parseInt(uText);
+                    if (selection == 1){
+                        answer("Opening new form...");
+                        AddPhone.runApp();
+                    }
+                } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
+                    decideRandom("greeting");
                 } else if((uText.contains("how") && uText.contains("you") ) || (uText.contains("what") && uText.contains("up"))){
                     decideRandom("ask_about");
                 } else if (uText.contains("buy something") || uText.contains("product") ) {
