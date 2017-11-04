@@ -19,8 +19,10 @@ public abstract class Product {
     private Double depth;
     private int weight;
     private double reviewPoint;
+    List<Tweet> tweets;
+    TwitterAPI twitterAPI;
 
-    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
+    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight, Double reviewPoint) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -31,20 +33,58 @@ public abstract class Product {
         this.width = width;
         this.depth = depth;
         this.weight = weight;
-
-        List<Tweet> tweets = null;
-        TwitterAPI twitterAPI = new TwitterAPI();
+        this.reviewPoint = reviewPoint;
+        tweets = null;
+        twitterAPI = new TwitterAPI();
+/*
         try {
             tweets = twitterAPI.getTweets(model);
         } catch (TwitterException e) {
 
         }
+
+        */
         /**
          * Todo: need to insert tweets to redis !!!!
          */
 
+        /*
+
         this.reviewPoint = twitterAPI.getReviewPoint();
-        System.out.println("10 tweetin Hesaplanan  ortalamasi: " + this.reviewPoint);
+        System.out.println("10 tweetin Hesaplananortalamasi: " + this.reviewPoint);
+
+        */
+    }
+
+    public Product(String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
+        this.id = null;
+        this.brand = brand;
+        this.model = model;
+        this.price = price;
+        this.category = category;
+        this.type = type;
+        this.height = height;
+        this.width = width;
+        this.depth = depth;
+        this.weight = weight;
+        tweets = null;
+        twitterAPI = new TwitterAPI();
+        /*
+        try {
+            tweets = twitterAPI.getTweets(model);
+        } catch (TwitterException e) {
+
+        }
+
+        */
+        /**
+         * Todo: need to insert tweets to redis !!!!
+         */
+/*
+        this.reviewPoint = twitterAPI.getReviewPoint();
+        System.out.println("10 tweetin Hesaplananortalamasi: " + this.reviewPoint);
+
+        */
     }
 
     public String getCategory() {
@@ -127,24 +167,31 @@ public abstract class Product {
         this.weight = weight;
     }
 
+    public Double getReviewPoint(){
+        return reviewPoint;
+    }
+
+    public void setReviewPoint(Double reviewPoint){
+        this.reviewPoint = reviewPoint;
+    }
+
     public String toShortString() {
         return brand + model;
     }
 
-
     public Document toDocument() {
-        return new Document("_id", getId())
-                .append("Brand", getBrand())
+        return new Document("Brand", getBrand())
                 .append("Model", getModel())
                 .append("Price", getPrice())
                 .append("Height", getHeight())
                 .append("Width", getWidth())
                 .append("Depth", getDepth())
-                .append("Weight", getWeight());
+                .append("Weight", getWeight())
+                .append("Review Point", getReviewPoint());
     }
 
     @Override
     public String toString() {
-        return "Product [type=" + type + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + ", size=" + height + "hx" + width + "wx" + depth + "d" + ", weight=" + weight + " ]";
+        return "Product [type=" + type + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + ", size=" + height + "hx" + width + "wx" + depth + "d" + ", weight=" + weight + "Review Point:"  + reviewPoint + " ]";
     }
 }

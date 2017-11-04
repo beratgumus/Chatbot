@@ -38,7 +38,7 @@ public class BotHandler extends JFrame {
         state = "";
 
         List<Product> tempProducts = new ArrayList<>();
-
+        tempProducts.add(new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10") );
         tempProducts.add(new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10") );
         tempProducts.add(new Laptop("Lenovo", "G5080B", 1600.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4035u", "Windows 10") );
         tempProducts.add(new Laptop("Lenovo", "G5080C", 1799.0, 26.0, 51.0, 8.0, 2560, 15.6, 750, 4, "i5 4060u", "Windows 10") );

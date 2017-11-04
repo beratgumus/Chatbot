@@ -32,7 +32,7 @@ public class AddPhoneController {
 
     @FXML
     public void save(Event event) {
-        MobilePhone newMobilePhone = new MobilePhone("1",
+        MobilePhone newMobilePhone = new MobilePhone(
                 brandTF.getText(),
                 modelTF.getText(),
                 Double.parseDouble(priceTF.getText()),

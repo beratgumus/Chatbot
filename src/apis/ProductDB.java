@@ -8,9 +8,9 @@ import org.bson.Document;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
-import com.mongodb.client.model.Projections;
-import org.bson.types.ObjectId;
+import org.bson.conversions.Bson;
 import products.*;
+import com.mongodb.client.model.Sorts;
 
 public class ProductDB {
 
@@ -41,26 +41,15 @@ public class ProductDB {
     }
 
     public List<Product> getDB(){
-        List<Document> mobilePhoneCollection = new ArrayList<>();
-        List<Document> laptopCollection = new ArrayList<>();
-        List<Document> cameraCollection = new ArrayList<>();
         List<Product> productCollection = new ArrayList<>();
+        List<Document> mobilePhoneCollection = documentCollector(mobilePhones);;
+        List<Document> laptopCollection = documentCollector(laptops);
+        List<Document> cameraCollection = documentCollector(cameras);
+        laptops.find().sort(new Document("Review Point","-1"));
 
-        mobilePhoneCollection = documentCollector(mobilePhones);
-        laptopCollection = documentCollector(laptops);
-        cameraCollection = documentCollector(cameras);
-
-        for(Document product : mobilePhoneCollection){
-            productCollection.add(toMobilePhone(product));
-        }
-
-        for(Document product : laptopCollection){
-            productCollection.add(toLaptop(product));
-        }
-
-        for(Document product : cameraCollection){
-            productCollection.add(toCamera(product));
-        }
+        toMobilePhone(mobilePhoneCollection, productCollection);
+        toLaptop(laptopCollection, productCollection);
+        toCamera(cameraCollection, productCollection);
 
         return productCollection;
     }
@@ -68,7 +57,9 @@ public class ProductDB {
     public List<Document> documentCollector(MongoCollection mongoCollection){
         List<Document> documentCollection = new ArrayList<>();
 
-        MongoCursor<Document> cursor = mongoCollection.find().iterator();
+        Bson sortCriteria = Sorts.descending("Review Point", "Model");
+
+        MongoCursor<Document> cursor = mongoCollection.find().sort(sortCriteria).iterator();
         try {
             while (cursor.hasNext()) {
                 documentCollection.add(cursor.next());
@@ -81,15 +72,33 @@ public class ProductDB {
     }
 
     public MobilePhone toMobilePhone(Document document){
-        return new MobilePhone(document.getString("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
+        return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
+    }
+
+    public void toMobilePhone(List<Document> mobilePhoneCollection, List<Product> productCollection){
+        for(Document product : mobilePhoneCollection){
+            productCollection.add(toMobilePhone(product));
+        }
     }
 
     public Camera toCamera(Document document){
-        return new Camera(document.getString("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
+        return new Camera(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
+    }
+
+    public void toCamera(List<Document> cameraCollection, List<Product> productCollection){
+        for(Document product : cameraCollection){
+            productCollection.add(toCamera(product));
+        }
     }
 
     public Laptop toLaptop(Document document){
-        return new Laptop(document.getString("_id"), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
+        return new Laptop(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
+    }
+
+    public void toLaptop(List<Document> laptopCollection, List<Product> productCollection){
+        for(Document product : laptopCollection){
+            productCollection.add(toLaptop(product));
+        }
     }
 
     public static void main( String args[] ) {
@@ -111,8 +120,40 @@ public class ProductDB {
 
         ProductDB db = new ProductDB();
 
-        //db.instertToDB(new Laptop("10", "Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10"));
-        System.out.println(db.getDB().get(0).toString());
+        Laptop a = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop b = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop c = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop d = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop e = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop f = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop g = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
+        Laptop h = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
 
+        a.setReviewPoint(0.55);
+        b.setReviewPoint(-2.51);
+        c.setReviewPoint(3.46);
+        d.setReviewPoint(0.545);
+        e.setReviewPoint(6.54);
+        f.setReviewPoint(-5.4);
+        g.setReviewPoint(0.1);
+        h.setReviewPoint(1.3);
+
+        db.instertToDB(a);
+        db.instertToDB(b);
+        db.instertToDB(c);
+        db.instertToDB(d);
+        db.instertToDB(e);
+        db.instertToDB(f);
+        db.instertToDB(g);
+        db.instertToDB(h);
+
+        System.out.println(db.getDB().get(0).toString());
+        System.out.println(db.getDB().get(1).toString());
+        System.out.println(db.getDB().get(2).toString());
+        System.out.println(db.getDB().get(3).toString());
+        System.out.println(db.getDB().get(4).toString());
+        System.out.println(db.getDB().get(5).toString());
+        System.out.println(db.getDB().get(6).toString());
+        System.out.println(db.getDB().get(7).toString());
     }
 }
