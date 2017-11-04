@@ -9,15 +9,15 @@ public abstract class Vehicle extends Product {
     private String fuelType;
 
 
-    public Vehicle(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight, Double reviewPoint, String vehicleType, int power, String fuelType) {
-        super(id, brand, model, price, category, type, height, width, depth, weight, reviewPoint);
+    public Vehicle(String id, String brand, String model, Double price, String type, Double height, Double width, Double depth, int weight, Double reviewPoint, String vehicleType, int power, String fuelType) {
+        super(id, brand, model, price, "Vehicle", type, height, width, depth, weight, reviewPoint);
         this.vehicleType = vehicleType;
         this.power = power;
         this.fuelType = fuelType;
     }
 
-    public Vehicle(String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight, String vehicleType, int power, String fuelType) {
-        super(brand, model, price, category, type, height, width, depth, weight);
+    public Vehicle(String brand, String model, Double price, String type, Double height, Double width, Double depth, int weight, String vehicleType, int power, String fuelType) {
+        super(brand, model, price, "Vehicle" ,type, height, width, depth, weight);
         this.vehicleType = vehicleType;
         this.power = power;
         this.fuelType = fuelType;

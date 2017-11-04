@@ -47,7 +47,6 @@ public abstract class Product implements Comparable<Product> {
         this.width = width;
         this.depth = depth;
         this.weight = weight;
-
     }
 
     public String getCategory() {
@@ -62,7 +61,7 @@ public abstract class Product implements Comparable<Product> {
         return id;
     }
 
-    public void setId(int pId) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -70,7 +69,7 @@ public abstract class Product implements Comparable<Product> {
         return brand;
     }
 
-    public void setBrand(String pBrand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 
@@ -78,7 +77,7 @@ public abstract class Product implements Comparable<Product> {
         return model;
     }
 
-    public void setModel(String pModel) {
+    public void setModel(String model) {
         this.model = model;
     }
 
@@ -86,8 +85,8 @@ public abstract class Product implements Comparable<Product> {
         return price;
     }
 
-    public void setPrice(Double pPrice) {
-        this.price = pPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getType() {
