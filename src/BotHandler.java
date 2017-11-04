@@ -204,8 +204,13 @@ public class BotHandler extends Application {
                     int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
                     Product selectedProduct = products.get(selectedIndex);
 
-                    // TODO: show product info
-                    answer(" TODO: I should show you information about product you have choosen but its not implemented yet. Sorry.");
+                    chatArea.setText(chatArea.getText() + "\n" +selectedProduct);
+                    //hotfix for autoscroll chatArea
+                    Timeline timeline = new Timeline(new KeyFrame(
+                            Duration.millis(25),
+                            ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
+                    timeline.play();
+
 
                     state = ""; //end of product selection cycle
                 } else if (uText.contains("clear")){

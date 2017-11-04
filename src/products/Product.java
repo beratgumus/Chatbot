@@ -165,6 +165,6 @@ public abstract class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return "Product [type=" + type + "id=" + id + ", brand=" + brand + ", model=" + model + ", price" + price + "$" + ", size=" + height + "hx" + width + "wx" + depth + "d" + ", weight=" + weight + "Review Point:" + reviewPoint + " ]";
+        return brand + " " + model + " - Price: " + price + "$" + "\nDimensions: " + height + " x " + width + " x " + depth + "\nWeight: " + weight + "\nReview Point: " + reviewPoint;
     }
 }
