@@ -23,9 +23,9 @@ public class TwitterAPI {
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true).setOAuthConsumerKey("*********")
-                .setOAuthConsumerSecret("*******")
-                .setOAuthAccessToken("************")
-                .setOAuthAccessTokenSecret("***************");
+                .setOAuthConsumerSecret("************")
+                .setOAuthAccessToken("****************")
+                .setOAuthAccessTokenSecret("**************");
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
@@ -39,11 +39,11 @@ public class TwitterAPI {
      * @return set of a Tweet objects as a list.
      */
     public List<Tweet> getTweets(String searchKey) throws TwitterException {
-
+        String keyword = searchKey.replaceAll("\\W","");
         List<Tweet> tweetList = new ArrayList<Tweet>();
         try {
             //ToDo: need to improvment on query
-            Query query = new Query("(#" + searchKey + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
+            Query query = new Query("(#" + keyword + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
             query.count(10);
             QueryResult result = twitter.search(query);
             List<Status> tweets = result.getTweets();
