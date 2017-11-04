@@ -93,5 +93,12 @@ public class Redis {
         db.flushDB();
     }
 
+    /**
+     * Closes database connection. Use this after you are done with object
+     */
+    public void close(){
+        db.close();
+    }
+
 
 }

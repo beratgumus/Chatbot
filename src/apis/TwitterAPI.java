@@ -28,8 +28,6 @@ public class TwitterAPI {
                 .setOAuthAccessToken("**********")
                 .setOAuthAccessTokenSecret("**********");
 
-
-
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
         senticNet = new SenticNet();
@@ -48,23 +46,22 @@ public class TwitterAPI {
         try {
             //ToDo: need to improvment on query
             Query query = new Query("(#" + keyword + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
-            query.count(10);
-            QueryResult result = twitter.search(query);
+            query.count(10);//max 10 tweets
+            QueryResult result = twitter.search(query); //send query
             List<Status> tweets = result.getTweets();
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            double reviewPoint = 0.00;
+            double totalReviewPoint = 0.00;
             for (Status tweet : tweets) {
-                double tweetReviewPoint = 0.00;
                 System.out.println("@" + tweet.getUser().getScreenName() + " [id]: " + tweet.getId() + " : " + tweet.getText() + "[date]: " + tweet.getCreatedAt() + "\n");
-                tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText());
-                reviewPoint += tweetReviewPoint;
+                double tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText());
+                totalReviewPoint += tweetReviewPoint;
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), tweetReviewPoint);
                 tweetList.add(newTweet);
                 System.out.println("Tweet review point: " + tweetReviewPoint);
             }
             RedisNew db = new RedisNew();
             db.addNewTweet(keyword, tweetList);
-            averageReviewPoint = reviewPoint / tweetList.size();
+            averageReviewPoint = totalReviewPoint / tweetList.size();
 
         } catch (TwitterException te) {
             te.printStackTrace();
@@ -73,6 +70,4 @@ public class TwitterAPI {
 
         return averageReviewPoint;
     }
-
-
 }
