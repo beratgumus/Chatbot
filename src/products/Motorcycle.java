@@ -39,8 +39,8 @@ public class Motorcycle extends Vehicle {
     @Override
     public Document toDocument(){
         return super.toDocument()
-                .append("Wind Shield", isWindshield())
-                .append("Power", isCarrierBox());
+                .append("Wind Shield", windshield)
+                .append("Power", carrierBox);
     }
 
     @Override

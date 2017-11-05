@@ -64,10 +64,10 @@ public class Refrigerator extends MajorAppliance {
     @Override
     public Document toDocument(){
         return super.toDocument()
-                .append("Refrigerator Type", getCapacity())
-                .append("Ice Maker", isIceMaker())
-                .append("Frost Free", isFrostFree())
-                .append("Door Open Alarm", isDoorOpenAlarm());
+                .append("Refrigerator Type", refrigeratorType)
+                .append("Ice Maker", iceMaker)
+                .append("Frost Free", frostFree)
+                .append("Door Open Alarm", doorOpenAlarm);
     }
 
     @Override

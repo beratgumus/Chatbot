@@ -38,8 +38,8 @@ public abstract class ConsumerElectronics extends Product {
     @Override
     public  Document toDocument(){
         return super.toDocument()
-                .append("Screen Size", getScreenSize())
-                .append("Storage Size", getStorageSize());
+                .append("Screen Size", screenSize)
+                .append("Storage Size", storageSize);
     }
 
     @Override

@@ -50,9 +50,9 @@ public abstract class Vehicle extends Product {
     @Override
     public Document toDocument(){
         return super.toDocument()
-                .append("Vehicle Type", getVehicleType())
-                .append("Power", getPower())
-                .append("Fuel Type", getFuelType());
+                .append("Vehicle Type", vehicleType)
+                .append("Power",power)
+                .append("Fuel Type", fuelType);
     }
 
     @Override

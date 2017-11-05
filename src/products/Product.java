@@ -147,15 +147,15 @@ public abstract class Product implements Comparable<Product> {
     }
 
     public Document toDocument() {
-        return new Document("Brand", getBrand())
-                .append("Model", getModel())
-                .append("Price", getPrice())
+        return new Document("Brand", brand)
+                .append("Model", model)
+                .append("Price", price)
                 .append("Type", type)
-                .append("Height", getHeight())
-                .append("Width", getWidth())
-                .append("Depth", getDepth())
-                .append("Weight", getWeight())
-                .append("Review Point", getReviewPoint());
+                .append("Height", height)
+                .append("Width", width)
+                .append("Depth", depth)
+                .append("Weight", weight)
+                .append("Review Point", reviewPoint);
     }
 
     @Override

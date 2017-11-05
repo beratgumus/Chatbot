@@ -48,9 +48,9 @@ public class MobilePhone extends ConsumerElectronics {
 
     public Document toDocument(){
         return super.toDocument()
-                .append("Camera Resolution", getCameraResolution())
-                .append("OS", getOs())
-                .append("RAM Size", getRamSize());
+                .append("Camera Resolution", cameraResolution)
+                .append("OS", os)
+                .append("RAM Size", ramSize);
     }
 
     @Override

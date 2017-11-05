@@ -38,8 +38,8 @@ public abstract class MajorAppliance extends Product {
     @Override
     public Document toDocument(){
         return super.toDocument()
-                .append("Capacity", getCapacity())
-                .append("Energy Efficiency", getEnergyEfficiency());
+                .append("Capacity", capacity)
+                .append("Energy Efficiency", energyEfficiency);
     }
 
     @Override

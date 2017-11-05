@@ -36,8 +36,8 @@ public class Car extends Vehicle {
     @Override
     public org.bson.Document toDocument(){
         return super.toDocument()
-                .append("Number of Seats", getNumberOfSeats())
-                .append("Air Conditioner Type", getAirConditionerType());
+                .append("Number of Seats", numberOfSeats)
+                .append("Air Conditioner Type", airConditionerType);
     }
 
     @Override

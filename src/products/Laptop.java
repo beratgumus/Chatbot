@@ -49,9 +49,9 @@ public class Laptop extends ConsumerElectronics {
     @Override
     public Document toDocument(){
         return super.toDocument()
-                .append("RAM Size", getRamSize())
-                .append("CPU Model", getCpuModel())
-                .append("OS", getOs());
+                .append("RAM Size", ramSize)
+                .append("CPU Model", cpuModel)
+                .append("OS", os);
     }
 
     @Override
