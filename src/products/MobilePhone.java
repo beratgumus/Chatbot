@@ -55,7 +55,7 @@ public class MobilePhone extends ConsumerElectronics {
 
     @Override
     public String toString(){
-        return super.toString() + "\nCamera: " + cameraResolution + " MP" + "\nOperating System: " + os + "\nRAM: " + ramSize + "GB";
+        return super.toString() + "\nCamera: " + cameraResolution + " MP" + "\nOperating System: " + os + "\nRAM: " + ramSize + "GB" + "\n";
     }
 
     

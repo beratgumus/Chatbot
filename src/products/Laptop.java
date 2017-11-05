@@ -56,6 +56,6 @@ public class Laptop extends ConsumerElectronics {
 
     @Override
     public String toString() {
-        return super.toString() + "\nRAM: " + ramSize +  "GB \nCPU: " + cpuModel;
+        return super.toString() + "\nRAM: " + ramSize +  "GB \nCPU: " + cpuModel + "\n";
     }
 }

@@ -109,7 +109,7 @@
             </Label>
           </children>
          <effect>
-            <DropShadow height="20.0" radius="9.5" width="20.0" />
+            <DropShadow height="22.0" offsetY="1.0" radius="10.5" width="22.0" />
          </effect>
       </AnchorPane>
    </children>
