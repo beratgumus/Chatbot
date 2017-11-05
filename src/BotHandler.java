@@ -112,7 +112,7 @@ public class BotHandler extends Application {
                     //normal answer. print it to chatbox
                     chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
                 } else {
-                    //let's not show password
+                    //let's not show the password
                     chatArea.setText(chatArea.getText() + "You: " + String.join("", Collections.nCopies(uText.length(), "*")) + "\n");
                 }
                 inputBox.setText("");
@@ -289,7 +289,7 @@ public class BotHandler extends Application {
             initForm(newStage, newFxml, true);
             newStage.show();
         } catch (Exception e) {
-            System.out.println("An Error occurred while creating a new form: " + e.getMessage());
+            System.out.println("An error occurred while creating a new form: " + e.getMessage());
         }
     }
 
