@@ -69,6 +69,8 @@ public class BotHandler extends Application {
         botAnswers.put("greeting", messages);
         messages = new String[]{"I'm fine, thank you, and you?", "Great! You?", "Pretty good, and you?"};
         botAnswers.put("ask_about", messages);
+        messages = new String[]{"Bye bye...", "Goodbye!", "See you later :)", "Bye, come again soon!"};
+        botAnswers.put("goodbye", messages);
         messages = new String[]{"Sorry. I can't understand your message.", "Ugh! I can't understand this.", "I can't understand this. Can you repeat?"};
         botAnswers.put("unknown", messages);
         state = "";
@@ -156,17 +158,20 @@ public class BotHandler extends Application {
                         state = "";
                     }
                 } else if (state.equals("admin_choose_product")) {
-                    if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 1) {
+                    if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 2) {
                         answer("That's not a valid selection.");
                         state = ""; //reset state;
                         return;
                     }
                     int selection = Integer.parseInt(uText);
+                    answer("Opening new form...");
+
                     if (selection == 1) {
-                        answer("Opening new form...");
                         newForm("AddPhone.fxml");
-                        state = "";
+                    } else if (selection == 2) {
+                        newForm("AddLaptop.fxml");
                     }
+                    state = "";
                 } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))){
                     answer("Refreshing the product list...");
 
@@ -257,7 +262,7 @@ public class BotHandler extends Application {
                     }
 
                 } else if (uText.contains("bye") || uText.contains("later")){
-                    answer("Bye bye...");
+                    decideRandom("goodbye");
                     state = "";
 
                 } else if (uText.contains("clear")){
