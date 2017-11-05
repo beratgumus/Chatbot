@@ -7,14 +7,14 @@ public class Tweet {
     private long id;
     private String text;
     private String user;
-    private String timespan;
+    private String timeSpan;
     private double reviewPoint;
 
-    public Tweet(long id, String text, String user, String timespan, double reviewPoint) {
+    public Tweet(long id, String text, String user, String timeSpan, double reviewPoint) {
         this.id = id;
         this.text = text;
         this.user = user;
-        this.timespan = timespan;
+        this.timeSpan = timeSpan;
         this.reviewPoint = reviewPoint;
     }
 
@@ -25,7 +25,7 @@ public class Tweet {
      */
     public Tweet(Map<String, String> tweetFromDB) {
         this(Long.parseLong(tweetFromDB.get("id")), tweetFromDB.get("text"), tweetFromDB.get("user"),
-                tweetFromDB.get("timespan"), Double.parseDouble(tweetFromDB.get("reviewPoint")));
+                tweetFromDB.get("timeSpan"), Double.parseDouble(tweetFromDB.get("reviewPoint")));
     }
 
     /**
@@ -38,7 +38,7 @@ public class Tweet {
         tweet.put("id", Long.toString(this.id));
         tweet.put("text", this.text);
         tweet.put("user", this.user);
-        tweet.put("timespan", this.timespan);
+        tweet.put("timeSpan", this.timeSpan);
         tweet.put("reviewPoint", Double.toString(this.reviewPoint));
 
         return tweet;
@@ -68,12 +68,12 @@ public class Tweet {
         this.user = user;
     }
 
-    public String getTimespan() {
-        return timespan;
+    public String getTimeSpan() {
+        return timeSpan;
     }
 
-    public void setTimespan(String timespan) {
-        this.timespan = timespan;
+    public void setTimeSpan(String timeSpan) {
+        this.timeSpan = timeSpan;
     }
 
     public double getReviewPoint() {
@@ -85,7 +85,7 @@ public class Tweet {
     }
 
     public String toString() {
-        return "Tweet id: " + id + "Tweet user: " + user + "Tweet text: " + text + "Tweet date: " + timespan + "Tweet reviewPoint: " + reviewPoint;
+        return "Tweet id: " + id + "Tweet user: " + user + "Tweet text: " + text + "Tweet date: " + timeSpan + "Tweet reviewPoint: " + reviewPoint;
     }
 
 }

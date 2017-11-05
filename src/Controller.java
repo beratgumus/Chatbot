@@ -89,7 +89,7 @@ public class Controller {
         try {
             twitterAPI = new TwitterAPI();
             double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
-            System.out.println("10 tweetin Hesaplanan ortalamasi: " + reviewPoint);
+            System.out.println("Mean of review points of ten tweets: " + reviewPoint);
             newMobilePhone.setReviewPoint(reviewPoint);
         } catch (TwitterException e) {
             newMobilePhone.setReviewPoint(0.0);

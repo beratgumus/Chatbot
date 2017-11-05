@@ -22,7 +22,7 @@ public class ProductDB {
         mongoClient = new MongoClient();
         db = mongoClient.getDatabase("Chatbot");
 
-        // if collection does not exsist mongo will create one
+        // if collection does not exist MongoDB will create one
         // see: https://docs.mongodb.com/manual/reference/method/db.getCollection/#behavior
         productCollection = db.getCollection("Products");
     }
@@ -111,7 +111,7 @@ public class ProductDB {
         //MongoCollection collection = products.getCollection("Cameras");
         */
 
-        /*
+
         ProductDB db = new ProductDB();
 
         Laptop a = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
@@ -132,24 +132,23 @@ public class ProductDB {
         g.setReviewPoint(0.1);
         h.setReviewPoint(1.3);
 
-        db.insertToDB(a);
-        db.insertToDB(b);
-        db.insertToDB(c);
-        db.insertToDB(d);
-        db.insertToDB(e);
-        db.insertToDB(f);
-        db.insertToDB(g);
-        db.insertToDB(h);
+        db.insert(a);
+        db.insert(b);
+        db.insert(c);
+        db.insert(d);
+        db.insert(e);
+        db.insert(f);
+        db.insert(g);
+        db.insert(h);
 
-        System.out.println(db.getDB().get(0).toString());
-        System.out.println(db.getDB().get(1).toString());
-        System.out.println(db.getDB().get(2).toString());
-        System.out.println(db.getDB().get(3).toString());
-        System.out.println(db.getDB().get(4).toString());
-        System.out.println(db.getDB().get(5).toString());
-        System.out.println(db.getDB().get(6).toString());
-        System.out.println(db.getDB().get(7).toString());
+        System.out.println(db.getAllProducts().get(0).toString());
+        System.out.println(db.getAllProducts().get(1).toString());
+        System.out.println(db.getAllProducts().get(2).toString());
+        System.out.println(db.getAllProducts().get(3).toString());
+        System.out.println(db.getAllProducts().get(4).toString());
+        System.out.println(db.getAllProducts().get(5).toString());
+        System.out.println(db.getAllProducts().get(6).toString());
+        System.out.println(db.getAllProducts().get(7).toString());
 
-        */
     }
 }

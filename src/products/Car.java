@@ -1,7 +1,5 @@
 package products;
 
-import javax.swing.text.Document;
-
 public class Car extends Vehicle {
 
     private int numberOfSeats;

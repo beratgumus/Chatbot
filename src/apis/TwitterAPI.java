@@ -44,7 +44,7 @@ public class TwitterAPI {
         List<Tweet> tweetList = new ArrayList<Tweet>();
 
         try {
-            //ToDo: need to improvment on query
+            //ToDo: need to do improvements on query
             Query query = new Query("(#" + keyword + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
             query.count(10);//max 10 tweets
             QueryResult result = twitter.search(query); //send query

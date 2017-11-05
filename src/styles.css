@@ -6,7 +6,7 @@
     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
     -fx-background-insets: 22 0 0 0, 0, 1, 2; 
     -fx-background-radius: 0, 0;
-    transistion: -fx-background-color .2s, -fx-background-insets .2s;
+    transition: -fx-background-color .2s, -fx-background-insets .2s;
 }
 
 .text-input:focused {
@@ -17,17 +17,17 @@
     -fx-font-size: 14;
 	-fx-text-fill: #A0A2BA;
     -fx-background-color: #151928;
-    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 5);
+    -fx-effect: drop-shadow(three-pass-box, black, 10, 0, 0, 5);
   
 }
 
 .button:hover {
     -fx-background-color: #202432;
-    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 2);
+    -fx-effect: drop-shadow(three-pass-box, black, 5, 0, 0, 2);
 }
 
 .button:armed {
-    -fx-effect: dropshadow(three-pass-box, black, 3, 0, 0, 1);
+    -fx-effect: drop-shadow(three-pass-box, black, 3, 0, 0, 1);
 }
 
 .close-button {

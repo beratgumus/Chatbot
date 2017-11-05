@@ -1,11 +1,6 @@
 package products;
 
-import apis.Tweet;
-import apis.TwitterAPI;
 import org.bson.Document;
-import twitter4j.TwitterException;
-
-import java.util.List;
 
 public abstract class Product implements Comparable<Product> {
     private String id;
@@ -165,6 +160,6 @@ public abstract class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return brand + " " + model + " - Price: " + price + "$" + "\nDimensions: " + height + " x " + width + " x " + depth + "\nWeight: " + weight + "\nReview Point: " + reviewPoint;
+        return brand + " " + model + " - Price: " + "$" + price + "\nDimensions: " + height + " x " + width + " x " + depth + "\nWeight: " + weight + "\nReview Point: " + reviewPoint;
     }
 }

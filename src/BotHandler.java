@@ -67,7 +67,7 @@ public class BotHandler extends Application {
         botAnswers.put("greeting", messages);
         messages = new String[]{"I'm fine, thank you, and you?", "Great! You?", "Pretty good, and you?"};
         botAnswers.put("ask_about", messages);
-        messages = new String[]{"Sorry. I can't understand your message.", "Ugh! I can't understand this.", "I can't understand this. May you repeat?"};
+        messages = new String[]{"Sorry. I can't understand your message.", "Ugh! I can't understand this.", "I can't understand this. Can you repeat?"};
         botAnswers.put("unknown", messages);
         state = "";
         isLoggedIn = false;
@@ -112,7 +112,7 @@ public class BotHandler extends Application {
                     //normal answer. print it to chatbox
                     chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
                 } else {
-                    // lets dont show password
+                    //let's not show password
                     chatArea.setText(chatArea.getText() + "You: " + String.join("", Collections.nCopies(uText.length(), "*")) + "\n");
                 }
                 inputBox.setText("");
@@ -138,7 +138,7 @@ public class BotHandler extends Application {
                     }
                 } else if (state.equals("admin_choose_product")) {
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 1) {
-                        answer("Thats not a valid selection.");
+                        answer("That's not a valid selection.");
                         state = ""; //reset state;
                         return;
                     }
@@ -149,7 +149,7 @@ public class BotHandler extends Application {
                         state = "";
                     }
                 } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))){
-                    answer("Refreshin product list...");
+                    answer("Refreshing the product list...");
 
                     //retrieve list from mongoDB again
                     ProductDB mongo = new ProductDB();
@@ -157,7 +157,7 @@ public class BotHandler extends Application {
                     rootNode = new TreeNode(allProductsList);
                     mongo.close();
 
-                    answer("Operation succesfully completed!");
+                    answer("Operation is successfully completed!");
                 } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
                     decideRandom("greeting");
                 } else if ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up"))) {
@@ -170,7 +170,7 @@ public class BotHandler extends Application {
 
                 } else if (state.equals("select_category")) {
                     if (!uText.matches("[0-9]+")) {
-                        answer("Thats not a valid selection.");
+                        answer("That's not a valid selection.");
                         state = ""; //reset state;
                         return;
                     }
@@ -181,7 +181,7 @@ public class BotHandler extends Application {
                     state = "select_product_type"; //set next state
                 } else if (state.equals("select_product_type")) {
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > options.length) {
-                        answer("Thats not a valid selection.");
+                        answer("That's not a valid selection.");
                         state = ""; //reset state;
                         return;
                     }
@@ -197,7 +197,7 @@ public class BotHandler extends Application {
                     state = "select_product"; //set next state
                 } else if (state.equals("select_product")) {
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > products.size()) {
-                        answer("Thats not a valid selection.");
+                        answer("That's not a valid selection.");
                         state = ""; //reset state;
                         return;
                     }
@@ -237,7 +237,7 @@ public class BotHandler extends Application {
     private void answer(String message) {
         chatArea.setText(chatArea.getText() + "AI: " + message + "\n");
 
-        //hotfix for autoscroll chatArea
+        //hotfix for auto-scroll chatArea
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(25),
                 ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
@@ -260,7 +260,7 @@ public class BotHandler extends Application {
     }
 
     /**
-     * Selects one random string from messagelist and prints it to chatArea
+     * Selects one random string from messageList and prints it to chatArea
      *
      * @param key
      */
@@ -271,14 +271,14 @@ public class BotHandler extends Application {
     }
 
     /**
-     * Fixes autoscrolling of chatArea
+     * Fixes auto-scrolling of chatArea
      */
     private void fixScroll() {
         chatArea.setScrollTop(Double.MAX_VALUE);
     }
 
     /**
-     * This function is used to create new modal forms (subforms, adding new producs).
+     * This function is used to create new modal forms (sub-forms, adding new products).
      *
      * @param formFxml name of fxml file
      */
@@ -289,7 +289,7 @@ public class BotHandler extends Application {
             initForm(newStage, newFxml, true);
             newStage.show();
         } catch (Exception e) {
-            System.out.println("Error ocurred when creating new form: " + e.getMessage());
+            System.out.println("An Error occurred while creating a new form: " + e.getMessage());
         }
     }
 
@@ -302,7 +302,7 @@ public class BotHandler extends Application {
      * @param isModalForm true if we are creating subforms
      */
     private void initForm(Stage stage, Parent fxml, boolean isModalForm) {
-        //FXML must have anchorpane as container!
+        //FXML must have AnchorPane as container!
         AnchorPane rootAnchor = (AnchorPane) fxml;
         rootAnchor.setBackground(Background.EMPTY);
         Rectangle header = ((Rectangle) rootAnchor.lookup("#header"));

@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * Wrapper class for Redis.io database.
- * Generated for reusability
+ * Generated for re-usability
  */
 public class Redis {
     private static final String redisHost = "localhost";
@@ -40,7 +40,7 @@ public class Redis {
 
     public void addNewTweet(String keyword, List<Tweet> tweetList) {
         for (Tweet tweet : tweetList) {
-            String value = "" + tweet.getId() + "♦" + tweet.getUser() + "♦" + tweet.getText() + "♦" + tweet.getTimespan() + "♦" + tweet.getReviewPoint();
+            String value = "" + tweet.getId() + "♦" + tweet.getUser() + "♦" + tweet.getText() + "♦" + tweet.getTimeSpan() + "♦" + tweet.getReviewPoint();
             db.lpush(keyword, value);
         }
     }
