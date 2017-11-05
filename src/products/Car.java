@@ -39,4 +39,9 @@ public class Car extends Vehicle {
                 .append("Number of Seats", getNumberOfSeats())
                 .append("Air Conditioner Type", getAirConditionerType());
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + "Number of Seats: " + numberOfSeats +"\nAir Conditioner Type: " + airConditionerType + "\n";
+    }
 }

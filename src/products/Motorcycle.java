@@ -2,6 +2,8 @@ package products;
 
 import org.bson.Document;
 
+import java.util.HashMap;
+
 public class Motorcycle extends Vehicle {
     private boolean windshield;
     private boolean carrierBox;
@@ -39,5 +41,15 @@ public class Motorcycle extends Vehicle {
         return super.toDocument()
                 .append("Wind Shield", isWindshield())
                 .append("Power", isCarrierBox());
+    }
+
+    @Override
+    public String toString(){
+        //convert boolean fields to readable format
+        HashMap<Boolean,String> boolToStr = new HashMap<>();
+        boolToStr.put(true, "Available");
+        boolToStr.put(false, "Not Available");
+
+        return super.toString() + "Windshield: " + boolToStr.get(windshield) + "\nCarrier Box: " + boolToStr.get(carrierBox) + "\n";
     }
 }

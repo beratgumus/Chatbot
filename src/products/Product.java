@@ -160,6 +160,8 @@ public abstract class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return brand + " " + model + " - Price: " + "$" + price + "\nDimensions: " + height + " x " + width + " x " + depth + "\nWeight: " + weight + "\nReview Point: " + reviewPoint;
+        return brand + " " + model + " - Price: " + "$" + price +
+                "\nDimensions: " + height + " x " + width + " x " + depth +
+                "\nWeight: " + weight + "\nReview Point: " + reviewPoint + "\n";
     }
 }

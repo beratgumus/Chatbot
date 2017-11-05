@@ -54,4 +54,9 @@ public abstract class Vehicle extends Product {
                 .append("Power", getPower())
                 .append("Fuel Type", getFuelType());
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + "Power: " + power + "HP \nFuel Type: " + fuelType + "\n";
+    }
 }

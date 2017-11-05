@@ -1,6 +1,10 @@
 package products;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bson.Document;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Refrigerator extends MajorAppliance {
 
@@ -64,5 +68,16 @@ public class Refrigerator extends MajorAppliance {
                 .append("Ice Maker", isIceMaker())
                 .append("Frost Free", isFrostFree())
                 .append("Door Open Alarm", isDoorOpenAlarm());
+    }
+
+    @Override
+    public String toString(){
+        //convert boolean fields to readable format
+        HashMap<Boolean,String> boolToStr = new HashMap<>();
+        boolToStr.put(true, "Available");
+        boolToStr.put(false, "Not Available");
+
+        return super.toString() + "Type: " + refrigeratorType + "\nIce Maker: " + boolToStr.get(iceMaker)
+                + "\nFrost Free: " + boolToStr.get(frostFree) + "\nDoor Open Alarm " + boolToStr.get(doorOpenAlarm)  + "\n";
     }
 }

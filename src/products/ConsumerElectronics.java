@@ -44,6 +44,6 @@ public abstract class ConsumerElectronics extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + "\nScreen Size : " + screenSize + "\"" + "\nStorage " + storageSize + "GB";
+        return super.toString() + "Screen Size : " + screenSize + "\"" + "\nStorage " + storageSize + "GB" + "\n";
     }
 }

@@ -55,6 +55,6 @@ public class Camera extends ConsumerElectronics {
 
     @Override
     public String toString() {
-        return super.toString() + "\n ISO: " + iso + "\n Sensor: " + imageResolution;
+        return super.toString() + "ISO: " + iso + "\n Sensor: " + imageResolution + "\n";
     }
 }

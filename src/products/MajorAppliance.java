@@ -42,4 +42,9 @@ public abstract class MajorAppliance extends Product {
                 .append("Energy Efficiency", getEnergyEfficiency());
     }
 
+    @Override
+    public String toString(){
+        return super.toString() + "Capacity: " + capacity + "\nEnergy Efficiency: " + energyEfficiency + "\n";
+    }
+
 }
