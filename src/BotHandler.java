@@ -1,4 +1,5 @@
 
+import com.sun.org.apache.xpath.internal.operations.And;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -72,9 +74,15 @@ public class BotHandler extends Application {
         state = "";
         isLoggedIn = false;
 
-        ProductDB mongo = new ProductDB();
-        List<Product> allProductsList = mongo.getAllProducts();
+        primaryStage.getIcons().add(new Image("chatbot.png")); //set application image
 
+        new Thread(() -> {
+            //take product info from database asynchronously
+            ProductDB mongo = new ProductDB();
+            List<Product> allProductsList = mongo.getAllProducts();
+            mongo.close();
+            rootNode = new TreeNode(allProductsList);
+        }).start();
 
 //        List<Product> tempProducts = new ArrayList<>();
 //
@@ -86,7 +94,6 @@ public class BotHandler extends Application {
 //        tempProducts.add(new MobilePhone("Apple", "Iphone X 16GB", 372253.0, 7.12, 5.23, 2.22, 111, 5.325, 16, 13, "iOS 11", 2));
 //        tempProducts.add(new MobilePhone("Apple", "Iphone X 32GB", 462451.0, 7.12, 5.23, 2.22, 111, 5.325, 32, 13, "iOS 11", 2));
 
-        rootNode = new TreeNode(allProductsList);
 
         Parent botFxml = FXMLLoader.load(getClass().getResource("Bot.fxml"));
         botAnchor = (AnchorPane) botFxml;
@@ -104,13 +111,25 @@ public class BotHandler extends Application {
 
                 String uText = inputBox.getText().toLowerCase();
 
-                if (uText.length() < 1) {
+                if (uText.length() < 1 ) {
                     //do not trigger answering logic if message is empty
                     return;
                 }
+
+                //auto scroll to the end of chatArea after 50ms
+                Timeline autoScroll = new Timeline(new KeyFrame(
+                        Duration.millis(50),
+                        ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
+                
                 if (!state.equals("admin_login")) {
                     //normal answer. print it to chatbox
-                    chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
+
+                    if (!uText.equals("please wait...")){
+                        // uText will be "please wait..." if we are calling this function recursively
+                        // somtimes we call this function recursively in order to process user selection
+                        // @see ask_product state
+                        chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
+                    }
                 } else {
                     //let's not show the password
                     chatArea.setText(chatArea.getText() + "You: " + String.join("", Collections.nCopies(uText.length(), "*")) + "\n");
@@ -162,7 +181,7 @@ public class BotHandler extends Application {
                     decideRandom("greeting");
                 } else if ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up"))) {
                     decideRandom("ask_about");
-                } else if (uText.contains("buy something") || uText.contains("product")) {
+                } else if (state.equals("buy_something") || uText.contains("buy something") || uText.contains("product")) {
 
                     currentNode = rootNode;
                     printOptions(currentNode);
@@ -190,6 +209,8 @@ public class BotHandler extends Application {
                     currentNode = currentNode.getNextNode(options[selectedIndex]);
                     products = currentNode.getProductList();
 
+                    products.sort(Product::compareTo); //sort list using overriden compareTo method
+
                     for (int i = 0; i < products.size(); i++) {
                         int j = i + 1; // visual only!
                         answer(j + ": " + products.get(i).toShortString());
@@ -206,18 +227,49 @@ public class BotHandler extends Application {
 
                     chatArea.setText(chatArea.getText() + "\n" +selectedProduct);
                     //hotfix for autoscroll chatArea
-                    Timeline timeline = new Timeline(new KeyFrame(
-                            Duration.millis(25),
-                            ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
-                    timeline.play();
 
+                    answer("Do you want to add it to your shopping list?");
+                    answer("1: Yes");
+                    answer("2: No");
 
-                    state = ""; //end of product selection cycle
+                    state = "shopping_list"; //end of product selection cycle
+                } else if (state.equals("shopping_list")){
+                    if (uText.equals("1")){
+                        answer("Product added to your shopping list!");
+                        state = ""; //reset state;
+                    } else if (uText.equals("2")){
+                        answer("Do you want to check other products?");
+                        answer("1: Yes");
+                        answer("2: No");
+                        state = "ask_product";
+                    } else {
+                        answer("That's not a valid selection.");
+                        state = ""; //reset state;
+                    }
+
+                } else if (state.equals("ask_product") && (uText.equals("1") || uText.equals("2"))){
+                    if (uText.equals("1")){
+                        state = "buy_something";
+                        inputBox.setText("Please wait...");
+                        handle(new ActionEvent());
+                    } else if (uText.equals("2")){
+                        state = "";
+                    }
+
+                } else if (uText.contains("bye") || uText.contains("later")){
+                    answer("Bye bye...");
+                    state = "";
+
                 } else if (uText.contains("clear")){
                     chatArea.setText("");
+                } else if (uText.contains("exit")){
+                    primaryStage.close();
                 } else {
                     decideRandom("unknown");
                 }
+
+                //auto scroll to the end of chatArea
+                autoScroll.play();
 
             }
         });
@@ -236,13 +288,6 @@ public class BotHandler extends Application {
 
     private void answer(String message) {
         chatArea.setText(chatArea.getText() + "AI: " + message + "\n");
-
-        //hotfix for auto-scroll chatArea
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(25),
-                ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
-        timeline.play();
-
     }
 
     /**

@@ -136,14 +136,14 @@ public abstract class Product implements Comparable<Product> {
         return brand + model;
     }
 
-
+    @Override
     public int compareTo(Product productToCompare) {
         if (this.reviewPoint == productToCompare.getReviewPoint())
             return 0;
         else if (this.reviewPoint > productToCompare.getReviewPoint())
-            return 1;
-        else
             return -1;
+        else
+            return 1;
     }
 
     public Document toDocument() {

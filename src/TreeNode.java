@@ -56,15 +56,6 @@ public class TreeNode {
         }
     }
 
-    /**
-     * Gets product at given index. index starts from 1?
-     * @param index index of product
-     * @return found product
-     */
-    public Product getProduct(int index){
-        return productList.get(index);
-    }
-
     public List<Product> getProductList() {
         return  productList;
     }
