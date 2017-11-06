@@ -18,32 +18,6 @@ public class Tweet {
         this.reviewPoint = reviewPoint;
     }
 
-    /**
-     * Initialize Tweet object from Map object. Probably used when getting tweet from Redis only.
-     *
-     * @param tweetFromDB Map object that contains tweet information
-     */
-    public Tweet(Map<String, String> tweetFromDB) {
-        this(Long.parseLong(tweetFromDB.get("id")), tweetFromDB.get("text"), tweetFromDB.get("user"),
-                tweetFromDB.get("timeSpan"), Double.parseDouble(tweetFromDB.get("reviewPoint")));
-    }
-
-    /**
-     * Converts Tweet object to Map object. Probably used when inserting tweet to Redis only.
-     *
-     * @return Converted Map object that contains tweet information
-     */
-    public Map<String, String> toMap() {
-        Map<String, String> tweet = new HashMap<>();
-        tweet.put("id", Long.toString(this.id));
-        tweet.put("text", this.text);
-        tweet.put("user", this.user);
-        tweet.put("timeSpan", this.timeSpan);
-        tweet.put("reviewPoint", Double.toString(this.reviewPoint));
-
-        return tweet;
-    }
-
     public long getId() {
         return id;
     }
@@ -84,8 +58,12 @@ public class Tweet {
         this.reviewPoint = reviewPoint;
     }
 
+    public String serialize(){
+        return id + "♦" + text + "♦" + user + "♦" + timeSpan + "♦" + reviewPoint;
+    }
+
     public String toString() {
-        return "Tweet id: " + id + "Tweet user: " + user + "Tweet text: " + text + "Tweet date: " + timeSpan + "Tweet reviewPoint: " + reviewPoint;
+        return "Tweet ID: " + id + ", Text: \"" + text + "\", User: " + user + ", Date: " + timeSpan + ", Review Point: " + reviewPoint;
     }
 
 }

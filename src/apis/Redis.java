@@ -1,7 +1,6 @@
 package apis;
 
 import redis.clients.jedis.Jedis;
-
 import java.util.*;
 
 
@@ -21,13 +20,16 @@ public class Redis {
      * @param keyword for getting tweets from redis
      * @return list of tweets according to keyword
      */
-    public List<Tweet> getTweetByKeyword(String keyword) {
-        List<Tweet> tweetList = new ArrayList<Tweet>();
+    public List<Tweet> getTweetsByKeyword(String keyword) {
+        List<Tweet> tweetList = new ArrayList<>();
         long size = db.llen(keyword);
-        for (int i = 1; i < size; i++) {
-            String tweetInfo = db.lindex(keyword, i);
+        List<String> tweetInfos = db.lrange(keyword, 0, -1); //get all items in list
+
+        for (String tweetInfo : tweetInfos){
             String[] parts = tweetInfo.split("♦");
-            tweetList.add(new Tweet(Long.parseLong(parts[0]), parts[2], parts[1], parts[3], Double.parseDouble(parts[4])));
+
+            //we store with "id♦text♦user♦timespan♦reviewPoint" format in Redis
+            tweetList.add(new Tweet(Long.parseLong(parts[0]), parts[1], parts[2], parts[3], Double.parseDouble(parts[4])));
         }
         return tweetList;
     }
@@ -37,11 +39,9 @@ public class Redis {
      *
      * @param tweetList source tweet list
      */
-
-    public void addNewTweet(String keyword, List<Tweet> tweetList) {
+    public void addNewTweets(String keyword, List<Tweet> tweetList) {
         for (Tweet tweet : tweetList) {
-            String value = "" + tweet.getId() + "♦" + tweet.getUser() + "♦" + tweet.getText() + "♦" + tweet.getTimeSpan() + "♦" + tweet.getReviewPoint();
-            db.lpush(keyword, value);
+            db.rpush(keyword, tweet.serialize());
         }
     }
 

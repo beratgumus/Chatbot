@@ -7,7 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Static class for getting a comments from twitter app.
@@ -41,7 +40,7 @@ public class TwitterAPI {
      */
     public double getReviewPoint(String searchKey) throws TwitterException {
         String keyword = searchKey.replaceAll("\\W", "");
-        List<Tweet> tweetList = new ArrayList<Tweet>();
+        List<Tweet> tweetList = new ArrayList<>();
 
         try {
             //ToDo: need to do improvements on query
@@ -52,15 +51,13 @@ public class TwitterAPI {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             double totalReviewPoint = 0.00;
             for (Status tweet : tweets) {
-                System.out.println("@" + tweet.getUser().getScreenName() + " [id]: " + tweet.getId() + " : " + tweet.getText() + "[date]: " + tweet.getCreatedAt() + "\n");
                 double tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText());
                 totalReviewPoint += tweetReviewPoint;
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), tweetReviewPoint);
                 tweetList.add(newTweet);
-                System.out.println("Tweet review point: " + tweetReviewPoint);
             }
             Redis db = new Redis();
-            db.addNewTweet(keyword, tweetList);
+            db.addNewTweets(keyword, tweetList);
             averageReviewPoint = totalReviewPoint / tweetList.size();
 
         } catch (TwitterException te) {
