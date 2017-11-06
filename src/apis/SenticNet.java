@@ -47,7 +47,7 @@ public class SenticNet {
             Double polarity = data.get(word);
             if (polarity != null) {
                 sum += polarity;
-                System.out.println(word + " : " + polarity);
+               // System.out.println(word + " : " + polarity);
             }
         }
         return sum;

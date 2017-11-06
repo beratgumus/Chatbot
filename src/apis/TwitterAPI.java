@@ -16,16 +16,17 @@ public class TwitterAPI {
     private twitter4j.Twitter twitter;
     SenticNet senticNet;
     private double averageReviewPoint;
+    private List<Tweet> tweetList;
 
     /**
      * Connecting to a twitter app. You have to use your Consumer Keys and Access Tokens !!!!
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("***********")
-                .setOAuthConsumerSecret("*********")
-                .setOAuthAccessToken("**********")
-                .setOAuthAccessTokenSecret("**********");
+        cb.setDebugEnabled(true).setOAuthConsumerKey("**************")
+                .setOAuthConsumerSecret("**************")
+                .setOAuthAccessToken("**************")
+                .setOAuthAccessTokenSecret("*************");
 
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
@@ -40,11 +41,11 @@ public class TwitterAPI {
      */
     public double getReviewPoint(String searchKey) throws TwitterException {
         String keyword = searchKey.replaceAll("\\W", "");
-        List<Tweet> tweetList = new ArrayList<>();
+        tweetList = new ArrayList<>();
 
         try {
             //ToDo: need to do improvements on query
-            Query query = new Query("(#" + keyword + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
+            Query query = new Query("(#" + keyword + ") AND ((good) OR (bad) OR (like) OR (hate) OR (love) OR (worst) OR (best)) exclude:retweets exclude:links exclude:replies");
             query.lang("en");//languages of tweets is english
             query.count(10);//max 10 tweets
             QueryResult result = twitter.search(query); //send query
@@ -57,8 +58,8 @@ public class TwitterAPI {
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), tweetReviewPoint);
                 tweetList.add(newTweet);
             }
-            Redis db = new Redis();
-            db.addNewTweets(keyword, tweetList);
+//            Redis db = new Redis();
+//            db.addNewTweets(keyword, tweetList);
             averageReviewPoint = totalReviewPoint / tweetList.size();
 
         } catch (TwitterException te) {
@@ -67,5 +68,9 @@ public class TwitterAPI {
         }
 
         return averageReviewPoint;
+    }
+
+    public List<Tweet> getTweetList() {
+        return tweetList;
     }
 }
