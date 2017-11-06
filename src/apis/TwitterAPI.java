@@ -45,6 +45,7 @@ public class TwitterAPI {
         try {
             //ToDo: need to do improvements on query
             Query query = new Query("(#" + keyword + ") AND ((good) OR (bad)) exclude:retweets exclude:links");
+            query.lang("en");//languages of tweets is english
             query.count(10);//max 10 tweets
             QueryResult result = twitter.search(query); //send query
             List<Status> tweets = result.getTweets();
