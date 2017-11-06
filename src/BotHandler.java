@@ -1,5 +1,4 @@
 
-import com.sun.org.apache.xpath.internal.operations.And;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -38,7 +37,7 @@ public class BotHandler extends Application {
     private TreeNode rootNode;
     private TreeNode currentNode;
     private String[] options;
-    private String state;
+    private String lastState;
 
     private static final String adminName = "admin";
     private static final String adminPass = "pw123";
@@ -73,7 +72,7 @@ public class BotHandler extends Application {
         botAnswers.put("goodbye", messages);
         messages = new String[]{"Sorry. I can't understand your message.", "Ugh! I can't understand this.", "I can't understand this. Can you repeat?"};
         botAnswers.put("unknown", messages);
-        state = "";
+        lastState = "";
         isLoggedIn = false;
 
         primaryStage.getIcons().add(new Image("chatbot.png")); //set application image
@@ -123,15 +122,9 @@ public class BotHandler extends Application {
                         Duration.millis(50),
                         ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
                 
-                if (!state.equals("admin_login")) {
+                if (!lastState.equals("admin_ask_password")) {
                     //normal answer. print it to chatbox
-
-                    if (!uText.equals("please wait...")){
-                        // uText will be "please wait..." if we are calling this function recursively
-                        // somtimes we call this function recursively in order to process user selection
-                        // @see ask_product state
-                        chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
-                    }
+                    chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
                 } else {
                     //let's not show the password
                     chatArea.setText(chatArea.getText() + "You: " + String.join("", Collections.nCopies(uText.length(), "*")) + "\n");
@@ -144,23 +137,23 @@ public class BotHandler extends Application {
                     } else {
                         //admin login logic starts here
                         answer("Enter password : ");
-                        state = "admin_login";
+                        lastState = "admin:asked_password";
                     }
-                } else if (state.equals("admin_login") || (isLoggedIn && uText.contains("add"))) {
+                } else if (lastState.equals("admin:asked_password") || (isLoggedIn && uText.contains("add"))) {
                     if (isLoggedIn || uText.equals(adminPass)) {
                         isLoggedIn = true;
                         answer("Welcome " + adminName + ". What kind of product do you want to add?");
                         answer("1: Mobile Phone");
                         answer("2: Laptop");
-                        state = "admin_choose_product";
+                        lastState = "admin:logged_in";
                     } else {
                         answer("Wrong password!");
-                        state = "";
+                        lastState = "";
                     }
-                } else if (state.equals("admin_choose_product")) {
+                } else if (lastState.equals("admin:logged_in") ) {
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 2) {
                         answer("That's not a valid selection.");
-                        state = ""; //reset state;
+                        lastState = ""; //reset lastState;
                         return;
                     }
                     int selection = Integer.parseInt(uText);
@@ -171,7 +164,7 @@ public class BotHandler extends Application {
                     } else if (selection == 2) {
                         newForm("AddLaptop.fxml");
                     }
-                    state = "";
+                    lastState = "";
                 } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))){
                     answer("Refreshing the product list...");
 
@@ -182,31 +175,36 @@ public class BotHandler extends Application {
                     mongo.close();
 
                     answer("Operation is successfully completed!");
-                } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey there")) {
+                } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey")) {
                     decideRandom("greeting");
                 } else if ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up"))) {
                     decideRandom("ask_about");
-                } else if (state.equals("buy_something") || uText.contains("buy something") || uText.contains("product")) {
-
+                } else if (lastState.equals("buy_something") || uText.contains("buy something") || uText.contains("product")) {
+                    //we will print product categories (like "Consumer Electronics", "Major Appliance" ...)
+                    
                     currentNode = rootNode;
                     printOptions(currentNode);
-                    state = "select_category";
+                    lastState = "product:asked_category";
 
-                } else if (state.equals("select_category")) {
+                } else if (lastState.equals("product:asked_category")) {
+                    //we will print product types in selected category (like "Mobile Phone", "Refigerator"...)
+                    
                     if (!uText.matches("[0-9]+")) {
                         answer("That's not a valid selection.");
-                        state = ""; //reset state;
+                        lastState = ""; //reset lastState;
                         return;
                     }
 
                     int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
                     currentNode = currentNode.getNextNode(options[selectedIndex]);
                     printOptions(currentNode);
-                    state = "select_product_type"; //set next state
-                } else if (state.equals("select_product_type")) {
+                    lastState = "product:asked_type";
+                } else if (lastState.equals("product:asked_type")) {
+                    //we will print all products in selected type with ordering
+                    
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > options.length) {
                         answer("That's not a valid selection.");
-                        state = ""; //reset state;
+                        lastState = ""; //reset lastState;
                         return;
                     }
 
@@ -220,50 +218,29 @@ public class BotHandler extends Application {
                         int j = i + 1; // visual only!
                         answer(j + ": " + products.get(i).toShortString());
                     }
-                    state = "select_product"; //set next state
-                } else if (state.equals("select_product")) {
+                    lastState = "product:asked_product";
+                } else if (lastState.equals("product:asked_product")) {
+                    //we will print information about selected product
+                    
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > products.size()) {
                         answer("That's not a valid selection.");
-                        state = ""; //reset state;
+                        lastState = ""; //reset lastState;
                         return;
                     }
                     int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
                     Product selectedProduct = products.get(selectedIndex);
 
+                    //print product information to chatarea
                     chatArea.setText(chatArea.getText() + "\n" +selectedProduct);
-                    //hotfix for autoscroll chatArea
 
-                    answer("Do you want to add it to your shopping list?");
-                    answer("1: Yes");
-                    answer("2: No");
+                    lastState = "product:printed_info";
+                } else if (lastState.equals("product:printed_info") && (uText.contains("review") || uText.contains("tweet"))){
 
-                    state = "shopping_list"; //end of product selection cycle
-                } else if (state.equals("shopping_list")){
-                    if (uText.equals("1")){
-                        answer("Product added to your shopping list!");
-                        state = ""; //reset state;
-                    } else if (uText.equals("2")){
-                        answer("Do you want to check other products?");
-                        answer("1: Yes");
-                        answer("2: No");
-                        state = "ask_product";
-                    } else {
-                        answer("That's not a valid selection.");
-                        state = ""; //reset state;
-                    }
-
-                } else if (state.equals("ask_product") && (uText.equals("1") || uText.equals("2"))){
-                    if (uText.equals("1")){
-                        state = "buy_something";
-                        inputBox.setText("Please wait...");
-                        handle(new ActionEvent());
-                    } else if (uText.equals("2")){
-                        state = "";
-                    }
-
+                    //TODO: print tweets from redis
+                 
                 } else if (uText.contains("bye") || uText.contains("later")){
                     decideRandom("goodbye");
-                    state = "";
+                    lastState = "";
 
                 } else if (uText.contains("clear")){
                     chatArea.setText("");
