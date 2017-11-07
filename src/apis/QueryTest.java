@@ -14,9 +14,10 @@ public class QueryTest {
         } catch (TwitterException e) {
 
         }
-        List<Tweet> tweetList=testQuery.getTweetList();
-        for (Tweet tweet: tweetList) {
-            System.out.println(tweet);
-        }
+//        List<Tweet> tweetList=testQuery.getTweetList();
+//        for (Tweet tweet: tweetList) {
+//            System.out.println(tweet);
+//            // See the output to analyze returned tweets from twitter !!!
+//        }
     }
 }
