@@ -53,6 +53,14 @@ public class ProductDB {
                     products.add(toMobilePhone(document));
                 } else if (type.equals("Laptop")){
                     products.add(toLaptop(document));
+                } else if (type.equals("Camera")){
+                    products.add(toCamera(document));
+                } else if (type.equals("Refrigerator")){
+                    products.add(toRefrigerator(document));
+                } else if (type.equals("Car")){
+                    products.add(toCar(document));
+                } else if (type.equals("Motorcycle")){
+                    products.add(toMotorcycle(document));
                 }
             }
         } finally {

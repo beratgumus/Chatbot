@@ -318,13 +318,6 @@ public class BotHandler extends Application {
     }
 
     /**
-     * Fixes auto-scrolling of chatArea
-     */
-    private void fixScroll() {
-        chatArea.setScrollTop(Double.MAX_VALUE);
-    }
-
-    /**
      * This function is used to create new modal forms (sub-forms, adding new products).
      *
      * @param formFxml name of fxml file
