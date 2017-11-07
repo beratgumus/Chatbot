@@ -128,7 +128,7 @@ public class BotHandler extends Application {
                         Duration.millis(50),
                         ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
                 
-                if (!lastState.equals("admin_ask_password")) {
+                if (!lastState.equals("admin:asked_password")) {
                     //normal answer. print it to chatbox
                     chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
                 } else {
