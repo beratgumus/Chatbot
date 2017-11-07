@@ -133,7 +133,7 @@ public abstract class Product implements Comparable<Product> {
     }
 
     public String toShortString() {
-        return brand + model;
+        return brand + " " + model;
     }
 
     @Override

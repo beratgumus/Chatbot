@@ -28,14 +28,14 @@ public class TestForComp {
 
         System.out.println(" \nBefore sorting :");
         for (Product p : products){
-            System.out.println(p.getModel() + " - " + p.getReviewPoint());
+            System.out.println(p.getModel() + " | " + p.getReviewPoint());
         }
 
         products.sort(Product::compareTo);
 
         System.out.println(" \nAfter sorting :");
         for (Product p : products){
-            System.out.println(p.getModel() + " - " + p.getReviewPoint());
+            System.out.println(p.getModel() + " | " + p.getReviewPoint());
         }
 
     }

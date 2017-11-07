@@ -9,14 +9,14 @@ public class RedisNewTest {
         Redis db = new Redis();
 
 //        List<Tweet> tweetList = new ArrayList<>();
-//        tweetList.add(new Tweet(135135, "Test tweet 1", "Bekir", "10/11/2010", 0.3));
-//        tweetList.add(new Tweet(335634, "Test tweet 2", "Bekir", "6/12/2012", -0.5));
-//        tweetList.add(new Tweet(413414, "Test tweet 3", "Bekir", "4/4/2013", 2.6));
+//        tweetList.add(new Tweet(135135, "my new #iphonex is awesome", "Bekir", "10/11/2010", 3.25));
+//        tweetList.add(new Tweet(335634, "I hate #iphonex.  It's not worth 1999$. My miss my old phone from now.", "Berat", "6/12/2012", -1.54));
+//        tweetList.add(new Tweet(413414, "Well, #iphonex is OK but not best.", "Ramazan", "4/4/2013", 1.71));
+//
+//        db.addNewTweets("iphonex", tweetList);
 
-//        db.addNewTweets("Test", tweetList);
 
-
-        List<Tweet> list = db.getTweetsByKeyword("Test");
+        List<Tweet> list = db.getTweetsByKeyword("iphonex");
         if (list.size() == 0){
             System.out.println("No tweet found with given key.");
         } else {

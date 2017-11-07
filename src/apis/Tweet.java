@@ -63,7 +63,7 @@ public class Tweet {
     }
 
     public String toString() {
-        return "Tweet ID: " + id + ", Text: \"" + text + "\", User: " + user + ", Date: " + timeSpan + ", Review Point: " + reviewPoint;
+        return "[" + reviewPoint + "] " + user + ": " + text + " - " + timeSpan;
     }
 
 }

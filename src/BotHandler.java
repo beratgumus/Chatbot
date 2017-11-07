@@ -38,6 +38,7 @@ public class BotHandler extends Application {
     private TreeNode currentNode;
     private String[] options;
     private String lastState;
+    Product selectedProduct;
 
     private static final String adminName = "admin";
     private static final String adminPass = "pw123";
@@ -79,10 +80,16 @@ public class BotHandler extends Application {
 
         new Thread(() -> {
             //take product info from database asynchronously
-            ProductDB mongo = new ProductDB();
-            List<Product> allProductsList = mongo.getAllProducts();
-            mongo.close();
-            rootNode = new TreeNode(allProductsList);
+            ProductDB mongo;
+            try {
+                mongo = new ProductDB();
+                List<Product> allProductsList = mongo.getAllProducts();
+                mongo.close();
+                rootNode = new TreeNode(allProductsList);
+            } catch (Exception e){
+                rootNode = null;
+            }
+
         }).start();
 
 //        List<Product> tempProducts = new ArrayList<>();
@@ -94,7 +101,6 @@ public class BotHandler extends Application {
 //        tempProducts.add(new MobilePhone("MyPhone", "Vision", 800.0, 6.25, 1.01, 2.23, 98, 5.2, 16, 13, "Android 7.0", 2));
 //        tempProducts.add(new MobilePhone("Apple", "Iphone X 16GB", 372253.0, 7.12, 5.23, 2.22, 111, 5.325, 16, 13, "iOS 11", 2));
 //        tempProducts.add(new MobilePhone("Apple", "Iphone X 32GB", 462451.0, 7.12, 5.23, 2.22, 111, 5.325, 32, 13, "iOS 11", 2));
-
 
         Parent botFxml = FXMLLoader.load(getClass().getResource("Bot.fxml"));
         botAnchor = (AnchorPane) botFxml;
@@ -110,7 +116,7 @@ public class BotHandler extends Application {
                 if (chatArea == null)
                     chatArea = (TextArea) botAnchor.lookup("#chatBox");
 
-                String uText = inputBox.getText().toLowerCase();
+                String uText = inputBox.getText();
 
                 if (uText.length() < 1 ) {
                     //do not trigger answering logic if message is empty
@@ -130,6 +136,8 @@ public class BotHandler extends Application {
                     chatArea.setText(chatArea.getText() + "You: " + String.join("", Collections.nCopies(uText.length(), "*")) + "\n");
                 }
                 inputBox.setText("");
+
+                uText = uText.toLowerCase();
 
                 if (uText.contains(adminName)) {
                     if (isLoggedIn){
@@ -179,9 +187,15 @@ public class BotHandler extends Application {
                     decideRandom("greeting");
                 } else if ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up"))) {
                     decideRandom("ask_about");
-                } else if (lastState.equals("buy_something") || uText.contains("buy something") || uText.contains("product")) {
+                } else if (uText.contains("buy") || uText.contains("product")) {
                     //we will print product categories (like "Consumer Electronics", "Major Appliance" ...)
-                    
+
+                    if (rootNode == null){
+                        // database connection problem
+                        answer("Sorry. I can't read product list.");
+                        return;
+                    }
+
                     currentNode = rootNode;
                     printOptions(currentNode);
                     lastState = "product:asked_category";
@@ -228,16 +242,22 @@ public class BotHandler extends Application {
                         return;
                     }
                     int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
-                    Product selectedProduct = products.get(selectedIndex);
+                    selectedProduct = products.get(selectedIndex);
 
                     //print product information to chatarea
-                    chatArea.setText(chatArea.getText() + "\n" +selectedProduct);
+                    chatArea.setText(chatArea.getText() + "\n" + selectedProduct);
 
                     lastState = "product:printed_info";
                 } else if (lastState.equals("product:printed_info") && (uText.contains("review") || uText.contains("tweet"))){
 
-                    //TODO: print tweets from redis
-                 
+                    Redis db = new Redis();
+                    List<Tweet> tweetList = db.getTweetsByKeyword(selectedProduct.getModel());
+
+                    for (Tweet tweet : tweetList){
+                        chatArea.setText(chatArea.getText() + "\n" + tweet);
+                    }
+
+                    lastState = "";
                 } else if (uText.contains("bye") || uText.contains("later")){
                     decideRandom("goodbye");
                     lastState = "";
