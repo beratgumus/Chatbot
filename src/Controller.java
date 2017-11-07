@@ -51,6 +51,11 @@ public class Controller {
     public TextField airConditionerTF;
     public TextField numberOfSeatsTF;
 
+    @FXML //Motorcycle fields
+    public TextField windshieldTF;
+    public TextField carrierBoxTF;
+
+
     private static final String infoColor = "#3c9ae1";
     private static final String errorColor = "#dd3b3b";
     private static final String successColor = "#3ce07e";
@@ -72,7 +77,7 @@ public class Controller {
 
         if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF) || !isSet(osTF)
                 || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
-                || !isSet(screenTF) || !isSet(storageTF) || !isSet(cameraTF) || !isSet(ramTF)){
+                || !isSet(screenTF) || !isSet(storageTF) || !isSet(cameraTF) || !isSet(ramTF)) {
             messageLabel.setText("You must fill the form.");
             messageBox.setFill(Color.web(errorColor));
             return;
@@ -118,7 +123,7 @@ public class Controller {
 
         if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF) || !isSet(osTF)
                 || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
-                || !isSet(screenTF) || !isSet(storageTF) ||  !isSet(ramTF) || !isSet(cpuTF)){
+                || !isSet(screenTF) || !isSet(storageTF) || !isSet(ramTF) || !isSet(cpuTF)) {
             messageLabel.setText("You must fill the form.");
             messageBox.setFill(Color.web(errorColor));
             return;
@@ -156,10 +161,10 @@ public class Controller {
         this.close();
     }
 
-    public void saveCar(Event event){
+    public void saveCar(Event event) {
         if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF)
                 || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
-                || !isSet(powerTF) || !isSet(fuelTypeTF) ||  !isSet(airConditionerTF) || !isSet(numberOfSeatsTF)){
+                || !isSet(powerTF) || !isSet(fuelTypeTF) || !isSet(airConditionerTF) || !isSet(numberOfSeatsTF)) {
             messageLabel.setText("You must fill the form.");
             messageBox.setFill(Color.web(errorColor));
             return;
@@ -197,7 +202,48 @@ public class Controller {
 
     }
 
-    private Double getPointFromLatestTweets(){
+    public void saveMotorcycle(Event event) {
+        if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF)
+                || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
+                || !isSet(powerTF) || !isSet(fuelTypeTF) || !isSet(windshieldTF) || !isSet(carrierBoxTF)) {
+            messageLabel.setText("You must fill the form.");
+            messageBox.setFill(Color.web(errorColor));
+            return;
+        } else {
+            messageBox.setFill(Color.web(infoColor));
+        }
+
+        Motorcycle newMotorcycle;
+        try {
+            newMotorcycle = new Motorcycle(
+                    brandTF.getText(),
+                    modelTF.getText(),
+                    Double.parseDouble(priceTF.getText()),
+                    Double.parseDouble(heightTF.getText()),
+                    Double.parseDouble(widthTF.getText()),
+                    Double.parseDouble(depthTF.getText()),
+                    Integer.parseInt(weightTF.getText()),
+                    Integer.parseInt(powerTF.getText()),
+                    fuelTypeTF.getText(),
+                    numberOfSeatsTF.getText().toLowerCase().contains("yes"),
+                    airConditionerTF.getText().toLowerCase().contains("yes"));
+        } catch (Exception e) {
+            messageLabel.setText("One of values is not acceptable");
+            messageBox.setFill(Color.web(errorColor));
+            return;
+        }
+
+        newMotorcycle.setReviewPoint(getPointFromLatestTweets());
+
+        ProductDB mongoDB = new ProductDB();
+        mongoDB.insert(newMotorcycle);
+        mongoDB.close(); //close db connection
+
+        this.close();
+
+    }
+
+    private Double getPointFromLatestTweets() {
         try {
             TwitterAPI twitterAPI = new TwitterAPI();
             double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
@@ -210,9 +256,6 @@ public class Controller {
     }
 
     private boolean isSet(TextField tf) {
-        if (tf.getText().isEmpty() || tf.getText().equals("") || !tf.getText().matches(".*[a-zA-Z0-9]+.*"))
-            return false;
-        else
-            return true;
+        return !(tf.getText().isEmpty() || tf.getText().equals("") || !tf.getText().matches(".*[a-zA-Z0-9]+.*"));
     }
 }
