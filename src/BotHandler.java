@@ -153,13 +153,14 @@ public class BotHandler extends Application {
                         answer("Welcome " + adminName + ". What kind of product do you want to add?");
                         answer("1: Mobile Phone");
                         answer("2: Laptop");
+                        answer("3: Car");
                         lastState = "admin:logged_in";
                     } else {
                         answer("Wrong password!");
                         lastState = "";
                     }
                 } else if (lastState.equals("admin:logged_in") ) {
-                    if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 2) {
+                    if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 3) {
                         answer("That's not a valid selection.");
                         lastState = ""; //reset lastState;
                         return;
@@ -171,7 +172,8 @@ public class BotHandler extends Application {
                         newForm("AddPhone.fxml");
                     } else if (selection == 2) {
                         newForm("AddLaptop.fxml");
-                    }
+                    } else if ( selection ==3)
+                        newForm("AddCar.fxml");
                     lastState = "";
                 } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))){
                     answer("Refreshing the product list...");
