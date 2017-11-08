@@ -56,7 +56,7 @@ public abstract class Product implements Comparable<Product> {
     }
 
     public String getModel() {
-        return getModel();
+        return model;
     }
 
     public void setReviewPoint(Double reviewPoint) {

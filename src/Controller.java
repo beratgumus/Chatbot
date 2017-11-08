@@ -154,7 +154,7 @@ public class Controller {
                     Double.parseDouble(screenTF.getText()),
                     Integer.parseInt(storageTF.getText()),
                     Integer.parseInt(ramTF.getText()),
-                    osTF.getText(),
+                    cpuTF.getText(),
                     osTF.getText());
         } catch (Exception e) {
             messageLabel.setText("One of values is not acceptable");

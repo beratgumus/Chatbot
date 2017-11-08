@@ -21,7 +21,7 @@ public class Redis {
      * @return list of tweets according to keyword
      */
     public List<Tweet> getTweetsByKeyword(String keyword) {
-        keyword = keyword.replaceAll("\\W", "").toLowerCase();
+        keyword = keyword.replaceAll("\\W", "");
         List<Tweet> tweetList = new ArrayList<>();
         List<String> tweetInfos = db.lrange(keyword, 0, -1); //get all items in list
 
@@ -40,7 +40,7 @@ public class Redis {
      * @param tweetList source tweet list
      */
     public void addNewTweets(String keyword, List<Tweet> tweetList) {
-        keyword = keyword.replaceAll("\\W", "").toLowerCase();
+        keyword = keyword.replaceAll("\\W", "");
         for (Tweet tweet : tweetList) {
             db.rpush(keyword, tweet.serialize());
         }
