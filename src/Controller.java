@@ -55,6 +55,16 @@ public class Controller {
     public TextField windshieldTF;
     public TextField carrierBoxTF;
 
+    @FXML //Major Appliance fields
+    public TextField capacityTF;
+    public TextField energyEfficiencyTF;
+
+    @FXML//Refrigerator fields
+    public TextField refrigeratorTypeTF;
+    public TextField iceMakerTF;
+    public TextField frostFreeTF;
+    public TextField doorOpenAlarmTF;
+
 
     private static final String infoColor = "#3c9ae1";
     private static final String errorColor = "#dd3b3b";
@@ -237,6 +247,51 @@ public class Controller {
 
         ProductDB mongoDB = new ProductDB();
         mongoDB.insert(newMotorcycle);
+        mongoDB.close(); //close db connection
+
+        this.close();
+
+    }
+
+    public void saveRefrigerator(Event event) {
+        if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF)
+                || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
+                || !isSet(capacityTF) || !isSet(energyEfficiencyTF) || !isSet(refrigeratorTypeTF) || !isSet(iceMakerTF)
+                || !isSet(frostFreeTF) || !isSet(doorOpenAlarmTF)) {
+            messageLabel.setText("You must fill the form.");
+            messageBox.setFill(Color.web(errorColor));
+            return;
+        } else {
+            messageBox.setFill(Color.web(infoColor));
+        }
+
+        Refrigerator newRfrigerator;
+        try {
+            newRfrigerator = new Refrigerator(
+                    brandTF.getText(),
+                    modelTF.getText(),
+                    Double.parseDouble(priceTF.getText()),
+                    Double.parseDouble(heightTF.getText()),
+                    Double.parseDouble(widthTF.getText()),
+                    Double.parseDouble(depthTF.getText()),
+                    Integer.parseInt(weightTF.getText()),
+                    Integer.parseInt(capacityTF.getText()),
+                    energyEfficiencyTF.getText(),
+                    refrigeratorTypeTF.getText(),
+                    iceMakerTF.getText().toLowerCase().contains("yes"),
+                    frostFreeTF.getText().toLowerCase().contains("yes"),
+                    doorOpenAlarmTF.getText().toLowerCase().contains("yes")
+                    );
+        } catch (Exception e) {
+            messageLabel.setText("One of values is not acceptable");
+            messageBox.setFill(Color.web(errorColor));
+            return;
+        }
+
+        newRfrigerator.setReviewPoint(getPointFromLatestTweets());
+
+        ProductDB mongoDB = new ProductDB();
+        mongoDB.insert(newRfrigerator);
         mongoDB.close(); //close db connection
 
         this.close();
