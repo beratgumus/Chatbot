@@ -53,8 +53,6 @@ public class ProductDB {
                     products.add(toMobilePhone(document));
                 } else if (type.equals("Laptop")){
                     products.add(toLaptop(document));
-                } else if (type.equals("Camera")){
-                    products.add(toCamera(document));
                 } else if (type.equals("Refrigerator")){
                     products.add(toRefrigerator(document));
                 } else if (type.equals("Car")){
@@ -81,10 +79,6 @@ public class ProductDB {
         return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
     }
 
-    private Camera toCamera(Document document){
-        return new Camera(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Video Resolution"), document.getInteger("Image Resolution"), document.getInteger("ISO"));
-    }
-
     private Laptop toLaptop(Document document){
         return new Laptop(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("RAM Size"), document.getString("CPU Model"), document.getString("OS"));
     }
@@ -99,64 +93,5 @@ public class ProductDB {
 
     private Refrigerator toRefrigerator(Document document){
         return new Refrigerator(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getInteger("Weight"), document.getDouble("Review Point"), document.getInteger("Capacity"), document.getString("Energy Efficiency"), document.getString("Refrigerator Type"), document.getBoolean("Ice Maker"), document.getBoolean("Frost Free"), document.getBoolean("Door Open Alarm"));
-    }
-
-    public static void main( String args[] ) {
-
-        //MongoClient mongoClient = new MongoClient();
-        //MongoDatabase products = mongoClient.getDatabase("Products");
-        //products.getCollection("Mobile Phone").insertOne(toDocument(new MobilePhone()));
-        /*
-        products.createCollection("Mobile Phones");
-        products.createCollection("Laptops");
-        products.createCollection("Cameras");
-        products.createCollection("Refrigerators");
-        products.createCollection("Washing Machines");
-        products.createCollection("Dishwashers");
-        products.createCollection("Cars");
-        products.createCollection("Motorcycles");
-        products.createCollection("Bicycles");
-        //MongoCollection collection = products.getCollection("Cameras");
-        */
-
-
-        ProductDB db = new ProductDB();
-
-        Laptop a = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop b = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop c = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop d = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop e = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop f = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop g = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-        Laptop h = new Laptop("Lenovo", "G5080A", 1450.0, 26.0, 51.0, 8.0, 2560, 15.6, 500, 4, "i3 4030u", "Windows 10");
-
-        a.setReviewPoint(0.55);
-        b.setReviewPoint(-2.51);
-        c.setReviewPoint(3.46);
-        d.setReviewPoint(0.545);
-        e.setReviewPoint(6.54);
-        f.setReviewPoint(-5.4);
-        g.setReviewPoint(0.1);
-        h.setReviewPoint(1.3);
-
-        db.insert(a);
-        db.insert(b);
-        db.insert(c);
-        db.insert(d);
-        db.insert(e);
-        db.insert(f);
-        db.insert(g);
-        db.insert(h);
-
-        System.out.println(db.getAllProducts().get(0).toString());
-        System.out.println(db.getAllProducts().get(1).toString());
-        System.out.println(db.getAllProducts().get(2).toString());
-        System.out.println(db.getAllProducts().get(3).toString());
-        System.out.println(db.getAllProducts().get(4).toString());
-        System.out.println(db.getAllProducts().get(5).toString());
-        System.out.println(db.getAllProducts().get(6).toString());
-        System.out.println(db.getAllProducts().get(7).toString());
-
     }
 }

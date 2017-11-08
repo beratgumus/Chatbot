@@ -34,22 +34,6 @@ public class Tweet {
         this.text = text;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getTimeSpan() {
-        return timeSpan;
-    }
-
-    public void setTimeSpan(String timeSpan) {
-        this.timeSpan = timeSpan;
-    }
-
     public double getReviewPoint() {
         return reviewPoint;
     }

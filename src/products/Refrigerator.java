@@ -1,10 +1,7 @@
 package products;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bson.Document;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class Refrigerator extends MajorAppliance {
 
@@ -26,38 +23,6 @@ public class Refrigerator extends MajorAppliance {
         this.refrigeratorType = refrigeratorType;
         this.iceMaker = iceMaker;
         this.frostFree = frostFree;
-        this.doorOpenAlarm = doorOpenAlarm;
-    }
-
-    public String getRefrigeratorType() {
-        return refrigeratorType;
-    }
-
-    public void setRefrigeratorType(String refrigeratorType) {
-        this.refrigeratorType = refrigeratorType;
-    }
-
-    public boolean isIceMaker() {
-        return iceMaker;
-    }
-
-    public void setIceMaker(boolean iceMaker) {
-        this.iceMaker = iceMaker;
-    }
-
-    public boolean isFrostFree() {
-        return frostFree;
-    }
-
-    public void setFrostFree(boolean frostFree) {
-        this.frostFree = frostFree;
-    }
-
-    public boolean isDoorOpenAlarm() {
-        return doorOpenAlarm;
-    }
-
-    public void setDoorOpenAlarm(boolean doorOpenAlarm) {
         this.doorOpenAlarm = doorOpenAlarm;
     }
 

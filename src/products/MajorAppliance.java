@@ -19,22 +19,6 @@ public abstract class MajorAppliance extends Product {
         this.energyEfficiency = energyEfficiency;
     }
 
-    public int getCapacity(){
-        return capacity;
-    }
-
-    public void setCapacity(int capacity){
-        this.capacity = capacity;
-    }
-
-    public String getEnergyEfficiency() {
-        return energyEfficiency;
-    }
-
-    public void setEnergyEfficiency(String energyEfficiency) {
-        this.energyEfficiency = energyEfficiency;
-    }
-
     @Override
     public Document toDocument(){
         return super.toDocument()

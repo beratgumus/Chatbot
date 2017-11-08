@@ -17,22 +17,6 @@ public class Car extends Vehicle {
         this.airConditionerType = airConditionerType;
     }
 
-    public int getNumberOfSeats() {
-        return numberOfSeats;
-    }
-
-    public void setNumberOfSeats(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
-    }
-
-    public String getAirConditionerType() {
-        return airConditionerType;
-    }
-
-    public void setAirConditionerType(String airConditionerType) {
-        this.airConditionerType = airConditionerType;
-    }
-
     @Override
     public org.bson.Document toDocument(){
         return super.toDocument()

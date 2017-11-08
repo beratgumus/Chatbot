@@ -22,30 +22,6 @@ public class MobilePhone extends ConsumerElectronics {
         this.ramSize = ramSize;
     }
 
-    public int getCameraResolution() {
-        return cameraResolution;
-    }
-
-    public void setCameraResolution(int cameraResolution) {
-        this.cameraResolution = cameraResolution;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public int getRamSize() {
-        return ramSize;
-    }
-
-    public void setRamSize(int ramSize) {
-        this.ramSize = ramSize;
-    }
-
     public Document toDocument(){
         return super.toDocument()
                 .append("Camera Resolution", cameraResolution)

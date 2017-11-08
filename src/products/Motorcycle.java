@@ -20,22 +20,6 @@ public class Motorcycle extends Vehicle {
         this.carrierBox = carrierBox;
     }
 
-    public boolean isWindshield() {
-        return windshield;
-    }
-
-    public void setWindshield(boolean windshield) {
-        this.windshield = windshield;
-    }
-
-    public boolean isCarrierBox() {
-        return carrierBox;
-    }
-
-    public void setCarrierBox(boolean carrierBox) {
-        this.carrierBox = carrierBox;
-    }
-
     @Override
     public Document toDocument(){
         return super.toDocument()

@@ -19,22 +19,6 @@ public abstract class ConsumerElectronics extends Product {
         this.storageSize = storageSize;
     }
 
-    public Double getScreenSize() {
-        return screenSize;
-    }
-
-    public void setScreenSize(Double screenSize) {
-        this.screenSize = screenSize;
-    }
-
-    public int getStorageSize() {
-        return storageSize;
-    }
-
-    public void setStorageSize(int storageSize) {
-        this.storageSize = storageSize;
-    }
-
     @Override
     public  Document toDocument(){
         return super.toDocument()

@@ -21,31 +21,6 @@ public class Laptop extends ConsumerElectronics {
         this.os = os;
     }
 
-
-    public int getRamSize() {
-        return ramSize;
-    }
-
-    public void setRamSize(int ramSize) {
-        this.ramSize = ramSize;
-    }
-
-    public String getCpuModel() {
-        return cpuModel;
-    }
-
-    public void setCpuModel(String cpuModel) {
-        this.cpuModel = cpuModel;
-    }
-
-    public String getOs(){
-        return os;
-    }
-
-    public void setOs(String os){
-        this.os = os;
-    }
-
     @Override
     public Document toDocument(){
         return super.toDocument()
