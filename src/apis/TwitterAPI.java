@@ -34,7 +34,8 @@ public class TwitterAPI {
     }
 
     /**
-     * method that returns the list of Tweet according to keyword.
+     * method that calculates review point according to keyword.
+     * It also adds found tweets to Redis.
      *
      * @param searchKey key that used for searching
      * @return set of a Tweet objects as a list.
