@@ -46,10 +46,12 @@
 
 .text-area {
     -fx-text-fill: #A0A2BA;
-    text-area-background: #232838 ;
+    text-area-background: #232838;
+    -fx-background-radius: 0, 0;
 }
 
 .text-area .content {
     -fx-text-fill: #A0A2BA;
-    -fx-background-color: text-area-background ;
+    -fx-background-color: text-area-background;
+    -fx-background-radius: 0, 0;
 }

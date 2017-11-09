@@ -286,6 +286,8 @@ public class BotHandler extends Application {
 
             }
         });
+
+        inputBox.requestFocus();
         primaryStage.setTitle("Chatbot");
         primaryStage.show();
     }

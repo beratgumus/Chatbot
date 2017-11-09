@@ -11,30 +11,30 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="393.0" prefWidth="595.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane prefHeight="591.0" prefWidth="733.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <AnchorPane fx:id="background" layoutX="13.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="570.0" style="-fx-background-color: #2d3447;">
+      <AnchorPane fx:id="background" layoutX="20.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="693.0" style="-fx-background-color: #2d3447;">
           <children>
-            <Rectangle fx:id="header" fill="#202e40" height="55.0" layoutX="-5.0" layoutY="1.0" stroke="#172536" strokeType="OUTSIDE" strokeWidth="2.0" width="580.0" />
-              <Label layoutX="59.0" layoutY="11.0" text="Chat" textFill="#2196f3">
+            <Rectangle fx:id="header" fill="#202e40" height="69.0" layoutX="2.0" stroke="#172536" strokeType="OUTSIDE" strokeWidth="2.0" width="689.0" />
+              <Label layoutX="75.0" layoutY="17.0" text="Chat" textFill="#2196f3">
                   <font>
                       <Font size="24.0" />
                   </font>
               </Label>
-            <Button fx:id="closeBtn" layoutX="524.0" layoutY="13.0" mnemonicParsing="false" onAction="#close" styleClass="close-button" stylesheets="@styles.css" text="X" />
-            <TextField fx:id="inputBox" layoutX="98.0" layoutY="338.0" prefHeight="25.0" prefWidth="455.0" stylesheets="@styles.css" />
-            <Label layoutX="28.0" layoutY="341.0" text="Message :" textFill="#a0a2ba">
+            <Button fx:id="closeBtn" layoutX="648.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" styleClass="close-button" stylesheets="@styles.css" text="X" />
+            <TextField fx:id="inputBox" layoutX="108.0" layoutY="513.0" prefHeight="25.0" prefWidth="555.0" stylesheets="@styles.css" />
+            <Label layoutX="28.0" layoutY="516.0" text="Message :" textFill="#a0a2ba">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="107.0" layoutY="11.0" text="bot" textFill="#e0f2ff">
+            <Label layoutX="123.0" layoutY="17.0" text="bot" textFill="#e0f2ff">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextArea fx:id="chatBox" editable="false" focusTraversable="false" layoutX="17.0" layoutY="66.0" prefHeight="264.0" prefWidth="536.0" stylesheets="@styles.css" wrapText="true" />
-            <ImageView fitHeight="47.0" fitWidth="49.0" layoutX="4.0" layoutY="5.0">
+            <TextArea fx:id="chatBox" editable="false" focusTraversable="false" layoutX="17.0" layoutY="84.0" prefHeight="418.0" prefWidth="660.0" stylesheets="@styles.css" wrapText="true" />
+            <ImageView fitHeight="47.0" fitWidth="49.0" layoutX="20.0" layoutY="11.0">
                <image>
                   <Image url="@chatbot.png" />
                </image>
