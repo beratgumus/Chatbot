@@ -12,10 +12,10 @@ public abstract class Product implements Comparable<Product> {
     private Double height;
     private Double width;
     private Double depth;
-    private int weight;
+    private Double weight;
     private double reviewPoint;
 
-    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight, Double reviewPoint) {
+    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -30,7 +30,7 @@ public abstract class Product implements Comparable<Product> {
 
     }
 
-    public Product(String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, int weight) {
+    public Product(String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, Double weight) {
         this.id = null;
         this.brand = brand;
         this.model = model;

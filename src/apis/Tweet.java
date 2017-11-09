@@ -3,7 +3,7 @@ package apis;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tweet {
+public class Tweet implements Comparable<Tweet> {
     private long id;
     private String text;
     private String user;
@@ -42,7 +42,7 @@ public class Tweet {
         this.reviewPoint = reviewPoint;
     }
 
-    public String serialize(){
+    public String serialize() {
         return id + "♦" + text + "♦" + user + "♦" + timeSpan + "♦" + reviewPoint;
     }
 
@@ -50,4 +50,13 @@ public class Tweet {
         return "[" + reviewPoint + "] " + user + ": " + text + " - " + timeSpan;
     }
 
+    @Override
+    public int compareTo(Tweet tweet) {
+        if (this.reviewPoint == tweet.reviewPoint)
+            return 0;
+        else if (this.reviewPoint > tweet.reviewPoint)
+            return -1;
+        else
+            return 1;
+    }
 }

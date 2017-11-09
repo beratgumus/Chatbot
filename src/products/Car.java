@@ -5,13 +5,13 @@ public class Car extends Vehicle {
     private int numberOfSeats;
     private String airConditionerType;
 
-    public Car(String id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double reviewPoint, int power, String fuelType, int numberOfSeats, String airConditionerType) {
+    public Car(String id, String brand, String model, Double price, Double height, Double width, Double depth, Double weight, Double reviewPoint, int power, String fuelType, int numberOfSeats, String airConditionerType) {
         super(id, brand, model, price, "Car", height, width, depth, weight, reviewPoint, power, fuelType);
         this.numberOfSeats = numberOfSeats;
         this.airConditionerType = airConditionerType;
     }
 
-    public Car(String brand, String model, Double price, Double height, Double width, Double depth, int weight, int power, String fuelType, int numberOfSeats, String airConditionerType) {
+    public Car(String brand, String model, Double price, Double height, Double width, Double depth, Double weight, int power, String fuelType, int numberOfSeats, String airConditionerType) {
         super(brand, model, price, "Car", height, width, depth, weight, power, fuelType);
         this.numberOfSeats = numberOfSeats;
         this.airConditionerType = airConditionerType;

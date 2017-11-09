@@ -261,6 +261,8 @@ public class BotHandler extends Application {
 
                     Redis db = new Redis();
                     List<Tweet> tweetList = db.getTweetsByKeyword(selectedProduct.getModel());
+                    tweetList.sort(Tweet::compareTo);
+
 
                     for (Tweet tweet : tweetList){
                         chatArea.setText(chatArea.getText() + "\n" + tweet);

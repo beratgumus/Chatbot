@@ -10,7 +10,7 @@ public class Refrigerator extends MajorAppliance {
     private boolean frostFree;
     private boolean doorOpenAlarm;
 
-    public Refrigerator(String id, String brand, String model, Double price, Double height, Double width, Double depth, int weight, Double reviewPoint, int capacity, String energyEfficiency, String refrigeratorType, boolean iceMaker, boolean frostFree, boolean doorOpenAlarm) {
+    public Refrigerator(String id, String brand, String model, Double price, Double height, Double width, Double depth, Double weight, Double reviewPoint, int capacity, String energyEfficiency, String refrigeratorType, boolean iceMaker, boolean frostFree, boolean doorOpenAlarm) {
         super(id, brand, model, price, "Refrigerator" , height, width, depth, weight, reviewPoint, capacity, energyEfficiency);
         this.refrigeratorType = refrigeratorType;
         this.iceMaker = iceMaker;
@@ -18,7 +18,7 @@ public class Refrigerator extends MajorAppliance {
         this.doorOpenAlarm = doorOpenAlarm;
     }
 
-    public Refrigerator(String brand, String model, Double price, Double height, Double width, Double depth, int weight, int capacity, String energyEfficiency, String refrigeratorType, boolean iceMaker, boolean frostFree, boolean doorOpenAlarm) {
+    public Refrigerator(String brand, String model, Double price, Double height, Double width, Double depth, Double weight, int capacity, String energyEfficiency, String refrigeratorType, boolean iceMaker, boolean frostFree, boolean doorOpenAlarm) {
         super(brand, model, price, "Refrigerator" ,height, width, depth, weight, capacity, energyEfficiency);
         this.refrigeratorType = refrigeratorType;
         this.iceMaker = iceMaker;
