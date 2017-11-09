@@ -261,11 +261,16 @@ public class BotHandler extends Application {
 
                     Redis db = new Redis();
                     List<Tweet> tweetList = db.getTweetsByKeyword(selectedProduct.getModel());
-                    tweetList.sort(Tweet::compareTo);
 
-
-                    for (Tweet tweet : tweetList){
-                        chatArea.setText(chatArea.getText() + "\n" + tweet);
+                    if (tweetList == null){
+                        answer("I can't read review/tweet list.");
+                    } else if (tweetList.size() == 0){
+                        answer("I can't find any reviews/tweets for this product. ");
+                    } else {
+                        tweetList.sort(Tweet::compareTo);
+                        for (Tweet tweet : tweetList){
+                            chatArea.setText(chatArea.getText() + "\n" + tweet);
+                        }
                     }
 
                     lastState = "";

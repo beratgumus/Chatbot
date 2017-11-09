@@ -38,7 +38,7 @@ public class TwitterAPI {
      * It also adds found tweets to Redis.
      *
      * @param searchKey key that used for searching
-     * @return set of a Tweet objects as a list.
+     * @return calculated reviewPoint of given keyword. (keywords are like "iPhoneX", "Galaxy S3" ...)
      */
     public double getReviewPoint(String searchKey) throws TwitterException {
         String keyword = searchKey.replaceAll("\\W", "");
