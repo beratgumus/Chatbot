@@ -42,6 +42,10 @@ public class Tweet implements Comparable<Tweet> {
         this.reviewPoint = reviewPoint;
     }
 
+    /**
+     * Prepares tweet to Redis.io insertation.
+     * @return serialized string
+     */
     public String serialize() {
         return id + "♦" + text + "♦" + user + "♦" + timeSpan + "♦" + reviewPoint;
     }
