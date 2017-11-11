@@ -111,7 +111,7 @@ public class Controller {
                     osTF.getText(),
                     Integer.parseInt(ramTF.getText()));
         } catch (Exception e) {
-            messageLabel.setText("One of values is not acceptable");
+            messageLabel.setText("One or more fields are not filled out correctly");
             messageBox.setFill(Color.web(errorColor));
             return;
         }
@@ -157,7 +157,7 @@ public class Controller {
                     cpuTF.getText(),
                     osTF.getText());
         } catch (Exception e) {
-            messageLabel.setText("One of values is not acceptable");
+            messageLabel.setText("One or more fields are not filled out correctly");
             messageBox.setFill(Color.web(errorColor));
             return;
         }
@@ -197,7 +197,7 @@ public class Controller {
                     Integer.parseInt(numberOfSeatsTF.getText()),
                     airConditionerTF.getText());
         } catch (Exception e) {
-            messageLabel.setText("One of values is not acceptable");
+            messageLabel.setText("One or more fields are not filled out correctly");
             messageBox.setFill(Color.web(errorColor));
             return;
         }
@@ -238,7 +238,7 @@ public class Controller {
                     windshieldCB.isSelected(),
                     carrierBoxCB.isSelected());
         } catch (Exception e) {
-            messageLabel.setText("One of values is not acceptable");
+            messageLabel.setText("One or more fields are not filled out correctly");
             messageBox.setFill(Color.web(errorColor));
             return;
         }
@@ -282,7 +282,7 @@ public class Controller {
                     doorOpenAlarmCB.isSelected()
                     );
         } catch (Exception e) {
-            messageLabel.setText("One of values is not acceptable");
+            messageLabel.setText("One or more fields are not filled out correctly");
             messageBox.setFill(Color.web(errorColor));
             return;
         }

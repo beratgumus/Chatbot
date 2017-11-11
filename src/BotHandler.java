@@ -192,11 +192,13 @@ public class BotHandler extends Application {
                     mongo.close();
 
                     answer("Operation is successfully completed!");
-                } else if (uText.contains("hello") || uText.contains("hi") || uText.contains("hey")) {
+                } else if (lastState.equals("") &&
+                        (uText.contains("hello") || uText.contains("hi") || uText.contains("hey"))) {
                     decideRandom("greeting");
-                } else if ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up"))) {
+                } else if (lastState.equals("") &&
+                        ((uText.contains("how") && uText.contains("you")) || (uText.contains("what") && uText.contains("up")))) {
                     decideRandom("ask_about");
-                } else if (uText.contains("buy") || uText.contains("product")) {
+                } else if (lastState.equals("") && (uText.contains("buy") || uText.contains("product"))) {
                     //we will print product categories (like "Consumer Electronics", "Major Appliance" ...)
 
                     if (rootNode == null) {
