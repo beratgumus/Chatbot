@@ -86,7 +86,7 @@ public class BotHandler extends Application {
                 List<Product> allProductsList = mongo.getAllProducts();
                 mongo.close();
                 rootNode = new TreeNode(allProductsList);
-            } catch (Exception e){
+            } catch (Exception e) {
                 rootNode = null;
             }
 
@@ -118,7 +118,7 @@ public class BotHandler extends Application {
 
                 String uText = inputBox.getText();
 
-                if (uText.length() < 1 ) {
+                if (uText.length() < 1) {
                     //do not trigger answering logic if message is empty
                     return;
                 }
@@ -127,7 +127,7 @@ public class BotHandler extends Application {
                 Timeline autoScroll = new Timeline(new KeyFrame(
                         Duration.millis(50),
                         ae -> chatArea.setScrollTop(Double.MAX_VALUE)));
-                
+
                 if (!lastState.equals("admin:asked_password")) {
                     //normal answer. print it to chatbox
                     chatArea.setText(chatArea.getText() + "You: " + uText + "\n");
@@ -140,7 +140,7 @@ public class BotHandler extends Application {
                 uText = uText.toLowerCase();
 
                 if (uText.contains(adminName)) {
-                    if (isLoggedIn){
+                    if (isLoggedIn) {
                         answer("You are already logged in " + adminName);
                     } else {
                         //admin login logic starts here
@@ -161,7 +161,7 @@ public class BotHandler extends Application {
                         answer("Wrong password!");
                         lastState = "";
                     }
-                } else if (lastState.equals("admin:logged_in") ) {
+                } else if (lastState.equals("admin:logged_in")) {
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > 5) {
                         answer("That's not a valid selection.");
                         lastState = ""; //reset lastState;
@@ -174,15 +174,15 @@ public class BotHandler extends Application {
                         newForm("AddPhone.fxml");
                     } else if (selection == 2) {
                         newForm("AddLaptop.fxml");
-                    } else if ( selection ==3) {
+                    } else if (selection == 3) {
                         newForm("AddCar.fxml");
-                    } else if (selection == 4){
+                    } else if (selection == 4) {
                         newForm("AddMotorcycle.fxml");
-                    } else if (selection == 5){
+                    } else if (selection == 5) {
                         newForm("AddRefrigerator.fxml");
                     }
                     lastState = "";
-                } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))){
+                } else if (isLoggedIn && (uText.contains("refresh") || uText.contains("reload"))) {
                     answer("Refreshing the product list...");
 
                     //retrieve list from mongoDB again
@@ -199,7 +199,7 @@ public class BotHandler extends Application {
                 } else if (uText.contains("buy") || uText.contains("product")) {
                     //we will print product categories (like "Consumer Electronics", "Major Appliance" ...)
 
-                    if (rootNode == null){
+                    if (rootNode == null) {
                         // database connection problem
                         answer("Sorry. I can't read product list.");
                         return;
@@ -211,7 +211,7 @@ public class BotHandler extends Application {
 
                 } else if (lastState.equals("product:asked_category")) {
                     //we will print product types in selected category (like "Mobile Phone", "Refigerator"...)
-                    
+
                     if (!uText.matches("[0-9]+")) {
                         answer("That's not a valid selection.");
                         lastState = ""; //reset lastState;
@@ -224,7 +224,7 @@ public class BotHandler extends Application {
                     lastState = "product:asked_type";
                 } else if (lastState.equals("product:asked_type")) {
                     //we will print all products in selected type with ordering
-                    
+
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > options.length) {
                         answer("That's not a valid selection.");
                         lastState = ""; //reset lastState;
@@ -244,7 +244,7 @@ public class BotHandler extends Application {
                     lastState = "product:asked_product";
                 } else if (lastState.equals("product:asked_product")) {
                     //we will print information about selected product
-                    
+
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > products.size()) {
                         answer("That's not a valid selection.");
                         lastState = ""; //reset lastState;
@@ -257,30 +257,32 @@ public class BotHandler extends Application {
                     chatArea.setText(chatArea.getText() + "\n" + selectedProduct);
 
                     lastState = "product:printed_info";
-                } else if (lastState.equals("product:printed_info") && (uText.contains("review") || uText.contains("tweet"))){
+                } else if (lastState.equals("product:printed_info") && (uText.contains("review") || uText.contains("tweet"))) {
 
                     Redis db = new Redis();
                     List<Tweet> tweetList = db.getTweetsByKeyword(selectedProduct.getModel());
 
-                    if (tweetList == null){
+                    if (tweetList == null) {
                         answer("I can't read review/tweet list.");
-                    } else if (tweetList.size() == 0){
+                    } else if (tweetList.size() == 0) {
                         answer("I can't find any reviews/tweets for this product. ");
                     } else {
                         tweetList.sort(Tweet::compareTo);
-                        for (Tweet tweet : tweetList){
-                            chatArea.setText(chatArea.getText() + "\n" + tweet);
+                        answer("Some Twitter comments for product : ");
+                        for (int i = 0; i < 3 && i < tweetList.size(); i++) { //top 3 tweets will be displayed on Chatbot
+                            chatArea.setText(chatArea.getText() + "\n" + tweetList.get(i));
+
                         }
                     }
 
                     lastState = "";
-                } else if (uText.contains("bye") || uText.contains("later")){
+                } else if (uText.contains("bye") || uText.contains("later")) {
                     decideRandom("goodbye");
                     lastState = "";
 
-                } else if (uText.contains("clear")){
+                } else if (uText.contains("clear")) {
                     chatArea.setText("");
-                } else if (uText.contains("exit")){
+                } else if (uText.contains("exit")) {
                     primaryStage.close();
                 } else {
                     decideRandom("unknown");

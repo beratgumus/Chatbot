@@ -51,7 +51,10 @@ public class Tweet implements Comparable<Tweet> {
     }
 
     public String toString() {
-        return "[" + reviewPoint + "] " + user + ": " + text + " - " + timeSpan;
+        return "Tweet Review Point: " + reviewPoint +
+                "\nUsername: " + user +
+                "\nTweet Text: " + text +
+                "\nDate:  " + timeSpan + "\n";
     }
 
     @Override

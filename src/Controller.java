@@ -235,7 +235,7 @@ public class Controller {
                     Double.parseDouble(weightTF.getText()),
                     Integer.parseInt(powerTF.getText()),
                     fuelTypeTF.getText(),
-                    numberOfSeatsTF.getText().toLowerCase().contains("yes"),
+                    windshieldTF.getText().toLowerCase().contains("yes"),
                     airConditionerTF.getText().toLowerCase().contains("yes"));
         } catch (Exception e) {
             messageLabel.setText("One of values is not acceptable");

@@ -58,6 +58,7 @@ public class TwitterAPI {
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), tweetReviewPoint);
                 tweetList.add(newTweet);
             }
+            tweetList.sort(Tweet::compareTo);
             Redis db = new Redis();
             db.addNewTweets(keyword, tweetList);
             averageReviewPoint = totalReviewPoint / tweetList.size();
