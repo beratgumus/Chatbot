@@ -236,7 +236,7 @@ public class Controller {
                     Integer.parseInt(powerTF.getText()),
                     fuelTypeTF.getText(),
                     windshieldTF.getText().toLowerCase().contains("yes"),
-                    airConditionerTF.getText().toLowerCase().contains("yes"));
+                    carrierBoxTF.getText().toLowerCase().contains("yes"));
         } catch (Exception e) {
             messageLabel.setText("One of values is not acceptable");
             messageBox.setFill(Color.web(errorColor));

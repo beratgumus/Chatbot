@@ -23,9 +23,9 @@ public class TwitterAPI {
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("*******")
+        cb.setDebugEnabled(true).setOAuthConsumerKey("***********")
                 .setOAuthConsumerSecret("***********")
-                .setOAuthAccessToken("**********")
+                .setOAuthAccessToken("***************")
                 .setOAuthAccessTokenSecret("****************");
 
         TwitterFactory tf = new TwitterFactory(cb.build());
@@ -45,7 +45,7 @@ public class TwitterAPI {
         List<Tweet> tweetList = new ArrayList<>();
 
         try {
-            Query query = new Query("(#" + keyword + ") AND ((good) OR (bad) OR (like) OR (dislike) OR (hate) OR (love) OR (best)) exclude:retweets exclude:links exclude:replies");
+            Query query = new Query("(#" + keyword + ") AND ((good) OR (bad) OR (like) OR (dislike) OR (hate) OR (love) OR (best)) exclude:retweets exclude:links exclude:replies"); //filter the query to get more qualified tweets
             query.lang("en");//languages of tweets is english
             query.count(10);//max 10 tweets
             QueryResult result = twitter.search(query); //send query
@@ -53,15 +53,21 @@ public class TwitterAPI {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             double totalReviewPoint = 0.00;
             for (Status tweet : tweets) {
-                double tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText());
+                double tweetReviewPoint = senticNet.calculateReviewPoint(tweet.getText()); // calculate the review point of each tweet.
                 totalReviewPoint += tweetReviewPoint;
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), tweetReviewPoint);
                 tweetList.add(newTweet);
             }
-            tweetList.sort(Tweet::compareTo);
+            tweetList.sort(Tweet::compareTo); //sort the tweets before inserting them to redis
             Redis db = new Redis();
             db.addNewTweets(keyword, tweetList);
-            averageReviewPoint = totalReviewPoint / tweetList.size();
+
+            if (totalReviewPoint == 0 ) // if we do not get tweets from twitter,review point of product will be zero
+                averageReviewPoint=0;
+            else
+                averageReviewPoint = totalReviewPoint / tweetList.size();
+
+
 
         } catch (TwitterException te) {
             te.printStackTrace();

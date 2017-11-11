@@ -88,7 +88,7 @@ public class ProductDB {
     }
 
     private Motorcycle toMotorcycle(Document document){
-        return new Motorcycle(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getDouble("Weight"), document.getDouble("Review Point"), document.getInteger("Power"), document.getString("Fuel Type"), document.getBoolean(""), document.getBoolean(""));
+        return new Motorcycle(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getDouble("Weight"), document.getDouble("Review Point"), document.getInteger("Power"), document.getString("Fuel Type"), document.getBoolean("Wind Shield"), document.getBoolean("CarrierBox"));
     }
 
     private Refrigerator toRefrigerator(Document document){
