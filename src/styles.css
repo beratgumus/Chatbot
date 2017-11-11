@@ -55,3 +55,17 @@
     -fx-background-color: text-area-background;
     -fx-background-radius: 0, 0;
 }
+
+.check-box .box {
+    -fx-background-color: rgba(0,0,0, 0.2);
+    -fx-border-color:rgba(0,0,0, 0.2);
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: rgba(43, 50, 68, 0.4);
+}

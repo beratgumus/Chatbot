@@ -52,18 +52,18 @@ public class Controller {
     public TextField numberOfSeatsTF;
 
     @FXML //Motorcycle fields
-    public TextField windshieldTF;
-    public TextField carrierBoxTF;
+    public CheckBox windshieldCB;
+    public CheckBox carrierBoxCB;
 
     @FXML //Major Appliance fields
     public TextField capacityTF;
     public TextField energyEfficiencyTF;
 
-    @FXML//Refrigerator fields
+    @FXML //Refrigerator fields
     public TextField refrigeratorTypeTF;
-    public TextField iceMakerTF;
-    public TextField frostFreeTF;
-    public TextField doorOpenAlarmTF;
+    public CheckBox iceMakerCB;
+    public CheckBox frostFreeCB;
+    public CheckBox doorOpenAlarmCB;
 
 
     private static final String infoColor = "#3c9ae1";
@@ -215,7 +215,7 @@ public class Controller {
     public void saveMotorcycle(Event event) {
         if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF)
                 || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
-                || !isSet(powerTF) || !isSet(fuelTypeTF) || !isSet(windshieldTF) || !isSet(carrierBoxTF)) {
+                || !isSet(powerTF) || !isSet(fuelTypeTF) ) {
             messageLabel.setText("You must fill the form.");
             messageBox.setFill(Color.web(errorColor));
             return;
@@ -235,8 +235,8 @@ public class Controller {
                     Double.parseDouble(weightTF.getText()),
                     Integer.parseInt(powerTF.getText()),
                     fuelTypeTF.getText(),
-                    windshieldTF.getText().toLowerCase().contains("yes"),
-                    carrierBoxTF.getText().toLowerCase().contains("yes"));
+                    windshieldCB.isSelected(),
+                    carrierBoxCB.isSelected());
         } catch (Exception e) {
             messageLabel.setText("One of values is not acceptable");
             messageBox.setFill(Color.web(errorColor));
@@ -256,8 +256,7 @@ public class Controller {
     public void saveRefrigerator(Event event) {
         if (!isSet(brandTF) || !isSet(modelTF) || !isSet(priceTF)
                 || !isSet(heightTF) || !isSet(widthTF) || !isSet(depthTF) || !isSet(weightTF)
-                || !isSet(capacityTF) || !isSet(energyEfficiencyTF) || !isSet(refrigeratorTypeTF) || !isSet(iceMakerTF)
-                || !isSet(frostFreeTF) || !isSet(doorOpenAlarmTF)) {
+                || !isSet(capacityTF) || !isSet(energyEfficiencyTF) || !isSet(refrigeratorTypeTF)) {
             messageLabel.setText("You must fill the form.");
             messageBox.setFill(Color.web(errorColor));
             return;
@@ -278,9 +277,9 @@ public class Controller {
                     Integer.parseInt(capacityTF.getText()),
                     energyEfficiencyTF.getText(),
                     refrigeratorTypeTF.getText(),
-                    iceMakerTF.getText().toLowerCase().contains("yes"),
-                    frostFreeTF.getText().toLowerCase().contains("yes"),
-                    doorOpenAlarmTF.getText().toLowerCase().contains("yes")
+                    iceMakerCB.isSelected(),
+                    frostFreeCB.isSelected(),
+                    doorOpenAlarmCB.isSelected()
                     );
         } catch (Exception e) {
             messageLabel.setText("One of values is not acceptable");
