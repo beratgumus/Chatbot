@@ -1,7 +1,16 @@
 # Chatbot
 Simple Java Chatbot Project for online stores. 
 
-# Screenshots
+# Tech Stack and External Libraries
+- JavaFX
+- FXML
+- CSS
+- Redis
+- Twitter4J
+- MongoDB
+- SenticNet
+
+# Sample Scenario
 
 ![Screenshot](screenshots/1.png)
 
