@@ -3,17 +3,19 @@ package apis;
 import redis.clients.jedis.Jedis;
 import java.util.*;
 
-
 /**
  * Wrapper class for Redis.io database.
  * Generated for re-usability
+ *
+ * Singleton Pattern is implemented for Redis.io
  */
 public class Redis {
     private static final String redisHost = "localhost";
+    private static Redis Instance=null;
     private Jedis db;
 
-    public Redis() {
-        db = new Jedis(redisHost);
+    private Redis() {
+        openConnection();
     }
 
     /**
@@ -21,6 +23,7 @@ public class Redis {
      * @return list of tweets according to keyword
      */
     public List<Tweet> getTweetsByKeyword(String keyword) {
+        openConnection();
         keyword = keyword.replaceAll("\\W", "");
         List<Tweet> tweetList = new ArrayList<>();
         List<String> tweetInfos;
@@ -37,9 +40,6 @@ public class Redis {
         } catch (Exception e){
             return null;
         }
-
-
-
     }
 
     /**
@@ -48,6 +48,7 @@ public class Redis {
      * @param tweetList source tweet list
      */
     public void addNewTweets(String keyword, List<Tweet> tweetList) {
+        openConnection();
         keyword = keyword.replaceAll("\\W", "");
         for (Tweet tweet : tweetList) {
             db.rpush(keyword, tweet.serialize());
@@ -70,5 +71,14 @@ public class Redis {
         db.close();
     }
 
+    public void openConnection(){
+        db = new Jedis(redisHost);
+    }
 
+    public static Redis getInstance(){
+        if (Instance == null)
+            Instance = new Redis();
+
+        return Instance;
+    }
 }
