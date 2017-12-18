@@ -13,18 +13,13 @@ import products.*;
 import com.mongodb.client.model.Sorts;
 
 public class ProductDB {
-
+    private static ProductDB Instance=null;
     private MongoClient mongoClient;
     private MongoDatabase db;
-    private MongoCollection productCollection;
+    private MongoCollection<Document> productCollection;
 
-    public ProductDB(){
-        mongoClient = new MongoClient();
-        db = mongoClient.getDatabase("Chatbot");
-
-        // if collection does not exist MongoDB will create one
-        // see: https://docs.mongodb.com/manual/reference/method/db.getCollection/#behavior
-        productCollection = db.getCollection("Products");
+    private ProductDB(){
+        openConnection();
     }
 
     /**
@@ -32,6 +27,7 @@ public class ProductDB {
      * @param product product to be inserted
      */
     public void insert(Product product){
+        openConnection();
         productCollection.insertOne(product.toDocument());
     }
 
@@ -75,6 +71,14 @@ public class ProductDB {
         mongoClient.close();
     }
 
+    public void openConnection(){
+        // if collection does not exist MongoDB will create one
+        // see: https://docs.mongodb.com/manual/reference/method/db.getCollection/#behavior
+        mongoClient = new MongoClient();
+        db = mongoClient.getDatabase("Chatbot");
+        productCollection = db.getCollection("Products");
+    }
+
     private MobilePhone toMobilePhone(Document document){
         return new MobilePhone(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getDouble("Weight"), document.getDouble("Review Point"), document.getDouble("Screen Size"), document.getInteger("Storage Size"), document.getInteger("Camera Resolution"), document.getString("OS"), document.getInteger("RAM Size"));
     }
@@ -93,5 +97,12 @@ public class ProductDB {
 
     private Refrigerator toRefrigerator(Document document){
         return new Refrigerator(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getDouble("Weight"), document.getDouble("Review Point"), document.getInteger("Capacity"), document.getString("Energy Efficiency"), document.getString("Refrigerator Type"), document.getBoolean("Ice Maker"), document.getBoolean("Frost Free"), document.getBoolean("Door Open Alarm"));
+    }
+
+    public static ProductDB getIntance(){
+        if (Instance == null)
+            Instance = new ProductDB();
+
+        return Instance;
     }
 }
