@@ -5,11 +5,15 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Singleton Pattern for SenticNet class
+ */
 public class SenticNet {
+    private static SenticNet Instance=null;
     private Scanner scanner;
     private HashMap<String, Double> data;
 
-    public SenticNet() {
+    private SenticNet() {
 
         String file = "..\\Chatbot\\src\\apis\\senticnet4-v2.txt";
         try {
@@ -50,5 +54,12 @@ public class SenticNet {
             }
         }
         return sum;
+    }
+
+    public static SenticNet getInstance(){
+        if (Instance == null)
+            Instance = new SenticNet();
+
+        return Instance;
     }
 }
