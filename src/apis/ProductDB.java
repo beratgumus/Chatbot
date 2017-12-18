@@ -12,6 +12,9 @@ import org.bson.conversions.Bson;
 import products.*;
 import com.mongodb.client.model.Sorts;
 
+/**
+ * Singleton Pattern is implemented for MongoDb
+ */
 public class ProductDB {
     private static ProductDB Instance=null;
     private MongoClient mongoClient;
@@ -36,6 +39,7 @@ public class ProductDB {
      * @return list of products
      */
     public List<Product> getAllProducts(){
+        openConnection();
         List<Product> products = new ArrayList<>();
 
         Bson sortCriteria = Sorts.descending("Review Point", "Model");
