@@ -23,14 +23,13 @@ public class TwitterAPI {
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("***********")
-                .setOAuthConsumerSecret("***********")
-                .setOAuthAccessToken("***************")
-                .setOAuthAccessTokenSecret("****************");
-
+        cb.setDebugEnabled(true).setOAuthConsumerKey("**********")
+                .setOAuthConsumerSecret("**********")
+                .setOAuthAccessToken("**************")
+                .setOAuthAccessTokenSecret("***********");
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
-        senticNet = new SenticNet();
+        senticNet = SenticNet.getInstance();
     }
 
     /**
