@@ -251,7 +251,7 @@ public class BotHandler extends Application {
                     lastState = "product:printed_info";
                 } else if (lastState.equals("product:printed_info") && (uText.contains("review") || uText.contains("tweet"))) {
 
-                    Redis db = new Redis();
+                    Redis db =  Redis.getInstance();
                     List<Tweet> tweetList = db.getTweetsByKeyword(selectedProduct.getModel());
 
                     if (tweetList == null) {

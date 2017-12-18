@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Static class for getting a comments from twitter app.
+ *  class for getting a comments from twitter app.
  */
 public class TwitterAPI {
 
@@ -23,10 +23,10 @@ public class TwitterAPI {
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("**********")
-                .setOAuthConsumerSecret("**********")
-                .setOAuthAccessToken("**************")
-                .setOAuthAccessTokenSecret("***********");
+        cb.setDebugEnabled(true).setOAuthConsumerKey("*************")
+                .setOAuthConsumerSecret("********************")
+                .setOAuthAccessToken("*************")
+                .setOAuthAccessTokenSecret("****************");
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
         senticNet = SenticNet.getInstance();
@@ -58,7 +58,7 @@ public class TwitterAPI {
                 tweetList.add(newTweet);
             }
             tweetList.sort(Tweet::compareTo); //sort the tweets before inserting them to redis
-            Redis db = new Redis();
+            Redis db =  Redis.getInstance();
             db.addNewTweets(keyword, tweetList);
 
             if (totalReviewPoint == 0 ) // if we do not get tweets from twitter,review point of product will be zero
