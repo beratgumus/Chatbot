@@ -82,7 +82,7 @@ public class BotHandler extends Application {
             //take product info from database asynchronously
             ProductDB mongo;
             try {
-                mongo = new ProductDB();
+                mongo =  ProductDB.getIntance();
                 List<Product> allProductsList = mongo.getAllProducts();
                 mongo.close();
                 rootNode = new TreeNode(allProductsList);
@@ -176,7 +176,7 @@ public class BotHandler extends Application {
                     answer("Refreshing the product list...");
 
                     //retrieve list from mongoDB again
-                    ProductDB mongo = new ProductDB();
+                    ProductDB mongo = ProductDB.getIntance();
                     List<Product> allProductsList = mongo.getAllProducts();
                     rootNode = new TreeNode(allProductsList);
                     mongo.close();
