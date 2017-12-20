@@ -56,6 +56,10 @@ public class SenticNet {
         return sum;
     }
 
+    public double getSenticNetValue(String str){
+        return data.get(str);
+    }
+
     public static SenticNet getInstance(){
         if (Instance == null)
             Instance = new SenticNet();
