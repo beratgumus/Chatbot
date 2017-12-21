@@ -103,7 +103,7 @@ public class ProductDB {
         return new Refrigerator(document.getObjectId("_id").toString(), document.getString("Brand"), document.getString("Model"), document.getDouble("Price"), document.getDouble("Height"), document.getDouble("Width"), document.getDouble("Depth"), document.getDouble("Weight"), document.getDouble("Review Point"), document.getInteger("Capacity"), document.getString("Energy Efficiency"), document.getString("Refrigerator Type"), document.getBoolean("Ice Maker"), document.getBoolean("Frost Free"), document.getBoolean("Door Open Alarm"));
     }
 
-    public static ProductDB getIntance(){
+    public static ProductDB getInstance(){
         if (Instance == null)
             Instance = new ProductDB();
 

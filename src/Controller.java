@@ -118,7 +118,7 @@ public class Controller {
 
         newMobilePhone.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB =  ProductDB.getIntance();
+        ProductDB mongoDB =  ProductDB.getInstance();
         mongoDB.insert(newMobilePhone);
         mongoDB.close(); //close db connection
 
@@ -164,7 +164,7 @@ public class Controller {
 
         newLaptop.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newLaptop);
         mongoDB.close(); //close db connection
 
@@ -204,7 +204,7 @@ public class Controller {
 
         newCar.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newCar);
         mongoDB.close(); //close db connection
 
@@ -245,7 +245,7 @@ public class Controller {
 
         newMotorcycle.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newMotorcycle);
         mongoDB.close(); //close db connection
 
@@ -289,7 +289,7 @@ public class Controller {
 
         newRfrigerator.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newRfrigerator);
         mongoDB.close(); //close db connection
 
