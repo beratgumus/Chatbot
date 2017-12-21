@@ -16,6 +16,6 @@ public class SenticNetTest {
     @Test // check the values of tweets from senticNet is true
     public void calculateReviewPoint() throws Exception {
         double result = SN.calculateReviewPoint("Have you noticed iPhone X owners hold their new phones like it is made of nitro glycerine? #iPhoneX");
-        assertEquals(1.482,result,0.00);
+        assertEquals(2.195,result,0.00);
     }
 }
