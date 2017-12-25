@@ -13,6 +13,8 @@ import twitter4j.TwitterException;
 import products.*;
 import apis.*;
 
+import java.util.List;
+
 
 public class Controller {
 
@@ -297,12 +299,18 @@ public class Controller {
 
     }
 
+    /**
+     * Have to fix every product fields to add calStrategy2 !!!!!!!!!
+     * @return
+     */
     private Double getPointFromLatestTweets() {
         try {
             TwitterAPI twitterAPI = new TwitterAPI();
-            double reviewPoint = twitterAPI.getReviewPoint(modelTF.getText());
-            System.out.println("Mean of review points of ten tweets: " + reviewPoint);
-            return reviewPoint;
+            List<Double> calResults = twitterAPI.getReviewPoint(modelTF.getText());
+            double calStrategy1 = calResults.get(0);
+            double calStrategy2 = calResults.get(1);
+            System.out.println("Mean of review points of ten tweets: " + calStrategy1);
+            return calStrategy1;
         } catch (TwitterException e) {
             System.out.println("An error ocurred while getting tweets.");
             return 0.0;

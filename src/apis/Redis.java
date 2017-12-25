@@ -33,7 +33,7 @@ public class Redis {
                 String[] parts = tweetInfo.split("♦");
 
                 //we store with "id♦text♦user♦timespan♦reviewPoint" format in Redis
-                tweetList.add(new Tweet(Long.parseLong(parts[0]), parts[1], parts[2], parts[3], Double.parseDouble(parts[4])));
+                tweetList.add(new Tweet(Long.parseLong(parts[0]), parts[1], parts[2], parts[3], Double.parseDouble(parts[4]),Double.parseDouble(parts[5])));
             }
             return tweetList;
 
