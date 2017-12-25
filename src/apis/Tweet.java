@@ -8,14 +8,16 @@ public class Tweet implements Comparable<Tweet> {
     private String text;
     private String user;
     private String timeSpan;
-    private double reviewPoint;
+    private double calStrategy1;
+    private double calStrategy2;
 
-    public Tweet(long id, String text, String user, String timeSpan, double reviewPoint) {
+    public Tweet(long id, String text, String user, String timeSpan, double calStrategy1,double calStrategy2) {
         this.id = id;
         this.text = text;
         this.user = user;
         this.timeSpan = timeSpan;
-        this.reviewPoint = reviewPoint;
+        this.calStrategy1 = calStrategy1;
+        this.calStrategy2 = calStrategy2;
     }
 
     public long getId() {
@@ -34,12 +36,21 @@ public class Tweet implements Comparable<Tweet> {
         this.text = text;
     }
 
-    public double getReviewPoint() {
-        return reviewPoint;
+    public double getcalStrategy1() {
+        return calStrategy1;
     }
 
-    public void setReviewPoint(double reviewPoint) {
-        this.reviewPoint = reviewPoint;
+    public double getcalStrategy2() {
+        return calStrategy2;
+    }
+
+
+    public void setcalStrategy1(double calStrategy1) {
+        this.calStrategy1 = calStrategy1;
+    }
+
+    public void setcalStrategy2(double calStrategy2) {
+        this.calStrategy2 = calStrategy2;
     }
 
     /**
@@ -47,11 +58,12 @@ public class Tweet implements Comparable<Tweet> {
      * @return serialized string
      */
     public String serialize() {
-        return id + "♦" + text + "♦" + user + "♦" + timeSpan + "♦" + reviewPoint;
+        return id + "♦" + text + "♦" + user + "♦" + timeSpan + "♦" + calStrategy1 + "♦" + calStrategy2;
     }
 
     public String toString() {
-        return "Tweet Review Point: " + reviewPoint +
+        return "Tweet Strategy1 Point: " + calStrategy1 +
+                "Tweet Strategy2 Point: " + calStrategy2 +
                 "\nUsername: " + user +
                 "\nTweet Text: " + text +
                 "\nDate:  " + timeSpan + "\n";
@@ -59,9 +71,9 @@ public class Tweet implements Comparable<Tweet> {
 
     @Override
     public int compareTo(Tweet tweet) {
-        if (this.reviewPoint == tweet.reviewPoint)
+        if (this.calStrategy1 == tweet.calStrategy1)
             return 0;
-        else if (this.reviewPoint > tweet.reviewPoint)
+        else if (this.calStrategy1 > tweet.calStrategy1)
             return -1;
         else
             return 1;
