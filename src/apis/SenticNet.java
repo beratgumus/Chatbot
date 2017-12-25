@@ -35,13 +35,12 @@ public class SenticNet {
         scanner.close();
     }
 
+    public HashMap<String, Double> getAllSenticNetHashMap(){
+        return data;  
+    }
 
     public double getSenticNetValue(String str){
         return data.get(str);
-    }
-
-    public HashMap<String, Double> getAllSenticNetHashMap(){
-        return data;
     }
 
     public static SenticNet getInstance(){

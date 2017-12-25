@@ -31,7 +31,6 @@ public class Redis {
             tweetInfos = db.lrange(keyword, 0, -1); //get all items in list
             for (String tweetInfo : tweetInfos){
                 String[] parts = tweetInfo.split("♦");
-
                 //we store with "id♦text♦user♦timespan♦reviewPoint" format in Redis
                 tweetList.add(new Tweet(Long.parseLong(parts[0]), parts[1], parts[2], parts[3], Double.parseDouble(parts[4]),Double.parseDouble(parts[5])));
             }
@@ -52,6 +51,7 @@ public class Redis {
         keyword = keyword.replaceAll("\\W", "");
         for (Tweet tweet : tweetList) {
             db.rpush(keyword, tweet.serialize());
+
         }
     }
 

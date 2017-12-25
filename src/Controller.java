@@ -97,9 +97,9 @@ public class Controller {
             messageBox.setFill(Color.web(infoColor));
         }
 
-        MobilePhone newMobilePhone;
+        Product newMobilePhone;
         try {
-            newMobilePhone = new MobilePhone(
+            newMobilePhone = ProductFactory.createProduct(
                     brandTF.getText(),
                     modelTF.getText(),
                     Double.parseDouble(priceTF.getText()),
@@ -120,7 +120,7 @@ public class Controller {
 
         newMobilePhone.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB =  ProductDB.getIntance();
+        ProductDB mongoDB =  ProductDB.getInstance();
         mongoDB.insert(newMobilePhone);
         mongoDB.close(); //close db connection
 
@@ -143,9 +143,9 @@ public class Controller {
             messageBox.setFill(Color.web(infoColor));
         }
 
-        Laptop newLaptop;
+        Product newLaptop;
         try {
-            newLaptop = new Laptop(
+            newLaptop = ProductFactory.createProduct(
                     brandTF.getText(),
                     modelTF.getText(),
                     Double.parseDouble(priceTF.getText()),
@@ -166,7 +166,7 @@ public class Controller {
 
         newLaptop.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newLaptop);
         mongoDB.close(); //close db connection
 
@@ -184,9 +184,9 @@ public class Controller {
             messageBox.setFill(Color.web(infoColor));
         }
 
-        Car newCar;
+        Product newCar;
         try {
-            newCar = new Car(
+            newCar = ProductFactory.createProduct(
                     brandTF.getText(),
                     modelTF.getText(),
                     Double.parseDouble(priceTF.getText()),
@@ -206,7 +206,7 @@ public class Controller {
 
         newCar.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newCar);
         mongoDB.close(); //close db connection
 
@@ -225,9 +225,9 @@ public class Controller {
             messageBox.setFill(Color.web(infoColor));
         }
 
-        Motorcycle newMotorcycle;
+        Product newMotorcycle;
         try {
-            newMotorcycle = new Motorcycle(
+            newMotorcycle = ProductFactory.createProduct(
                     brandTF.getText(),
                     modelTF.getText(),
                     Double.parseDouble(priceTF.getText()),
@@ -247,7 +247,7 @@ public class Controller {
 
         newMotorcycle.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newMotorcycle);
         mongoDB.close(); //close db connection
 
@@ -266,9 +266,9 @@ public class Controller {
             messageBox.setFill(Color.web(infoColor));
         }
 
-        Refrigerator newRfrigerator;
+        Product newRfrigerator;
         try {
-            newRfrigerator = new Refrigerator(
+            newRfrigerator = ProductFactory.createProduct(
                     brandTF.getText(),
                     modelTF.getText(),
                     Double.parseDouble(priceTF.getText()),
@@ -291,7 +291,7 @@ public class Controller {
 
         newRfrigerator.setReviewPoint(getPointFromLatestTweets());
 
-        ProductDB mongoDB = ProductDB.getIntance();
+        ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newRfrigerator);
         mongoDB.close(); //close db connection
 
