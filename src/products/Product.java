@@ -15,8 +15,9 @@ public abstract class Product implements Comparable<Product> {
     private Double weight;
     private double reviewPoint1;
     private double reviewPoint2;
+    private static int calculationMod = 1;
 
-    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint1,Double reviewPoint2) {
+    public Product(String id, String brand, String model, Double price, String category, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint1, Double reviewPoint2) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -73,19 +74,33 @@ public abstract class Product implements Comparable<Product> {
         this.reviewPoint2 = reviewPoint2;
     }
 
+    public static void setCalculationMod(int mod) {
+        calculationMod = mod;
+    }
+
     public String toShortString() {
         return brand + " " + model;
     }
 
     @Override
     public int compareTo(Product productToCompare) {
-        if (this.reviewPoint1 == productToCompare.getReviewPoint1())
-            return 0;
-        else if (this.reviewPoint1 > productToCompare.getReviewPoint1())
-            return -1;
-        else
-            return 1;
+        if (calculationMod == 1) {
+            if (this.reviewPoint1 == productToCompare.getReviewPoint1())
+                return 0;
+            else if (this.reviewPoint1 > productToCompare.getReviewPoint1())
+                return -1;
+            else
+                return 1;
+        } else {
+            if (this.reviewPoint2 == productToCompare.getReviewPoint2())
+                return 0;
+            else if (this.reviewPoint2 > productToCompare.getReviewPoint2())
+                return -1;
+            else
+                return 1;
+        }
     }
+
 
     public Document toDocument() {
         return new Document("Brand", brand)

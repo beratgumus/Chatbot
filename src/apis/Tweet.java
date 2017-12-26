@@ -10,8 +10,9 @@ public class Tweet implements Comparable<Tweet> {
     private String timeSpan;
     private double calStrategy1;
     private double calStrategy2;
+    private static int calculationMod = 1;
 
-    public Tweet(long id, String text, String user, String timeSpan, double calStrategy1,double calStrategy2) {
+    public Tweet(long id, String text, String user, String timeSpan, double calStrategy1, double calStrategy2) {
         this.id = id;
         this.text = text;
         this.user = user;
@@ -55,6 +56,7 @@ public class Tweet implements Comparable<Tweet> {
 
     /**
      * Prepares tweet to Redis.io insertation.
+     *
      * @return serialized string
      */
     public String serialize() {
@@ -69,13 +71,26 @@ public class Tweet implements Comparable<Tweet> {
                 "\nDate:  " + timeSpan + "\n";
     }
 
+    public static void setCalculationMod(int mod) {
+        calculationMod = mod;
+    }
+
     @Override
     public int compareTo(Tweet tweet) {
-        if (this.calStrategy1 == tweet.calStrategy1)
-            return 0;
-        else if (this.calStrategy1 > tweet.calStrategy1)
-            return -1;
-        else
-            return 1;
+        if (calculationMod == 1) {
+            if (this.calStrategy1 == tweet.calStrategy1)
+                return 0;
+            else if (this.calStrategy1 > tweet.calStrategy1)
+                return -1;
+            else
+                return 1;
+        } else {
+            if (this.calStrategy2 == tweet.calStrategy2)
+                return 0;
+            else if (this.calStrategy2 > tweet.calStrategy2)
+                return -1;
+            else
+                return 1;
+        }
     }
 }

@@ -227,6 +227,7 @@ public class BotHandler extends Application {
                     currentNode = currentNode.getNextNode(options[selectedIndex]);
                     products = currentNode.getProductList();
 
+                    Product.setCalculationMod(2);
                     products.sort(Product::compareTo); //sort list using overriden compareTo method
 
                     for (int i = 0; i < products.size(); i++) {
@@ -259,6 +260,7 @@ public class BotHandler extends Application {
                     } else if (tweetList.size() == 0) {
                         answer("I can't find any reviews/tweets for this product. ");
                     } else {
+                        Tweet.setCalculationMod(2);
                         tweetList.sort(Tweet::compareTo);
                         answer("Some Twitter comments for product : ");
                         for (int i = 0; i < 3 && i < tweetList.size(); i++) { //top 3 tweets will be displayed on Chatbot
