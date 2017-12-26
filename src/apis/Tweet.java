@@ -65,7 +65,7 @@ public class Tweet implements Comparable<Tweet> {
 
     public String toString() {
         return "Tweet Strategy1 Point: " + calStrategy1 +
-                "Tweet Strategy2 Point: " + calStrategy2 +
+                "\nTweet Strategy2 Point: " + calStrategy2 +
                 "\nUsername: " + user +
                 "\nTweet Text: " + text +
                 "\nDate:  " + timeSpan + "\n";

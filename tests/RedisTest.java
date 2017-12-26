@@ -22,7 +22,7 @@ public class RedisTest {
         for (Tweet tweet : tweetList){
            double storedReviewPoint = tweet.getcalStrategy1();
             double actual = calculationStrategy1.calculate(tweet.getText());
-
+            
            assertEquals(storedReviewPoint,actual,0.000);
         }
     }
