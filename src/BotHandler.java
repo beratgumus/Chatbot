@@ -287,6 +287,7 @@ public class BotHandler extends Application {
 
                 } else if (uText.contains("clear")) {
                     chatArea.setText("");
+                    lastState = "";
                 } else if (uText.contains("exit")) {
                     primaryStage.close();
                 } else {
