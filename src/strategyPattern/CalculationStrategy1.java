@@ -2,10 +2,18 @@ package strategyPattern;
 
 
 import apis.SenticNet;
+import twitter4j.Status;
 
 import java.util.HashMap;
 
 public class CalculationStrategy1 implements Calculation {
+
+    @Override
+    public double calculate(Status tweet) {
+
+        return calculate(tweet.getText());
+
+    }
 
     @Override
     public double calculate(String tweetText) {

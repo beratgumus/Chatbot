@@ -26,10 +26,6 @@ public class TwitterAPI {
      */
     public TwitterAPI() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true).setOAuthConsumerKey("*************")
-                .setOAuthConsumerSecret("********************")
-                .setOAuthAccessToken("*************")
-                .setOAuthAccessTokenSecret("****************");
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
         calculationStrategy1 = new CalculationStrategy1();
@@ -58,9 +54,9 @@ public class TwitterAPI {
             double totalCalStrategy1 = 0.00;
             double totalCalStrategy2 = 0.00;
             for (Status tweet : tweets) {
-                double calStrategy1 = calculationStrategy1.calculate(tweet.getText()); // calculate the review point of each tweet.
+                double calStrategy1 = calculationStrategy1.calculate(tweet); // calculate the review point of each tweet.
                 totalCalStrategy1 += calStrategy1;
-                double calStrategy2 = calculationStrategy2.calculate(tweet.getText()); // calculate the review point of each tweet.
+                double calStrategy2 = calculationStrategy2.calculate(tweet); // calculate the review point of each tweet.
                 totalCalStrategy2 += calStrategy2;
                 Tweet newTweet = new Tweet(tweet.getId(), tweet.getText(), tweet.getUser().getScreenName(), df.format(tweet.getCreatedAt()), calStrategy1, calStrategy2);
                 tweetList.add(newTweet);
