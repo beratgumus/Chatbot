@@ -214,8 +214,8 @@ public class BotHandler extends Application {
                     currentNode = currentNode.getNextNode(options[selectedIndex]);
                     printOptions(currentNode);
                     lastState = "product:asked_type";
-                } else if (lastState.equals("product:asked_type")) {
-                    //we will print all products in selected type with ordering
+                } else if (lastState.equals("product:asked_type") ) {
+                    // user selected a product type. we will ask how to sort products.
 
                     if (!uText.matches("[0-9]+") || Integer.parseInt(uText) > options.length) {
                         answer("That's not a valid selection.");
@@ -225,7 +225,19 @@ public class BotHandler extends Application {
 
                     int selectedIndex = Integer.parseInt(uText) - 1; //user selection starts from 1, arrays starts from 0
                     currentNode = currentNode.getNextNode(options[selectedIndex]);
+
+                    answer("Do you want to sort products by our advanced algorithm? (Y/N)");
+
+                    lastState = "product:asked_algo";
+                } else if (lastState.equals("product:asked_algo")) {
+                    //we will print all products in selected type with user selected ordering
+
                     products = currentNode.getProductList();
+
+                    if (uText.contains("y"))
+                        Product.setCalculationMod(2);
+                    else
+                        Product.setCalculationMod(1);
 
                     products.sort(Product::compareTo); //sort list using overriden compareTo method
 
@@ -259,6 +271,7 @@ public class BotHandler extends Application {
                     } else if (tweetList.size() == 0) {
                         answer("I can't find any reviews/tweets for this product. ");
                     } else {
+                        Tweet.setCalculationMod(2);
                         tweetList.sort(Tweet::compareTo);
                         answer("Some Twitter comments for product : ");
                         for (int i = 0; i < 3 && i < tweetList.size(); i++) { //top 3 tweets will be displayed on Chatbot
@@ -274,6 +287,7 @@ public class BotHandler extends Application {
 
                 } else if (uText.contains("clear")) {
                     chatArea.setText("");
+                    lastState = "";
                 } else if (uText.contains("exit")) {
                     primaryStage.close();
                 } else {

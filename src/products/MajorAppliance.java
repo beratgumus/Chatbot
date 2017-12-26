@@ -7,8 +7,8 @@ public abstract class MajorAppliance extends Product {
     private int capacity;
     private String energyEfficiency;
 
-    public MajorAppliance(String id, String brand, String model, Double price, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint, int capacity, String energyEfficiency) {
-        super(id, brand, model, price, "Major Appliance", type, height, width, depth, weight, reviewPoint);
+    public MajorAppliance(String id, String brand, String model, Double price, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint1,Double reviewPoint2, int capacity, String energyEfficiency) {
+        super(id, brand, model, price, "Major Appliance", type, height, width, depth, weight, reviewPoint1,reviewPoint2);
         this.capacity = capacity;
         this.energyEfficiency = energyEfficiency;
     }

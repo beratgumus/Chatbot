@@ -35,26 +35,8 @@ public class SenticNet {
         scanner.close();
     }
 
-    /**
-     * Calculates review point of given string from SenticNet
-     * @param tweetText text
-     * @return calculated point
-     */
-    public double calculateReviewPoint(String tweetText) {
-        Double sum = 0.0;
-        //replaces all special characters (like # ! ? ...)
-        tweetText = tweetText.replaceAll("[^a-zA-Z ]+","");
-
-        String[] words = tweetText.split(" ");
-        for (String word : words) {
-            word=word.toLowerCase();
-            Double polarity = data.get(word);
-            if (polarity != null) {
-                sum += polarity;
-               // System.out.println(word + " : " + polarity);
-            }
-        }
-        return sum;
+    public HashMap<String, Double> getAllSenticNetHashMap(){
+        return data;  
     }
 
     public double getSenticNetValue(String str){

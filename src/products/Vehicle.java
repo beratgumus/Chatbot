@@ -9,8 +9,8 @@ public abstract class Vehicle extends Product {
     private String fuelType;
 
 
-    public Vehicle(String id, String brand, String model, Double price, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint, int power, String fuelType) {
-        super(id, brand, model, price, "Vehicle", type, height, width, depth, weight, reviewPoint);
+    public Vehicle(String id, String brand, String model, Double price, String type, Double height, Double width, Double depth, Double weight, Double reviewPoint1,Double reviewPoint2, int power, String fuelType) {
+        super(id, brand, model, price, "Vehicle", type, height, width, depth, weight, reviewPoint1,reviewPoint2);
         this.vehicleType = type;
         this.power = power;
         this.fuelType = fuelType;
