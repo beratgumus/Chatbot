@@ -19,6 +19,7 @@ public class CalculationStrategy1 implements Calculation {
 
         String[] words = tweetText.split(" ");
         for (String word : words) {
+            word = word.toLowerCase();
             Double polarity = data.get(word);
             if (polarity != null) {
                 sum += polarity;

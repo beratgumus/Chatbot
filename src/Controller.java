@@ -13,6 +13,7 @@ import twitter4j.TwitterException;
 import products.*;
 import apis.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -118,7 +119,9 @@ public class Controller {
             return;
         }
 
-        newMobilePhone.setReviewPoint(getPointFromLatestTweets());
+        List<Double> reviewList =  getPointFromLatestTweets();
+        newMobilePhone.setReviewPoint1(reviewList.get(0));
+        newMobilePhone.setReviewPoint2(reviewList.get(1));
 
         ProductDB mongoDB =  ProductDB.getInstance();
         mongoDB.insert(newMobilePhone);
@@ -164,7 +167,9 @@ public class Controller {
             return;
         }
 
-        newLaptop.setReviewPoint(getPointFromLatestTweets());
+        List<Double> reviewList =  getPointFromLatestTweets();
+        newLaptop.setReviewPoint1(reviewList.get(0));
+        newLaptop.setReviewPoint2(reviewList.get(1));
 
         ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newLaptop);
@@ -204,7 +209,9 @@ public class Controller {
             return;
         }
 
-        newCar.setReviewPoint(getPointFromLatestTweets());
+        List<Double> reviewList =  getPointFromLatestTweets();
+        newCar.setReviewPoint1(reviewList.get(0));
+        newCar.setReviewPoint2(reviewList.get(1));
 
         ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newCar);
@@ -245,7 +252,9 @@ public class Controller {
             return;
         }
 
-        newMotorcycle.setReviewPoint(getPointFromLatestTweets());
+        List<Double> reviewList =  getPointFromLatestTweets();
+        newMotorcycle.setReviewPoint1(reviewList.get(0));
+        newMotorcycle.setReviewPoint2(reviewList.get(1));
 
         ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newMotorcycle);
@@ -288,8 +297,9 @@ public class Controller {
             messageBox.setFill(Color.web(errorColor));
             return;
         }
-
-        newRfrigerator.setReviewPoint(getPointFromLatestTweets());
+        List<Double> reviewList =  getPointFromLatestTweets();
+        newRfrigerator.setReviewPoint1(reviewList.get(0));
+        newRfrigerator.setReviewPoint2(reviewList.get(1));
 
         ProductDB mongoDB = ProductDB.getInstance();
         mongoDB.insert(newRfrigerator);
@@ -303,17 +313,20 @@ public class Controller {
      * Have to fix every product fields to add calStrategy2 !!!!!!!!!
      * @return
      */
-    private Double getPointFromLatestTweets() {
+    private List<Double> getPointFromLatestTweets() {
         try {
             TwitterAPI twitterAPI = new TwitterAPI();
             List<Double> calResults = twitterAPI.getReviewPoint(modelTF.getText());
             double calStrategy1 = calResults.get(0);
             double calStrategy2 = calResults.get(1);
             System.out.println("Mean of review points of ten tweets: " + calStrategy1);
-            return calStrategy1;
+            return calResults;
         } catch (TwitterException e) {
             System.out.println("An error ocurred while getting tweets.");
-            return 0.0;
+            List<Double> zeroList = new ArrayList<Double>();
+            zeroList.add(0.00);
+            zeroList.add(0.00);
+            return zeroList;
         }
     }
 
