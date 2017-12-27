@@ -32,12 +32,5 @@ public class SenticNetTest {
         double result = calculationStrategy1.calculate("Have you noticed iPhone X owners hold their new phones like it is made of nitro glycerine? #iPhoneX");
         assertEquals(2.195,result,0.00);
     }
-
-    @Ignore ("Test is ignored")
-    @Test // check the values of tweets from senticNet is true
-    public void calculateReviewPointFail() throws Exception {
-
-        double result = calculationStrategy1.calculate("Have you noticed iPhone X owners hold their new phones like it is made of nitro glycerine? #iPhoneX");
-        assertEquals(1.195,result,0.00);
-    }
+    
 }
